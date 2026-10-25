@@ -45,6 +45,7 @@ public class KeepService extends Service {
                     app.message="正在备份原配置";update();
                     JSONObject snapshot=app.call("prepare",new JSONObject().put("mask",app.mask()));
                     if(!app.prefs().edit().putString("snapshot",snapshot.toString()).commit())throw new IllegalStateException("无法保存恢复备份，未做修改");
+                    if(snapshot.optBoolean("recoveredExisting")){app.message="已识别遗留地区配置，并重建系统原配置备份";update();}
                 }
                 JSONObject snap=new JSONObject(app.prefs().getString("snapshot","{}"));String[] region=Regions.get(app.country());
                 app.call("apply",new JSONObject().put("snapshot",snap).put("country",region[0]).put("name",region[3]));

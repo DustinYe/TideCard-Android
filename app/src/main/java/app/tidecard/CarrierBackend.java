@@ -62,26 +62,43 @@ public class CarrierBackend extends ICarrierBridge.Stub {
         return out.toString("UTF-8");
     }
     private String section(String dump,int slot,String label) throws Exception {
-        String marker="Phone Id = "+slot;int start=dump.indexOf(marker);if(start<0)throw new IOException("此系统的配置格式暂不支持安全恢复");
-        int end=dump.indexOf("Phone Id = ",start+marker.length());String phone=dump.substring(start,end<0?dump.length():end);
-        int pos=phone.indexOf(label+" :");if(pos<0)throw new IOException("无法读取原覆盖配置，未做修改");
-        String rest=phone.substring(pos+label.length()+2);int blank=rest.indexOf("\n\n");
-        return (blank<0?rest:rest.substring(0,blank)).trim();
+        return CarrierRecovery.section(dump,slot,label);
     }
     private boolean empty(String s){return s.isEmpty()||s.equals("null");}
+    private String simCountry(SubscriptionInfo info)throws Exception{
+        String mcc=info.getMccString();if(mcc==null||!mcc.matches("[0-9]{3}"))throw new IOException("无法读取 SIM 原始国家码，未做修改");
+        Class<?> table;
+        try{table=Class.forName("com.android.internal.telephony.MccTable");}
+        catch(ClassNotFoundException e){table=Class.forName("com.android.internal.telephony.MccTable",true,new dalvik.system.PathClassLoader("/system/framework/telephony-common.jar",ClassLoader.getSystemClassLoader()));}
+        String iso;
+        try{iso=(String)table.getMethod("countryCodeForMcc",String.class).invoke(null,mcc);}
+        catch(NoSuchMethodException e){iso=(String)table.getMethod("countryCodeForMcc",int.class).invoke(null,Integer.parseInt(mcc));}
+        if(iso==null||!iso.matches("[a-zA-Z]{2}"))throw new IOException("此 SIM 的原始地区尚无法核对，请重启手机后再试");
+        return iso.toLowerCase(Locale.ROOT);
+    }
+    private JSONObject recoveredCard(String state,int slot,int id,SubscriptionInfo info)throws Exception{
+        Map<String,String> base=CarrierRecovery.baseline(section(state,slot,"Default Values from CarrierConfigManager"),
+                section(state,slot,"mConfigFromDefaultApp"),section(state,slot,"mConfigFromCarrierApp"));
+        String configCountry=base.get(COUNTRY),country=configCountry.isEmpty()?simCountry(info):configCountry;
+        return new JSONObject().put("slot",slot).put("subId",id).put("country",country).put("configCountry",configCountry)
+                .put("nameFlag",Boolean.parseBoolean(base.get(NAME_FLAG))).put("name",base.get(NAME)).put("recoveredExisting",true);
+    }
     private JSONObject prepare(int mask) throws Exception {
-        String state=dump();JSONArray saved=new JSONArray();
+        if(mask<1||mask>3)throw new IllegalArgumentException("无效的卡槽选择");
+        String state=dump();JSONArray saved=new JSONArray();boolean recovered=false;
         for(int slot=0;slot<2;slot++)if((mask&(1<<slot))!=0) {
             int id=subId(slot);if(id<0)continue;
-            if(!empty(section(state,slot,"mPersistentOverrideConfigs"))||!empty(section(state,slot,"mOverrideConfigs")))
-                throw new IOException("卡 "+(slot+1)+" 已有其他工具的覆盖设置。请先在原工具还原，再启动潮汐改卡。");
+            if(!empty(section(state,slot,"mPersistentOverrideConfigs")))throw new IOException("卡 "+(slot+1)+" 存在持久覆盖，未做修改；请先在设置它的工具中恢复。");
+            String temporary=section(state,slot,"mOverrideConfigs");
+            if(!empty(temporary)&&!CarrierRecovery.compatible(temporary))throw new IOException("卡 "+(slot+1)+" 存在无法识别的覆盖，已保留且未修改；请先在设置它的工具中恢复。");
             SubscriptionInfo si=info(id);if(si==null||si.getCountryIso()==null||si.getCountryIso().isEmpty())throw new IOException("卡 "+(slot+1)+" 尚未就绪，请稍后重试");
+            if(!empty(temporary)){saved.put(recoveredCard(state,slot,id,si));recovered=true;continue;}
             PersistableBundle b=config(id);
             saved.put(new JSONObject().put("slot",slot).put("subId",id).put("country",si.getCountryIso()).put("configCountry",b.getString(COUNTRY,""))
                 .put("nameFlag",b.getBoolean(NAME_FLAG,false)).put("name",b.getString(NAME,"")));
         }
         if(saved.length()==0)throw new IOException("所选卡槽没有可用 SIM 卡");
-        return new JSONObject().put("ok",true).put("cards",saved);
+        return new JSONObject().put("ok",true).put("recoveredExisting",recovered).put("cards",saved);
     }
     private JSONObject apply(JSONObject payload) throws Exception {
         String iso=payload.getString("country"),name=payload.getString("name");

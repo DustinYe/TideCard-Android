@@ -2,7 +2,7 @@
 
 [下载安装包](https://github.com/DustinYe/TideCard-Android/releases/latest) · [开源许可与来源](THIRD_PARTY.md) · [发布前查重记录](docs/PUBLICATION_REVIEW.md)
 
-当前版本 **2.2.0**。Android 11 及以上；已在原厂 HyperOS 3 / Android 16 实测应用内通知开关、超级岛选项及本机配对激活流程。请在 [Releases 下载 TideCard-2.2.0.apk](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.2.0) 并按系统提示安装。升级内容见 [CHANGELOG](CHANGELOG.md)。此项目与 Shizuku、Nrfr、Surfboard 均无官方隶属关系。
+当前版本 **2.2.1**。Android 11 及以上；已在原厂 HyperOS 3 / Android 16 实测重装后接续遗留配置、停止恢复、通知开关及本机配对激活流程。请在 [Releases 下载 TideCard-2.2.1.apk](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.2.1) 并按系统提示安装。升级内容见 [CHANGELOG](CHANGELOG.md)。此项目与 Shizuku、Nrfr、Surfboard 均无官方隶属关系。
 
 无需 Root 的 Android SIM 地区配置工具，内含本机无线 ADB 配对和专用后台。无需另装 Shizuku，不占用 VPN 通道，不修改实体 SIM 卡。
 
@@ -46,7 +46,9 @@ Android 的实况通知明确不展示 RemoteInput 回复输入；此手机的�
 
 ## 配置与恢复
 
-使用 `ICarrierConfigLoader.overrideConfig(..., persistent=false)`。开始前读取卡槽及原配置，并将恢复快照提交到应用私有存储；发现其他工具已有临时或持久覆盖时拒绝开始。停止时先恢复真实原国家码，再清除本次覆盖，处理部分系统清除配置后仍缓存旧国家码的行为。恢复失败会保留快照及待恢复状态，重新连接后可重试，不能把失败当作已停止。
+使用 `ICarrierConfigLoader.overrideConfig(..., persistent=false)`。开始前读取卡槽及原配置，并将恢复快照提交到应用私有存储。若在未停止时卸载或清除数据，系统可能仍保留临时覆盖；重新激活后，2.2.1 可接续严格匹配本应用三个字段和已知地区/名称组合的临时覆盖。从未覆盖的系统默认、平台运营商和运营商应用配置按优先级重建当前系统原配置；原配置没有国家码覆盖时，使用 SIM MCC 对应的 Android 国家码映射，避免把正在显示的目标地区误备份为原地区。
+
+这不会找回已经删除的历史备份，也不会假定所有残留都来自潮汐改卡。额外字段、无法识别的组合、持久覆盖或无法核对原地区时均保留现状并拒绝修改。停止时先恢复原国家码，再清除本次覆盖，处理部分系统清除配置后仍缓存旧国家码的行为。恢复失败会保留快照及待恢复状态，重新连接后可重试，不能把失败当作已停止。卸载前仍建议先停止恢复。
 
 ## 本机通信与权限
 
@@ -81,6 +83,8 @@ keyPassword=your-password
 `-e notificationOnly true` 只检查配对通知状态、普通通知输入、过期操作拒绝、成功反馈、取消、超时和晚到回调清理，并核对原改卡会话及备份保持不变。成功 UI 注入仅验证界面，不代替真实密码学配对测试。该模式会保存几张临时手机截图到应用自己的 externalFilesDir，用于本机视觉检查，不会上传。
 
 `-e settingsOnly true` 实际点击通知设置开关，检查显示/隐藏通知时持续服务仍在运行、通知类别其他属性保留、界面重新创建后选择持久化、超级岛关闭后直接输入以及运行中通知和成功反馈遵守选项。测试恢复原通知选择，不修改目标地区或恢复快照。部分 HyperOS 会拦截测试进程自行显示界面，测试提示等待主界面时，需由 ADB 前台启动 MainActivity。
+
+`-e recoveryOnly true` 是专用于本次双卡复现环境的回归：初始要求应用无恢复备份、系统仍为双卡美国覆盖且原始地区为中国。检查只读准备不改变当前地区，再实际启动、停止、模拟只丢失恢复快照后重复接续和停止；最后保留双卡美国会话及有效中国地区恢复备份。它会改变测试手机的 SIM 地区，不能把它当成通用只读检查。`RecoveryParserChecks` 是可用 JDK 独立运行的解析检查，覆盖未知字段、重复/不完整配置、来源优先级和卡槽边界；真实设备 dump 仅可作为本机可选输入，不包含在仓库中。
 
 ```powershell
 .\gradlew.bat :app:assembleRelease :app:assembleReleaseAndroidTest
