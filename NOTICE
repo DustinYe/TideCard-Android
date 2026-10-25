@@ -1,0 +1,62 @@
+TideCard for Android / 潮汐改卡
+Copyright 2026 TideCard contributors.
+
+TideCard's own source and modifications are distributed under Apache-2.0.
+Third-party components retain their respective copyrights and license terms.
+This notice records attribution and does not change those terms.
+
+1. RikkaApps/Shizuku, v13.6.0
+   Copyright the Shizuku / RikkaApps contributors.
+   https://github.com/RikkaApps/Shizuku/tree/v13.6.0
+   License: Apache License 2.0 (Shizuku-LICENSE.txt).
+   The four unmodified libadb.so files were extracted from the official release:
+   shizuku-v13.6.0.r1086.2650830c-release.apk
+   APK SHA-256: 6e273ab0e991c4e79bc8b1bbb9b9dd739ccac1a8712a541a214078886b7b790f
+   Corresponding JNI reference sources are under third_party/shizuku.
+   Changes in TideCard: Java ADB/TLS packet client, pairing protocol adapter,
+   AndroidKeyStore-encrypted software RSA identity, local discovery filtering,
+   notification pairing flow, and a dedicated authenticated Binder backend.
+   These are adapted/reimplemented from the referenced ADB flow, not represented
+   as entirely original protocol work. No Shizuku manager/server APK is bundled.
+
+2. BoringSSL, statically linked by the Shizuku pairing library
+   Packaged as io.github.vvb2060.ndk:boringssl:20250114.
+   Packaging: https://github.com/vvb2060/BoringSSL_Android/tree/20250114
+   BoringSSL source commit: 571a7432a19592c620fa316abde47770dad4f82b
+   License: ISC, OpenSSL, original SSLeay, MIT and accompanying notices;
+   full historical text: BoringSSL-20250114-LICENSE.txt.
+   This product includes software developed by the OpenSSL Project for use in
+   the OpenSSL Toolkit (https://www.openssl.org/).
+   This product includes cryptographic software written by Eric Young
+   (eay@cryptsoft.com).
+   This product includes software written by Tim Hudson (tjh@cryptsoft.com).
+
+3. LLVM libc++ runtime in the Shizuku pairing build
+   Upstream dependency org.lsposed.libcxx:libcxx:27.0.12077973.
+   Copyright the LLVM Project contributors and applicable historical authors.
+   https://github.com/LSPosed/libcxx
+   License: Apache-2.0 WITH LLVM-exception and included historical notices;
+   full text: LLVM-libcxx-LICENSE.txt.
+
+4. Conscrypt Android 2.8.0
+   Copyright the Conscrypt / Android Open Source Project contributors.
+   https://github.com/google/conscrypt
+   Maven: org.conscrypt:conscrypt-android:2.8.0
+   Apache-2.0 and accompanying notices: Conscrypt-LICENSE.txt.
+   BoringSSL license copy for the TLS implementation: BoringSSL-LICENSE.txt.
+
+5. Nrfr, by Ackites and contributors
+   https://github.com/Ackites/Nrfr
+   Apache-2.0: Nrfr-LICENSE.txt.
+   Referenced for the Android CarrierConfig override approach and key names.
+   TideCard uses a separately written Java backend, nonpersistent overrides,
+   saved restoration snapshots, scoped slot selection and a watchdog.
+
+6. Gradle wrapper
+   Copyright 2015-2021 the original authors (as retained in gradlew).
+   Apache-2.0. See the repository root LICENSE and original wrapper headers.
+
+The project is independently maintained and does not claim affiliation with
+or endorsement by Shizuku, Nrfr, Surfboard, Android, or any carrier. Surfboard
+source code, branding and artwork are not included. Play/stop animation is
+implemented in TideCard's own Canvas-based PlayButton class.

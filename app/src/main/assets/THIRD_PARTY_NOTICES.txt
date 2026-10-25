@@ -1,0 +1,21 @@
+TideCard 2.0.1 third-party components
+
+Readable component attribution and modifications: NOTICE.txt.
+Full license texts shipped in this APK:
+- Shizuku-LICENSE.txt: Shizuku v13.6.0 (Apache-2.0).
+- Nrfr-LICENSE.txt: Ackites/Nrfr reference (Apache-2.0).
+- BoringSSL-20250114-LICENSE.txt: historical ISC/OpenSSL/SSLeay/MIT notices
+  for the native pairing library's BoringSSL build (20250114).
+- LLVM-libcxx-LICENSE.txt: Apache-2.0 with LLVM Exceptions and historical
+  licenses for the upstream C++ runtime packaging.
+- Conscrypt-LICENSE.txt: Conscrypt Android 2.8.0 plus accompanying notices.
+- BoringSSL-LICENSE.txt: additional BoringSSL TLS license copy.
+
+No external Shizuku manager or server is required or included. JNI binaries
+remain unmodified from the official release identified in NOTICE.txt.
+TideCard code uses local service discovery and 127.0.0.1 pairing/connection;
+no remote analytics, update API or advertising has been added.
+
+App menu: 使用说明 -> 开源许可.
+Repository: https://github.com/DustinYe/TideCard-Android
+Source licensing and provenance details: THIRD_PARTY.md.

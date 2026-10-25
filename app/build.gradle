@@ -1,0 +1,31 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'app.tidecard'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'app.tidecard'
+        minSdk 30
+        targetSdk 36
+        versionCode 3
+        versionName '2.0.1'
+        testInstrumentationRunner 'app.tidecard.test.SmokeRunner'
+    }
+    buildFeatures { aidl true; buildConfig true }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+    def keyFile = rootProject.file('../tidecard-signing/key.properties')
+    if (keyFile.exists()) {
+        def keys = new Properties()
+        keyFile.withInputStream { keys.load(it) }
+        signingConfigs { localRelease {
+            storeFile rootProject.file(keys['storeFile'])
+            storePassword keys['storePassword']
+            keyAlias keys['keyAlias']
+            keyPassword keys['keyPassword']
+        } }
+        buildTypes { release { minifyEnabled false; signingConfig signingConfigs.localRelease }; debug { signingConfig signingConfigs.localRelease } }
+    } else { buildTypes { release { minifyEnabled false } } }
+    testBuildType 'release'
+}
+dependencies {
+    implementation 'org.conscrypt:conscrypt-android:2.8.0'
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "path": "app/src/main/jniLibs/arm64-v8a/libadb.so",
+    "sha256": "a4257bc05ace812afa60a81e656724a07691edd08868dc90caab3bc6d0a49207",
+    "source": "Shizuku official v13.6.0 APK",
+    "modified": false
+  },
+  {
+    "path": "app/src/main/jniLibs/armeabi-v7a/libadb.so",
+    "sha256": "9a73639175407e93a740c95b210f1485223a9bee1374b1bb7947984b436d6bba",
+    "source": "Shizuku official v13.6.0 APK",
+    "modified": false
+  },
+  {
+    "path": "app/src/main/jniLibs/x86/libadb.so",
+    "sha256": "1f2ea175eba5eb14a6a4e8e51c430809822dfdea4ac4b64922f3d346481daf9d",
+    "source": "Shizuku official v13.6.0 APK",
+    "modified": false
+  },
+  {
+    "path": "app/src/main/jniLibs/x86_64/libadb.so",
+    "sha256": "88fec6bfdd167a3115007dbc14b73587f1c1c70b95d0fe76ef8c49b8615a16c5",
+    "source": "Shizuku official v13.6.0 APK",
+    "modified": false
+  }
+]

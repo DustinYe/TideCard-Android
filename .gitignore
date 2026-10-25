@@ -1,0 +1,17 @@
+.gradle/
+**/build/
+.idea/
+local.properties
+*.jks
+*.keystore
+*.p12
+*.pfx
+key.properties
+.env
+.env.*
+*.apk
+*.aab
+*.idsig
+*activation-command*
+*signing-backup*
+.DS_Store
