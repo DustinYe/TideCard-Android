@@ -2,6 +2,24 @@
 
 日期：2026-10-25。
 
+## 2.1.0 配对实况通知
+
+已在同一台小米 2304FPN6DC / 原厂 HyperOS 3 / Android 16 上签名覆盖安装：
+
+- 原生 Android Live Update 在桌面显示为小米超级岛，系统通知记录确认已提升展示。
+- 实测无线调试设置页面会隐藏岛和第三方输入浮窗；应用最终移除了浮窗实现及其权限。
+- 实况通知中的 RemoteInput 被系统隐藏，与 Android 16 CDD 规定一致。点击标准“打开配对输入”操作后，同一条通知转为普通通知，展开后可使用 SystemUI 输入六位码。不会打开应用 Activity，也不会使系统配对窗口失效。
+- 通过上述普通通知输入完成一次真实 TLS / SPAKE2 配对，系统设置保持为前台 Activity。随后本机无线调试成功启动新版专用后台，主界面显示已激活。
+- 成功反馈约两秒后，配对通知自动撤下；后台启动进度若仍存在，只使用普通通知。日常改卡通知不提升为岛。
+- UI 状态注入检查验证四个勾选图标帧依次发布、反馈结束不再提升、取消与超时移除通知、晚到网络失败不能重建已取消的通知。实机截图确认成功勾选岛曾显示并自动消失；实际图标帧的过渡由系统控制，不保证逐帧可见。
+- 过期会话操作与不足六位的码被拒绝；配对码不存储、不输出日志。
+- 测试保留用户已有美国双卡会话，国家码测试前后均为 `us,us`；快照、卡槽选择、配对身份和恢复待处理状态未被测试覆盖。
+- Release 构建与 lint 通过，0 errors / 26 warnings。签名证书沿用原版。
+
+没有把“岛内直接输入”标为已实现；当前 ROM 的可用路径需要切换到系统普通通知输入。未验证其他 ROM 的岛样式或 Android 17。2.1.0 尚未发布到 GitHub Releases。
+
+参考：[Android Live Updates](https://developer.android.com/develop/ui/views/notifications/live-update)、[Android 16 CDD](https://source.android.com/docs/compatibility/16/android-16-cdd)、[小米超级岛开发指南](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2131)。
+
 ## 功能实测
 
 2.0.0 核心功能在小米 2304FPN6DC、原厂 HyperOS、Android 16 / API 36、无 Root 的设备上完成：

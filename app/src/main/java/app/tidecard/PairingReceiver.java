@@ -3,5 +3,10 @@ import android.app.RemoteInput;
 import android.content.*;
 import android.os.Bundle;
 public class PairingReceiver extends BroadcastReceiver {
-    @Override public void onReceive(Context c,Intent i){Bundle results=RemoteInput.getResultsFromIntent(i);if(results==null)return;CharSequence code=results.getCharSequence("pairCode");if(code==null)return;c.startForegroundService(new Intent(c,ActivationService.class).setAction(ActivationService.PAIR).putExtra("code",code.toString()));}
+    static final String OPEN="app.tidecard.OPEN_PAIRING_INPUT",REPLY="app.tidecard.PAIRING_REPLY";
+    @Override public void onReceive(Context c,Intent i){
+        String session=i.getStringExtra("session");if(session==null)return;
+        if(OPEN.equals(i.getAction()))ActivationService.receive(session,null,true);
+        else if(REPLY.equals(i.getAction())){Bundle input=RemoteInput.getResultsFromIntent(i);CharSequence value=input==null?null:input.getCharSequence("pairCode");if(value!=null)ActivationService.receive(session,value.toString(),false);}
+    }
 }

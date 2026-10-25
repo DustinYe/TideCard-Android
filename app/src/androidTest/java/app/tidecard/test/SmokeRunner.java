@@ -10,7 +10,7 @@ import org.json.*;
 import java.io.*;
 
 public class SmokeRunner extends Instrumentation {
-    MainActivity activity;TideApp app;StringBuilder log=new StringBuilder();boolean uiOnly,setupOnly,wirelessOnly;
+    MainActivity activity;TideApp app;StringBuilder log=new StringBuilder();boolean uiOnly,setupOnly,wirelessOnly,notificationOnly;
     void note(String s){log.append(s).append('\n');Bundle b=new Bundle();b.putString("stream",s+"\n");sendStatus(0,b);}
     void require(boolean v,String s){if(!v)throw new AssertionError(s);}
     interface Condition{boolean ok();}
@@ -20,9 +20,10 @@ public class SmokeRunner extends Instrumentation {
     void capture(String name)throws Exception{Bitmap b=getUiAutomation().takeScreenshot();if(b!=null){try(FileOutputStream out=new FileOutputStream(new File(getTargetContext().getExternalFilesDir(null),name+".png"))){b.compress(Bitmap.CompressFormat.PNG,100,out);}b.recycle();}}
     void toggle(){runOnMainSync(()->{note("CLICK active="+app.active()+" busy="+app.busy+" authorized="+app.authorized()+" bridge="+(app.bridge!=null));boolean clicked=activity.findViewById(R.id.toggle).performClick();note("CLICK delivered="+clicked);});}
     void selection(String iso,int mask){runOnMainSync(()->{app.saveSelection(iso,app.mask());activity.findViewById(mask==3?R.id.slot_both:mask==1?R.id.slot_one:R.id.slot_two).performClick();});}
-    @Override public void onCreate(Bundle b){super.onCreate(b);uiOnly=b!=null&&"true".equals(b.getString("uiOnly"));setupOnly=b!=null&&"true".equals(b.getString("setup"));wirelessOnly=b!=null&&"true".equals(b.getString("wirelessOnly"));start();}
+    @Override public void onCreate(Bundle b){super.onCreate(b);uiOnly=b!=null&&"true".equals(b.getString("uiOnly"));setupOnly=b!=null&&"true".equals(b.getString("setup"));wirelessOnly=b!=null&&"true".equals(b.getString("wirelessOnly"));notificationOnly=b!=null&&"true".equals(b.getString("notificationOnly"));start();}
     @Override public void onStart(){
-        Bundle result=new Bundle();boolean passed=false;
+        if(notificationOnly){PairingChecks.run(this);return;}
+        Bundle result=new Bundle();boolean passed=false,restoreCreatedSession=false;
         try{
             note("BOOT instrumentation started");
             app=(TideApp)getTargetContext().getApplicationContext();
@@ -40,7 +41,7 @@ public class SmokeRunner extends Instrumentation {
                 waitFor(()->app.authorized(),35000,"无线启动失败："+ActivationService.status);note("PASS wireless TLS activation without external Shizuku");note("WIRELESS "+inspect());
                 runOnMainSync(()->activity.startActivity(new Intent(activity,ActivationActivity.class)));Thread.sleep(700);capture("06-wireless-activated");passed=true;return;
             }
-            waitFor(()->app.bridge!=null,60000,"等待内置后台连接");require(!app.active(),"测试前已有运行会话");JSONObject baseline=inspect();
+            waitFor(()->app.bridge!=null,60000,"等待内置后台连接");require(!app.active(),"测试前已有运行会话");restoreCreatedSession=true;JSONObject baseline=inspect();
             note("BASELINE "+baseline);capture("01-stopped");
             if(uiOnly){
                 runOnMainSync(()->activity.findViewById(R.id.region).performClick());Thread.sleep(500);
@@ -65,7 +66,7 @@ public class SmokeRunner extends Instrumentation {
             selection("jp",3);capture("03-restored");passed=true;note("ALL TESTS PASSED");
         }catch(Throwable e){note("ACTIVATION status="+ActivationService.status+" pairingPort="+ActivationService.pairingPort+" connectionPort="+ActivationService.connectionPort+" working="+ActivationService.working);note("FAIL "+e);result.putString("error",e.toString());}
         finally{
-            if(app!=null&&app.active())try{JSONObject snapshot=new JSONObject(app.prefs().getString("snapshot","{}"));app.call("restore",snapshot);app.prefs().edit().remove("snapshot").remove("restorePending").commit();getTargetContext().stopService(new Intent(getTargetContext(),KeepService.class));}catch(Exception e){note("CLEANUP FAILED "+e);passed=false;}
+            if(restoreCreatedSession&&app!=null&&app.active())try{JSONObject snapshot=new JSONObject(app.prefs().getString("snapshot","{}"));app.call("restore",snapshot);app.prefs().edit().remove("snapshot").remove("restorePending").commit();getTargetContext().stopService(new Intent(getTargetContext(),KeepService.class));}catch(Exception e){note("CLEANUP FAILED "+e);passed=false;}
             result.putString("stream",log.toString());finish(passed?Activity.RESULT_OK:Activity.RESULT_CANCELED,result);
         }
     }
