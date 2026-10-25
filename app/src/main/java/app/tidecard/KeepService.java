@@ -9,10 +9,12 @@ import org.json.*;
 public class KeepService extends Service {
     public static final String START="app.tidecard.START",STOP="app.tidecard.STOP";
     private TideApp app;
+    private static KeepService current;
     private boolean stopping;
     private int waits;
-    private static final String CHANNEL="region_session";
-    @Override public void onCreate(){super.onCreate();app=(TideApp)getApplication();NotificationChannel c=new NotificationChannel(CHANNEL,"持续改卡",NotificationManager.IMPORTANCE_LOW);c.setDescription("显示改卡运行状态，并提供停止恢复按钮");getSystemService(NotificationManager.class).createNotificationChannel(c);}
+    private static final String CHANNEL=NotificationOptions.SESSION_CHANNEL;
+    @Override public void onCreate(){super.onCreate();app=(TideApp)getApplication();current=this;NotificationOptions.ensureSessionChannel(this);}
+    static void refreshNotification(){KeepService service=current;if(service!=null)service.app.main.post(()->{if(current==service)service.update();});}
     private Notification notification(){
         Intent open=new Intent(this,MainActivity.class);PendingIntent pi=PendingIntent.getActivity(this,0,open,PendingIntent.FLAG_IMMUTABLE|PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent stop=PendingIntent.getService(this,1,new Intent(this,KeepService.class).setAction(STOP),PendingIntent.FLAG_IMMUTABLE|PendingIntent.FLAG_UPDATE_CURRENT);
@@ -66,6 +68,6 @@ public class KeepService extends Service {
             app.main.post(()->{app.busy=false;stopping=false;if(restored){stopForeground(STOP_FOREGROUND_REMOVE);stopSelf();}else update();app.changed();});
         });
     }
-    @Override public void onDestroy(){app.main.removeCallbacks(tick);super.onDestroy();}
+    @Override public void onDestroy(){if(current==this)current=null;app.main.removeCallbacks(tick);super.onDestroy();}
     @Override public IBinder onBind(Intent i){return null;}
 }

@@ -1,6 +1,8 @@
 package app.tidecard;
 
 import android.os.*;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.telephony.SubscriptionInfo;
 import java.io.*;
 import java.lang.reflect.*;
@@ -122,9 +124,28 @@ public class CarrierBackend extends ICarrierBridge.Stub {
         return inspect();
     }
     private static String message(Throwable t){while(t instanceof InvocationTargetException&&t.getCause()!=null)t=t.getCause();return t.getMessage()==null?t.getClass().getSimpleName():t.getMessage();}
+    /** Only this app's fixed ongoing channel can be changed; full channel metadata is retained. */
+    private JSONObject sessionNotification(JSONObject payload)throws Exception{
+        boolean enabled=payload.getBoolean("enabled");int importance=payload.optInt("importance",NotificationManager.IMPORTANCE_LOW);
+        if(importance<NotificationManager.IMPORTANCE_MIN||importance>NotificationManager.IMPORTANCE_HIGH)throw new IllegalArgumentException("无效的通知级别");
+        Class<?> api=Class.forName("android.app.INotificationManager");
+        IBinder binder=(IBinder)Class.forName("android.os.ServiceManager").getMethod("getService",String.class).invoke(null,"notification");
+        Object manager=Class.forName("android.app.INotificationManager$Stub").getMethod("asInterface",IBinder.class).invoke(null,binder);
+        Method get=api.getMethod("getNotificationChannel",String.class,int.class,String.class,String.class);
+        String pkg="app.tidecard",channelId="region_session";int user=ownerUid/100000;
+        NotificationChannel channel=(NotificationChannel)get.invoke(manager,"com.android.shell",user,pkg,channelId);
+        if(channel==null)throw new IOException("请先在应用内打开通知设置");
+        int target=enabled?importance:NotificationManager.IMPORTANCE_NONE;channel.setImportance(target);
+        api.getMethod("updateNotificationChannelForPackage",String.class,int.class,NotificationChannel.class).invoke(manager,pkg,ownerUid,channel);
+        NotificationChannel after=(NotificationChannel)get.invoke(manager,"com.android.shell",user,pkg,channelId);
+        if(after==null||after.getImportance()!=target)throw new IOException("系统未接受通知设置");
+        return new JSONObject().put("ok",true).put("enabled",target>0).put("importance",target);
+    }
     @Override public synchronized String execute(String command,String data) {
         try {
-            init();JSONObject p=new JSONObject(data==null?"{}":data);
+            JSONObject p=new JSONObject(data==null?"{}":data);
+            if("session_notification".equals(command))return sessionNotification(p).toString();
+            init();
             return switch(command){case "inspect"->inspect().toString();case "prepare"->prepare(p.getInt("mask")).toString();case "apply"->apply(p).toString();case "restore"->restore(p).toString();default->throw new IllegalArgumentException("未知操作");};
         } catch(Throwable e){try{return new JSONObject().put("ok",false).put("error",message(e)).toString();}catch(Exception ignored){return "{\"ok\":false,\"error\":\"系统调用失败\"}";}}
     }

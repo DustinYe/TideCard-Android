@@ -30,6 +30,7 @@ final class PairingChecks {
     private void run(){
         Map<String,?> before=new HashMap<>(app.prefs().getAll());boolean passed=false;
         try{
+            main(()->app.prefs().edit().putBoolean("pairingLiveUpdates",true).commit());
             main(this::start);Thread.sleep(700);Object s=service();require(s!=null,"service missing");
             Notification n=notification(22);require(n!=null,"pairing notification missing");
             require(n.extras.getBoolean("android.requestPromotedOngoing"),"pairing did not request promotion");
@@ -63,6 +64,6 @@ final class PairingChecks {
             for(String key:new String[]{"snapshot","country","mask","restorePending","paired","bridgeToken"})require(Objects.equals(before.get(key),app.prefs().getAll().get(key)),"preference changed: "+key);
             note("PASS active card session, restore snapshot, selection, and pairing identity preserved");passed=true;
         }catch(Throwable e){note("FAIL "+e);}
-        finally{main(this::cancel);Bundle result=new Bundle();result.putString("stream",log.toString());test.finish(passed?Activity.RESULT_OK:Activity.RESULT_CANCELED,result);}
+        finally{main(this::cancel);main(()->{SharedPreferences.Editor edit=app.prefs().edit();if(before.containsKey("pairingLiveUpdates"))edit.putBoolean("pairingLiveUpdates",(Boolean)before.get("pairingLiveUpdates"));else edit.remove("pairingLiveUpdates");edit.commit();app.changed();});Bundle result=new Bundle();result.putString("stream",log.toString());test.finish(passed?Activity.RESULT_OK:Activity.RESULT_CANCELED,result);}
     }
 }

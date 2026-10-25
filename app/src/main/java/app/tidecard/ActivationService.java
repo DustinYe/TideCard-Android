@@ -18,10 +18,12 @@ public class ActivationService extends Service {
     private volatile boolean alive;private volatile AdbClient client;
     private boolean requested,pairingSession,inputMode,successFeedback;private int successFrame;private String session;
     private final Runnable timeout=()->finish("激活已超时，请重新开始配对");
+    private final SharedPreferences.OnSharedPreferenceChangeListener options=(prefs,key)->{if(NotificationOptions.PAIRING_LIVE.equals(key))publish();};
     @Override public void onCreate(){
         super.onCreate();app=(TideApp)getApplication();alive=true;current=this;
         session=UUID.randomUUID().toString();pairingPort=0;connectionPort=0;working=false;
         PairingNotifications.createChannel(this);
+        app.prefs().registerOnSharedPreferenceChangeListener(options);
     }
     private Notification notification(){return PairingNotifications.build(this,session,status,pairingPort,pairingSession,inputMode,working,successFeedback,successFrame);}
     private void publish(){if(!alive)return;app.changed();getSystemService(NotificationManager.class).notify(22,notification());}
@@ -55,7 +57,7 @@ public class ActivationService extends Service {
             discovery=new LocalDiscovery(this,new LocalDiscovery.Callback(){
                 public void found(boolean pairing,int port){
                     if(!alive)return;
-                    if(pairing){pairingPort=port;if(pairingSession&&!working&&!successFeedback)status("已发现配对窗口 · 展开岛卡片后点击输入");}
+                    if(pairing){pairingPort=port;if(pairingSession&&!working&&!successFeedback)status("已发现配对窗口，请保持窗口打开并在通知中输入");}
                     else{connectionPort=port;app.prefs().edit().putInt("connectPort",port).apply();if(requested&&!successFeedback)launch();}
                 }
                 public void lost(boolean pairing,int port){
@@ -116,7 +118,7 @@ public class ActivationService extends Service {
     }
     private static String readable(Throwable e){String s=e.getMessage();return s==null?e.getClass().getSimpleName():s;}
     @Override public void onDestroy(){
-        alive=false;if(current==this)current=null;handler.removeCallbacksAndMessages(null);if(discovery!=null)discovery.close();
+        alive=false;app.prefs().unregisterOnSharedPreferenceChangeListener(options);if(current==this)current=null;handler.removeCallbacksAndMessages(null);if(discovery!=null)discovery.close();
         if(client!=null)client.close();pairingPort=0;connectionPort=0;working=false;
         getSystemService(NotificationManager.class).cancel(23);stopForeground(STOP_FOREGROUND_REMOVE);super.onDestroy();
     }
