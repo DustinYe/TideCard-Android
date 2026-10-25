@@ -2,7 +2,7 @@
 
 [下载安装包](https://github.com/DustinYe/TideCard-Android/releases/latest) · [开源许可与来源](THIRD_PARTY.md) · [发布前查重记录](docs/PUBLICATION_REVIEW.md)
 
-本分支为 **2.2.0 通知设置版本**，已构建签名 APK，并在 HyperOS / Android 16 实测应用内通知开关和超级岛选项；配对流程沿用已完成实机验证的 2.1.0 实现。GitHub 已发布的稳定包仍为 2.0.1；本版尚未发布到 Releases。Android 11 及以上。此项目与 Shizuku、Nrfr、Surfboard 均无官方隶属关系。
+当前版本 **2.2.0**。Android 11 及以上；已在原厂 HyperOS 3 / Android 16 实测应用内通知开关、超级岛选项及本机配对激活流程。请在 [Releases 下载 TideCard-2.2.0.apk](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.2.0) 并按系统提示安装。升级内容见 [CHANGELOG](CHANGELOG.md)。此项目与 Shizuku、Nrfr、Surfboard 均无官方隶属关系。
 
 无需 Root 的 Android SIM 地区配置工具，内含本机无线 ADB 配对和专用后台。无需另装 Shizuku，不占用 VPN 通道，不修改实体 SIM 卡。
 

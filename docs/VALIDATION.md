@@ -15,7 +15,7 @@
 - 非法通知级别被拒绝。原国家/卡槽选择、运行快照、恢复待处理状态和配对身份在测试前后保持；系统双卡国家码仍为 `us,us`。
 - Release 构建、测试 APK 构建和 lint 通过，0 errors / 30 warnings。未新增 Android 权限。
 
-用户手机的持续改卡通知保持关闭；超级岛保留原选择，可由用户在新设置页独立调整。本版尚未更新 GitHub Releases。其他 ROM 的直接通知类别修改若不可用，使用页面内的系统设置入口。
+持续改卡通知和超级岛可分别选择，测试结束恢复原有选择。其他 ROM 的直接通知类别修改若不可用，使用页面内的系统设置入口。2.2.0 的签名 APK、对应源码和校验文件随 GitHub Release 提供。
 
 ## 2.1.0 配对实况通知
 
@@ -31,7 +31,7 @@
 - 测试保留用户已有美国双卡会话，国家码测试前后均为 `us,us`；快照、卡槽选择、配对身份和恢复待处理状态未被测试覆盖。
 - Release 构建与 lint 通过，0 errors / 26 warnings。签名证书沿用原版。
 
-没有把“岛内直接输入”标为已实现；当前 ROM 的可用路径需要切换到系统普通通知输入。未验证其他 ROM 的岛样式或 Android 17。2.1.0 尚未发布到 GitHub Releases。
+没有把“岛内直接输入”标为已实现；当前 ROM 的可用路径需要切换到系统普通通知输入。未验证其他 ROM 的岛样式或 Android 17。2.1.0 的配对实况改动随 2.2.0 一并发布。
 
 参考：[Android Live Updates](https://developer.android.com/develop/ui/views/notifications/live-update)、[Android 16 CDD](https://source.android.com/docs/compatibility/16/android-16-cdd)、[小米超级岛开发指南](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2131)。
 
