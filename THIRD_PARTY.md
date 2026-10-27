@@ -12,6 +12,7 @@
 | Nrfr | [Ackites/Nrfr](https://github.com/Ackites/Nrfr) | CarrierConfig API 方案参考 | Apache-2.0 |
 | Nrfr 兼容分支 | [a5533348/Nrfr](https://github.com/a5533348/Nrfr/tree/6c05f224dc802d0df952db93a6d2852a91c9edb0) | 无重启 instrumentation 与临时测试授权机制参考；本项目使用独立回执和固定字段实现 | Apache-2.0 |
 | Gradle wrapper | 8.14.3，保留脚本原始头部 | 构建工具 | Apache-2.0 |
+| Android SDK Platform-Tools | 37.0.1，Windows 官方未修改的 adb.exe / AdbWinApi.dll / AdbWinUsbApi.dll | 仅随 Windows USB 激活工具交付；不加入 APK | 完整组件声明随工具 `adb/NOTICE.txt` 保留，版本见 `source.properties` |
 
 ## 直接使用和改写的边界
 

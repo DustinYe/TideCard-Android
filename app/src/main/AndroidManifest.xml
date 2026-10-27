@@ -15,6 +15,7 @@
             <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="User-started SIM region override monitoring with explicit stop and restoration" />
         </service>
         <activity android:name=".ActivationActivity" android:exported="false" />
+        <activity android:name=".UsbActivationActivity" android:exported="true" />
         <activity android:name=".LicensesActivity" android:exported="false" />
         <activity android:name=".NotificationSettingsActivity" android:exported="false" />
         <service android:name=".ActivationService" android:exported="false" android:foregroundServiceType="specialUse">

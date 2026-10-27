@@ -20,14 +20,14 @@ public class ActivationActivity extends Activity {
         ScrollView scroll=new ScrollView(this);scroll.setBackgroundColor(0xFFF3F7F7);LinearLayout root=new LinearLayout(this);root.setOrientation(LinearLayout.VERTICAL);root.setPadding(dp(24),dp(30),dp(24),dp(40));scroll.addView(root);setContentView(scroll);
         root.setOnApplyWindowInsetsListener((v,in)->{android.graphics.Insets bars=in.getInsets(WindowInsets.Type.systemBars());v.setPadding(dp(24)+bars.left,dp(22)+bars.top,dp(24)+bars.right,dp(30)+bars.bottom);return in;});
         add(root,text("内置后台激活",28),0);add(root,text("一个应用即可完成，无需安装 Shizuku。",14),10);status=text("",14);status.setPadding(dp(16),dp(18),dp(16),dp(18));GradientDrawable bg=new GradientDrawable();bg.setColor(0xFFE2F4EF);bg.setCornerRadius(dp(16));status.setBackground(bg);add(root,status,24);
-        add(root,text("首次配对",21),25);steps=text("",14);add(root,steps,12);
+        Button usb=button("使用电脑 USB 激活 ↗");usb.setOnClickListener(v->startActivity(new Intent(this,UsbActivationActivity.class)));add(root,usb,18);add(root,text("或使用无线配对",21),25);steps=text("",14);add(root,steps,12);
         permissionStatus=text("",13);add(root,permissionStatus,16);
         Button notifications=button("通知与超级岛设置");notifications.setOnClickListener(v->startActivity(new Intent(this,NotificationSettingsActivity.class)));add(root,notifications,8);
         Button scan=button("开始配对");scan.setId(android.R.id.button1);scan.setOnClickListener(v->scan());add(root,scan,18);
         Button settings=button("打开无线调试设置 ↗");settings.setOnClickListener(v->settings());add(root,settings,8);
         add(root,text("已配对过？",20),26);add(root,text("开启无线调试后，点击下面的按钮即可再次启动。重启手机后通常可复用配对。",13),9);Button connect=button("启动内置后台");connect.setOnClickListener(v->startForegroundService(new Intent(this,ActivationService.class).setAction(ActivationService.CONNECT)));add(root,connect,10);
         Button manual=button("手动输入端口 / 配对码");manual.setOnClickListener(v->manual());add(root,manual,7);
-        Button pc=button("电脑 USB 激活（备用）");pc.setOnClickListener(v->{String command="adb shell \""+app.startCommand()+"\"";new AlertDialog.Builder(this).setTitle("电脑 USB 激活").setMessage("连接电脑并允许 USB 调试后，在电脑执行复制的命令。激活后可拔掉数据线。\n\n命令含本次安装的激活凭据，请只在自己的电脑使用。").setPositiveButton("复制命令",(d,w)->{getSystemService(ClipboardManager.class).setPrimaryClip(ClipData.newPlainText("TideCard activation",command));Toast.makeText(this,"已复制电脑激活命令",Toast.LENGTH_SHORT).show();}).setNegativeButton("取消",null).show();});add(root,pc,14);
+        Button pc=button("电脑 USB 一键激活（无需无线配对）");pc.setOnClickListener(v->startActivity(new Intent(this,UsbActivationActivity.class)));add(root,pc,14);
         add(root,text("配对和连接仅访问本机。首次系统授权需要你手动完成；应用不能自动开启调试。若系统停止后台，可回到这里重新激活。",12),22);
         Button done=button("返回改卡界面");done.setOnClickListener(v->finish());add(root,done,20);
     }

@@ -2,7 +2,7 @@
 
 [下载安装包](https://github.com/DustinYe/TideCard-Android/releases/latest) · [开源许可与来源](THIRD_PARTY.md) · [发布前查重记录](docs/PUBLICATION_REVIEW.md)
 
-本分支为 **2.3.0-rc1 兼容测试版**，针对 `overrideConfig cannot be invoked by shell` 增加替代调用路径及失败状态处理。**尚未在 Redmi K80 Ultra / HyperOS 3.0.307.0 上实测**；本轮只有主机检查、APK 构建与签名验证。请从 [测试版 Release](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.3.0-rc1) 下载并反馈实际国家码与停止恢复结果。
+本分支为 **2.3.0-rc2 测试版**，新增 Windows USB 激活工具，手机没有无线配对码 / IP 时也可通过数据线安装和激活。包含 rc1 针对 `overrideConfig cannot be invoked by shell` 的替代调用路径及失败状态处理。**尚未在 vivo 或 Redmi K80 Ultra / HyperOS 3.0.307.0 上实测**；本轮只有主机检查、桌面工具启动和界面渲染、APK 构建与签名验证。rc1 已发布版本仍可从 [测试版 Release](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.3.0-rc1) 获取，rc2 的构建说明见 [USB_ACTIVATION.md](docs/USB_ACTIVATION.md)。
 
 已完成此前实机验证的稳定版仍为 [2.2.1](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.2.1)。Android 11 及以上。升级内容见 [CHANGELOG](CHANGELOG.md)。此项目与 Shizuku、Nrfr、Surfboard 均无官方隶属关系。
 
@@ -19,6 +19,10 @@
 本项目自身代码采用 [Apache-2.0](LICENSE)。第三方组件保留各自许可，详见 [NOTICE](NOTICE) 和 [THIRD_PARTY.md](THIRD_PARTY.md)。应用内可通过“使用说明 → 开源许可”阅读。
 
 ## 首次激活
+
+**没有无线配对码时可改用电脑：** 完整解压配套 Windows 工具包，打开 `TideCard-USB.exe`；手机开启 USB 调试并允许电脑，选择手机后点“安装 / 更新并激活”。工具会覆盖安装配套 APK 并保留数据，手机确认后台就绪后可拔线。无需 Android Studio 或开启无线调试，不会自动选择地区和开始改卡。说明与构建方式见 [电脑 USB 激活](docs/USB_ACTIVATION.md)。
+
+也可继续使用手机无线配对：
 
 1. 连接 Wi-Fi，在系统开发者选项中开启“无线调试”。
 2. 打开潮汐改卡 →“激活 / 配对”→“开始配对”，允许通知。
@@ -37,7 +41,7 @@ Android 的实况通知明确不展示 RemoteInput 回复输入；此手机的�
 - **配对时显示超级岛**：独立保存的应用开关。关闭后配对通知不请求实况展示，直接提供“输入六位码”；成功反馈同样使用普通通知。开启后仅在系统支持并允许时申请实况展示，输入及成功后清理规则保持不变。正在运行的配对通知也会响应选项变化。
 - 内置后台尚未激活或系统不支持直接调整时，可使用页面中的系统通知设置入口。应用不会停止持续检查来隐藏通知，也不会申请通知监听器、无障碍或悬浮窗权限。Android 的“活动应用”列表可能仍显示前台服务。
 
-首次系统调试授权需要用户手动完成。不能自动开启开发者选项、无线调试或绕过锁屏。ROM 兼容性以实机结果为准。通知未找到本机端口时，可用“手动输入端口 / 配对码”；手动配对需要系统配对窗口同时保持打开，例如分屏。电脑 USB 激活是备用方式，应用会复制本次安装专用的激活命令，请仅在自己的电脑使用。
+首次系统调试授权需要用户手动完成。不能自动开启开发者选项、无线调试或绕过锁屏。ROM 兼容性以实机结果为准。通知未找到本机端口时，可用“手动输入端口 / 配对码”；手动配对需要系统配对窗口同时保持打开，例如分屏。应用激活向导提供电脑 USB 激活入口，保留“手动命令”作为备用，请仅在自己的电脑使用。
 
 内置后台启动后通过手机内部 Binder 通信工作。在本次测试的 HyperOS 设备上，关闭无线调试后仍可继续改卡；重启或后台被结束后需重新激活。其他 ROM 行为可能不同。
 
