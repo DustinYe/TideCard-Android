@@ -2,7 +2,15 @@
 
 [下载安装包](https://github.com/DustinYe/TideCard-Android/releases/latest) · [开源许可与来源](THIRD_PARTY.md) · [发布前查重记录](docs/PUBLICATION_REVIEW.md)
 
-当前版本 **2.2.1**。Android 11 及以上；已在原厂 HyperOS 3 / Android 16 实测重装后接续遗留配置、停止恢复、通知开关及本机配对激活流程。请在 [Releases 下载 TideCard-2.2.1.apk](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.2.1) 并按系统提示安装。升级内容见 [CHANGELOG](CHANGELOG.md)。此项目与 Shizuku、Nrfr、Surfboard 均无官方隶属关系。
+本分支为 **2.3.0-rc1 兼容测试版**，针对 `overrideConfig cannot be invoked by shell` 增加替代调用路径及失败状态处理。**尚未在 Redmi K80 Ultra / HyperOS 3.0.307.0 上实测**；本轮只有主机检查、APK 构建与签名验证。请从 [测试版 Release](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.3.0-rc1) 下载并反馈实际国家码与停止恢复结果。
+
+已完成此前实机验证的稳定版仍为 [2.2.1](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.2.1)。Android 11 及以上。升级内容见 [CHANGELOG](CHANGELOG.md)。此项目与 Shizuku、Nrfr、Surfboard 均无官方隶属关系。
+
+## 新系统 shell 写入限制
+
+部分新系统直接拒绝 shell UID 的 CarrierConfig 写入，重新配对或重复开启无线调试不会改变这一调用身份。测试版在遇到这条明确拒绝时，尝试同一应用内的无重启 instrumentation，并在单次写入期间临时委派 `MODIFY_PHONE_STATE`，由应用 UID 完成固定三字段的非持久写入；结束时撤回委派。仍为一个 APK，无需安装额外 Shizuku 或辅助包。具体授权、无重启和恢复行为仍需该设备验证。
+
+改卡失败后停止自动重复写入。明确拒绝且回读确认原配置没有改变时退出失败会话；部分写入或状态不确定时保留恢复快照并显示待恢复，不再标为持续改卡。已有失败会话若实际配置仍是原值，可通过只读核对完成停止，无需再次调用被系统拒绝的写入接口。技术说明与参考源码见 [SHELL_COMPAT.md](docs/SHELL_COMPAT.md)。
 
 无需 Root 的 Android SIM 地区配置工具，内含本机无线 ADB 配对和专用后台。无需另装 Shizuku，不占用 VPN 通道，不修改实体 SIM 卡。
 

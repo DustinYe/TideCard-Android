@@ -10,6 +10,7 @@
 | LLVM libc++ | 上游依赖 `org.lsposed.libcxx:libcxx:27.0.12077973` | 原生 C++ 运行库 | Apache-2.0 WITH LLVM-exception 及历史声明 |
 | Conscrypt | `org.conscrypt:conscrypt-android:2.8.0` | 本机 ADB TLS 1.3 | Apache-2.0 及附带声明 |
 | Nrfr | [Ackites/Nrfr](https://github.com/Ackites/Nrfr) | CarrierConfig API 方案参考 | Apache-2.0 |
+| Nrfr 兼容分支 | [a5533348/Nrfr](https://github.com/a5533348/Nrfr/tree/6c05f224dc802d0df952db93a6d2852a91c9edb0) | 无重启 instrumentation 与临时测试授权机制参考；本项目使用独立回执和固定字段实现 | Apache-2.0 |
 | Gradle wrapper | 8.14.3，保留脚本原始头部 | 构建工具 | Apache-2.0 |
 
 ## 直接使用和改写的边界

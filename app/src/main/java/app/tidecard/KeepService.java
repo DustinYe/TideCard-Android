@@ -18,7 +18,7 @@ public class KeepService extends Service {
     private Notification notification(){
         Intent open=new Intent(this,MainActivity.class);PendingIntent pi=PendingIntent.getActivity(this,0,open,PendingIntent.FLAG_IMMUTABLE|PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent stop=PendingIntent.getService(this,1,new Intent(this,KeepService.class).setAction(STOP),PendingIntent.FLAG_IMMUTABLE|PendingIntent.FLAG_UPDATE_CURRENT);
-        String title=app.prefs().getBoolean("restorePending",false)?"恢复待处理 · 原配置备份已保留":app.active()?Regions.get(app.country())[1]+" · "+Regions.slots(app.mask())+" · 持续改卡":"正在准备改卡";
+        String title=app.prefs().getBoolean("restorePending",false)?"操作未完成 · 原配置备份已保留":app.prefs().contains("sessionFailure")?"改卡未成功":app.active()?Regions.get(app.country())[1]+" · "+Regions.slots(app.mask())+" · 持续改卡":"正在准备改卡";
         Bundle extras=new Bundle();extras.putBoolean(PairingNotifications.PROMOTE,false);
         return new Notification.Builder(this,CHANNEL).setSmallIcon(R.drawable.ic_launcher).setContentTitle(title).setContentText(app.message).setContentIntent(pi).setOngoing(true).setOnlyAlertOnce(true).addExtras(extras).addAction(new Notification.Action.Builder(null,"停止并恢复",stop).build()).build();
     }
@@ -27,6 +27,7 @@ public class KeepService extends Service {
         if(Build.VERSION.SDK_INT>=34)startForeground(21,notification(),ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE);else startForeground(21,notification());
         if(intent!=null&&STOP.equals(intent.getAction())){stopSession();return START_NOT_STICKY;}
         if(app.busy)return START_STICKY;
+        if(!app.prefs().getBoolean("restorePending",false))app.prefs().edit().remove("sessionFailure").apply();
         app.main.removeCallbacks(tick);app.connect();app.main.post(tick);return START_STICKY;
     }
     private final Runnable tick=new Runnable(){@Override public void run(){
@@ -40,6 +41,7 @@ public class KeepService extends Service {
         if(app.busy){app.main.postDelayed(this,2000);return;}
         app.busy=true;app.changed();
         app.worker.execute(()->{
+            boolean failed=false;
             try {
                 if(!app.active()){
                     app.message="正在备份原配置";update();
@@ -53,8 +55,12 @@ public class KeepService extends Service {
                 boolean verified=true;JSONArray before=snap.getJSONArray("cards"),current=app.cards.getJSONArray("cards");
                 for(int i=0;i<before.length();i++){int slot=before.getJSONObject(i).getInt("slot");if(!region[0].equals(current.getJSONObject(slot).optString("country")))verified=false;}
                 app.message=verified?"已核对国家码 · 持续保持中":"配置已应用，等待系统更新国家码";
-            }catch(Exception e){app.message=e.getMessage();}
-            finally{app.busy=false;update();if(app.active())app.main.postDelayed(tick,30000);else app.main.post(()->{stopForeground(STOP_FOREGROUND_REMOVE);stopSelf();});}
+            }catch(Exception e){failed=true;app.message=e.getMessage();android.content.SharedPreferences.Editor edit=app.prefs().edit().putString("sessionFailure",app.message==null?"改卡未成功":app.message);
+                if(e instanceof TideApp.BackendException&&((TideApp.BackendException)e).safeDiscardSnapshot)edit.remove("snapshot").remove("restorePending");
+                else if(app.active())edit.putBoolean("restorePending",true);
+                edit.commit();
+            }
+            finally{app.busy=false;update();if(app.active()&&!failed)app.main.postDelayed(tick,30000);else if(!app.active())app.main.post(()->{stopForeground(STOP_FOREGROUND_REMOVE);stopSelf();});}
         });
     }};
     private void stopSession(){
@@ -63,7 +69,7 @@ public class KeepService extends Service {
             boolean success=false;
             try{
                 if(app.active())app.cards=app.call("restore",new JSONObject(app.prefs().getString("snapshot","{}")));
-                app.prefs().edit().remove("snapshot").remove("restorePending").commit();app.message="已停止，原配置已恢复";success=true;
+                app.prefs().edit().remove("snapshot").remove("restorePending").remove("sessionFailure").commit();app.message="已停止，原配置已恢复";success=true;
             }catch(Exception e){app.message="恢复未完成："+e.getMessage()+"。原配置备份已保留，可重试停止。";}
             final boolean restored=success;
             app.main.post(()->{app.busy=false;stopping=false;if(restored){stopForeground(STOP_FOREGROUND_REMOVE);stopSelf();}else update();app.changed();});

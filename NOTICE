@@ -51,6 +51,12 @@ This notice records attribution and does not change those terms.
    Referenced for the Android CarrierConfig override approach and key names.
    TideCard uses a separately written Java backend, nonpersistent overrides,
    saved restoration snapshots, scoped slot selection and a watchdog.
+   The 2.3.0-rc1 compatibility design also references a5533348/Nrfr,
+   commit 6c05f224dc802d0df952db93a6d2852a91c9edb0 (Apache-2.0):
+   no-restart instrumentation and temporary shell permission delegation.
+   TideCard independently implements authenticated completion callbacks,
+   fixed three-key nonpersistent writes, and conservative failure handling.
+   No fork APK or HiddenApiBypass library is bundled.
 
 6. Gradle wrapper
    Copyright 2015-2021 the original authors (as retained in gradlew).

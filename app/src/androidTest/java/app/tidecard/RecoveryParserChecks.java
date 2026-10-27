@@ -12,6 +12,8 @@ public final class RecoveryParserChecks {
     public static void main(String[] args)throws Exception{
         String legacy=C+" = us\n"+F+" = true\n"+N+" = T-Mobile";
         require(CarrierRecovery.compatible(legacy),"old three-key session rejected");
+        require(CarrierRecovery.onlyManagedFields(legacy.replace("true","false")),"restore intermediate bundle rejected");
+        require(!CarrierRecovery.onlyManagedFields(legacy+"\napn_string = private"),"restore would clear a foreign field");
         for(String raw:new String[]{legacy+"\napn_string = private",legacy+"\n"+C+" = jp",C+" = us",legacy.replace("T-Mobile","Unknown"),legacy.replace("true","false"),legacy+"\nunparseable"})require(!CarrierRecovery.compatible(raw),"foreign, partial or malformed override accepted");
         String defaults=C+" = \n"+F+" = false\n"+N+" = ";
         Map<String,String> base=CarrierRecovery.baseline(defaults,N+" = China Mobile","null");

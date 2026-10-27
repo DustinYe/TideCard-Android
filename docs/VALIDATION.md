@@ -2,6 +2,12 @@
 
 日期：2026-10-25。
 
+## 2026-10-27：2.3.0-rc1 主机验证
+
+针对 K80 Ultra / HyperOS 3 截图中的 shell 身份拒绝，新增无重启兼容调用和失败状态处理。设备不在现场、ADB 无连接，因此没有本轮实机结果；不能沿用下文旧款小米的成功结果宣称 K80 兼容。
+
+已通过 `CarrierWritePolicyChecks` 与 `RecoveryParserChecks` 的主机检查，Release / Android 测试 APK 构建及 lint 通过（0 errors / 38 warnings）；签名保持原证书。待验证项目和来源见 [SHELL_COMPAT.md](SHELL_COMPAT.md)。本版本为 prerelease，不替换 2.2.1 稳定版。
+
 ## 2.2.1 重装后配置接续
 
 用户卸载重装 2.2.0 后，应用私有恢复快照已丢失，系统双卡仍保留三个字段的美国临时覆盖；原实现将其误判为其他工具覆盖并拒绝开始。2.2.1 已签名覆盖安装到同一台 HyperOS 3 / Android 16 手机。

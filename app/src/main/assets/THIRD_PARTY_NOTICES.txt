@@ -19,3 +19,7 @@ no remote analytics, update API or advertising has been added.
 App menu: 使用说明 -> 开源许可.
 Repository: https://github.com/DustinYe/TideCard-Android
 Source licensing and provenance details: THIRD_PARTY.md.
+
+2.3.0-rc1 compatibility mechanism reference: a5533348/Nrfr (Apache-2.0),
+commit 6c05f224dc802d0df952db93a6d2852a91c9edb0. No fork APK or
+HiddenApiBypass library is bundled. See NOTICE.txt and docs/SHELL_COMPAT.md.
