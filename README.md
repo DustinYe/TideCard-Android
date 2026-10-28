@@ -2,7 +2,7 @@
 
 [下载安装包](https://github.com/DustinYe/TideCard-Android/releases/latest) · [开源许可与来源](THIRD_PARTY.md) · [发布前查重记录](docs/PUBLICATION_REVIEW.md)
 
-本分支为 **2.3.0-rc2 测试版**，新增 Windows USB 激活工具，手机没有无线配对码 / IP 时也可通过数据线安装和激活。包含 rc1 针对 `overrideConfig cannot be invoked by shell` 的替代调用路径及失败状态处理。**尚未在 vivo 或 Redmi K80 Ultra / HyperOS 3.0.307.0 上实测**；本轮只有主机检查、桌面工具启动和界面渲染、APK 构建与签名验证。rc1 已发布版本仍可从 [测试版 Release](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.3.0-rc1) 获取，rc2 的构建说明见 [USB_ACTIVATION.md](docs/USB_ACTIVATION.md)。
+本分支为 **2.3.0-rc3 测试版**，加入 249 个国家和地区、可搜索的圆盘选择器，以及跟随系统 / 浅色 / 深色。已在连接的小米手机验证界面、新增荷兰双卡改卡与停止恢复。Windows USB 激活工具同步为 1.1.0；没有无线配对码 / IP 时可用数据线激活。**尚未在 vivo 或报错的 Redmi K80 Ultra 上验证写入兼容性**。完整范围见 [验证记录](docs/VALIDATION.md)，桌面构建方式见 [USB_ACTIVATION.md](docs/USB_ACTIVATION.md)。
 
 已完成此前实机验证的稳定版仍为 [2.2.1](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.2.1)。Android 11 及以上。升级内容见 [CHANGELOG](CHANGELOG.md)。此项目与 Shizuku、Nrfr、Surfboard 均无官方隶属关系。
 
@@ -47,7 +47,8 @@ Android 的实况通知明确不展示 RemoteInput 回复输入；此手机的�
 
 ## 改卡与停止
 
-- 目标地区：日本、美国、新加坡、英国、德国、法国、加拿大、澳大利亚、韩国、中国台湾。
+- 目标地区：249 个 ISO 国家和地区，保留日本、美国、新加坡等原有选项，支持中文、英文及地区码搜索。圆盘只预览，点“使用”后才保存；返回则取消。更多交互说明见 [地区与外观](docs/REGIONS_AND_APPEARANCE.md)。
+- 主页“设置 → 外观模式”可选跟随系统、浅色、深色，选择会保留。切换外观不会更改目标地区或停止改卡。
 - 建议改卡目标区域与 VPN 区域相同。该应用本身不是 VPN。
 - 卡槽可选卡 1、卡 2、双卡，推荐改双卡。单卡模式只处理所选卡，双卡模式处理实际存在的卡槽。
 - 右下角播放键启动，运行时显示停止图标及动画。应用每 30 秒检查配置，发现偏离才重新应用。

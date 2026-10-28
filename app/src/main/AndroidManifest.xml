@@ -18,6 +18,7 @@
         <activity android:name=".UsbActivationActivity" android:exported="true" />
         <activity android:name=".LicensesActivity" android:exported="false" />
         <activity android:name=".NotificationSettingsActivity" android:exported="false" />
+        <activity android:name=".RegionPickerActivity" android:exported="false" />
         <service android:name=".ActivationService" android:exported="false" android:foregroundServiceType="specialUse">
             <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="User-initiated local wireless debugging pairing and activation" />
         </service>

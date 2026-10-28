@@ -15,10 +15,10 @@ public class TideApp extends Application {
     public volatile boolean binding,busy;
     public volatile String message="首次使用，请激活内置后台";
     public volatile JSONObject cards;
-    private SharedPreferences prefs;
-    @Override public void onCreate(){super.onCreate();prefs=getSharedPreferences("tidecard",MODE_PRIVATE);token();if(prefs.contains("sessionFailure"))message=prefs.getString("sessionFailure",message);}
-    public SharedPreferences prefs(){return prefs;}
-    public synchronized String token(){String token=prefs.getString("bridgeToken",null);if(token==null){byte[] b=new byte[32];new SecureRandom().nextBytes(b);token=android.util.Base64.encodeToString(b,android.util.Base64.URL_SAFE|android.util.Base64.NO_WRAP|android.util.Base64.NO_PADDING);if(!prefs.edit().putString("bridgeToken",token).commit())throw new IllegalStateException("无法保存激活凭据");}return token;}
+    private volatile SharedPreferences prefs;
+    @Override public void onCreate(){super.onCreate();prefs();token();if(prefs.contains("sessionFailure"))message=prefs.getString("sessionFailure",message);}
+    public SharedPreferences prefs(){if(prefs==null)synchronized(this){if(prefs==null)prefs=getSharedPreferences("tidecard",MODE_PRIVATE);}return prefs;}
+    public synchronized String token(){prefs();String token=prefs.getString("bridgeToken",null);if(token==null){byte[] b=new byte[32];new SecureRandom().nextBytes(b);token=android.util.Base64.encodeToString(b,android.util.Base64.URL_SAFE|android.util.Base64.NO_WRAP|android.util.Base64.NO_PADDING);if(!prefs.edit().putString("bridgeToken",token).commit())throw new IllegalStateException("无法保存激活凭据");}return token;}
     public boolean active(){return prefs.contains("snapshot");}
     public boolean authorized(){ICarrierBridge b=bridge;return b!=null&&b.asBinder().pingBinder();}
     public void accept(IBinder binder){main.post(()->{try{

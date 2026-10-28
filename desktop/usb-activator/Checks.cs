@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace TideCardUsb {
     internal sealed class FakeAdb : IAdb {
-        internal string State="device",InstallFailure=null,Owner="0"; internal int Version=7,Polls,ReadyAfter=2;
+        internal string State="device",InstallFailure=null,Owner="0"; internal int Version=BundleInfo.VersionCode-1,Polls,ReadyAfter=2;
         internal bool Launched,AlreadyReady,WrongVersion,FailLaunch; internal List<string> Calls=new List<string>();
-        internal string Record="Bundle[{record=TIDEUSB1|8|10123|AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA|"+Convert.ToBase64String(Encoding.UTF8.GetBytes("/data/app/example/base.apk"))+"}]";
+        internal string Record="Bundle[{record=TIDEUSB1|"+BundleInfo.VersionCode+"|10123|AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA|"+Convert.ToBase64String(Encoding.UTF8.GetBytes("/data/app/example/base.apk"))+"}]";
         public AdbResult Run(string[] args,string input,int timeoutMs) {
             string call=string.Join(" ",args); Calls.Add(call);
             if(args[0]=="devices")return new AdbResult(0,"List of devices attached\nUSB123 "+State+" model:Vivo_Test transport_id:1\n192.0.2.1:5555 device model:Other\n");
@@ -21,7 +21,7 @@ namespace TideCardUsb {
             if(args[2]=="install") { Require(args.Length==5&&args[3]=="-r","only data-preserving install allowed"); return new AdbResult(InstallFailure==null?0:1,InstallFailure==null?"Success\n":InstallFailure); }
             if(call.Contains("am start")) { Require(call.Contains(".UsbActivationActivity"),"main UI could auto-resume SIM changes"); return new AdbResult(0,"Status: ok\n"); }
             if(call.Contains("usb_prepare"))return new AdbResult(0,Record);
-            if(call.Contains("usb_status")) { Polls++; return new AdbResult(0,"Bundle[{record=TIDEUSBSTATUS1|"+(WrongVersion?7:8)+"|"+((AlreadyReady||Launched&&Polls>ReadyAfter)?"1":"0")+"}]"); }
+            if(call.Contains("usb_status")) { Polls++; return new AdbResult(0,"Bundle[{record=TIDEUSBSTATUS1|"+(WrongVersion?BundleInfo.VersionCode-1:BundleInfo.VersionCode)+"|"+((AlreadyReady||Launched&&Polls>ReadyAfter)?"1":"0")+"}]"); }
             if(call.EndsWith("shell sh -s")) { Require(input!=null&&input.Contains(" app.tidecard.Bootstrap '")&&input.EndsWith("sleep 2\n"),"launch script missing"); Require(!call.Contains("AAAA"),"token leaked into process args"); Launched=true;return new AdbResult(FailLaunch?1:0,FailLaunch?"Permission denied":""); }
             throw new Exception("Unexpected command "+call);
         }
@@ -53,12 +53,12 @@ namespace TideCardUsb {
                 FakeAdb timeout=new FakeAdb{ReadyAfter=99};Reject(()=>Run(timeout,logs).Activate("USB123",apk),"尚未确认激活成功");
                 FakeAdb wrong=new FakeAdb{WrongVersion=true};Reject(()=>Run(wrong,logs).Activate("USB123",apk),"尚未确认激活成功");
                 FakeAdb denied=new FakeAdb{FailLaunch=true};Reject(()=>Run(denied,logs).Activate("USB123",apk),"拒绝启动");
-                Reject(()=>UsbRecord.Parse("Bundle[{record=TIDEUSB1|8|10123|bad|L2RhdGE=}]"),"有效激活信息");
-                Reject(()=>UsbRecord.Parse(good.Record.Replace("|8|","|7|")),"版本或用户身份不匹配");
+                Reject(()=>UsbRecord.Parse("Bundle[{record=TIDEUSB1|"+BundleInfo.VersionCode+"|10123|bad|L2RhdGE=}]"),"有效激活信息");
+                Reject(()=>UsbRecord.Parse(good.Record.Replace("|"+BundleInfo.VersionCode+"|","|"+(BundleInfo.VersionCode-1)+"|")),"版本或用户身份不匹配");
                 Reject(()=>UsbRecord.Parse(good.Record.Replace("|10123|","|110123|")),"版本或用户身份不匹配");
                 string unsafePath="/data/app/evil\ncommand/base.apk";string bad=good.Record.Substring(0,good.Record.LastIndexOf('|')+1)+Convert.ToBase64String(Encoding.UTF8.GetBytes(unsafePath))+"}]";Reject(()=>UsbRecord.Parse(bad),"路径不受支持");
-                Require(!UsbRecord.Ready("Bundle[{record=TIDEUSBSTATUS1|7|1}]"),"stale version acknowledged");
-                Require(!UsbRecord.Ready("Bundle[{record=TIDEUSBSTATUS1|8|1x}]"),"malformed status acknowledged");
+                Require(!UsbRecord.Ready("Bundle[{record=TIDEUSBSTATUS1|"+(BundleInfo.VersionCode-1)+"|1}]"),"stale version acknowledged");
+                Require(!UsbRecord.Ready("Bundle[{record=TIDEUSBSTATUS1|"+BundleInfo.VersionCode+"|1x}]"),"malformed status acknowledged");
                 foreach(string call in good.Calls)Require(!call.Contains("uninstall")&&!call.Contains("pm clear")&&!call.Contains("force-stop")&&!call.Contains("tcpip")&&!call.Contains("kill-server"),"unexpected device mutation");
                 string corrupted=Path.GetTempFileName();try{File.WriteAllText(corrupted,"invalid APK");Reject(()=>Workflow.VerifyPackage(corrupted),"校验不一致");}finally{File.Delete(corrupted);}
                 if(args.Length>2) { Adb real=new Adb(Path.GetFullPath(args[2]));AdbResult info=real.Run(new[]{"version"},null,15000);Require(info.Code==0&&info.Output.Contains("Android Debug Bridge version"),"bundled ADB failed to start");AdbResult connected=real.Run(new[]{"devices","-l"},null,15000);Require(connected.Code==0&&connected.Output.Contains("List of devices attached"),"bundled ADB list failed");Console.WriteLine("Real bundled ADB executable started; USB device count: "+Device.Parse(connected.Output).Count); }

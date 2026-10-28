@@ -10,16 +10,16 @@ import android.provider.Settings;
 import android.view.*;
 import android.widget.*;
 
-public class ActivationActivity extends Activity {
+public class ActivationActivity extends ThemedActivity {
     private TideApp app;private TextView status,permissionStatus,steps;private final Runnable observer=this::render;
     int dp(int n){return (int)(n*getResources().getDisplayMetrics().density+.5f);}
-    TextView text(String s,int size){TextView t=new TextView(this);t.setText(s);t.setTextSize(size);t.setTextColor(0xFF163C44);t.setLineSpacing(dp(5),1);return t;}
+    TextView text(String s,int size){TextView t=new TextView(this);t.setText(s);t.setTextSize(size);t.setTextColor(colors.ink);t.setLineSpacing(dp(5),1);return t;}
     void add(LinearLayout root,View v,int margin){LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-1,-2);p.topMargin=dp(margin);root.addView(v,p);}
-    Button button(String label){Button b=new Button(this);b.setText(label);b.setAllCaps(false);b.setTextColor(0xFF087F8C);return b;}
-    @Override public void onCreate(Bundle saved){super.onCreate(saved);app=(TideApp)getApplication();getWindow().setStatusBarColor(0xFFF3F7F7);getWindow().setNavigationBarColor(0xFFF3F7F7);
-        ScrollView scroll=new ScrollView(this);scroll.setBackgroundColor(0xFFF3F7F7);LinearLayout root=new LinearLayout(this);root.setOrientation(LinearLayout.VERTICAL);root.setPadding(dp(24),dp(30),dp(24),dp(40));scroll.addView(root);setContentView(scroll);
+    Button button(String label){Button b=new Button(this);b.setText(label);b.setAllCaps(false);b.setTextColor(colors.accent);return b;}
+    @Override public void onCreate(Bundle saved){super.onCreate(saved);app=(TideApp)getApplication();getWindow().setStatusBarColor(colors.background);getWindow().setNavigationBarColor(colors.background);
+        ScrollView scroll=new ScrollView(this);scroll.setBackgroundColor(colors.background);LinearLayout root=new LinearLayout(this);root.setOrientation(LinearLayout.VERTICAL);root.setPadding(dp(24),dp(30),dp(24),dp(40));scroll.addView(root);setContentView(scroll);
         root.setOnApplyWindowInsetsListener((v,in)->{android.graphics.Insets bars=in.getInsets(WindowInsets.Type.systemBars());v.setPadding(dp(24)+bars.left,dp(22)+bars.top,dp(24)+bars.right,dp(30)+bars.bottom);return in;});
-        add(root,text("内置后台激活",28),0);add(root,text("一个应用即可完成，无需安装 Shizuku。",14),10);status=text("",14);status.setPadding(dp(16),dp(18),dp(16),dp(18));GradientDrawable bg=new GradientDrawable();bg.setColor(0xFFE2F4EF);bg.setCornerRadius(dp(16));status.setBackground(bg);add(root,status,24);
+        add(root,text("内置后台激活",28),0);add(root,text("一个应用即可完成，无需安装 Shizuku。",14),10);status=text("",14);status.setPadding(dp(16),dp(18),dp(16),dp(18));GradientDrawable bg=new GradientDrawable();bg.setColor(colors.soft);bg.setCornerRadius(dp(16));status.setBackground(bg);add(root,status,24);
         Button usb=button("使用电脑 USB 激活 ↗");usb.setOnClickListener(v->startActivity(new Intent(this,UsbActivationActivity.class)));add(root,usb,18);add(root,text("或使用无线配对",21),25);steps=text("",14);add(root,steps,12);
         permissionStatus=text("",13);add(root,permissionStatus,16);
         Button notifications=button("通知与超级岛设置");notifications.setOnClickListener(v->startActivity(new Intent(this,NotificationSettingsActivity.class)));add(root,notifications,8);
