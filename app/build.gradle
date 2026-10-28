@@ -6,8 +6,8 @@ android {
         applicationId 'app.tidecard'
         minSdk 30
         targetSdk 36
-        versionCode 9
-        versionName '2.3.0-rc3'
+        versionCode 10
+        versionName '2.3.0'
         testInstrumentationRunner 'app.tidecard.test.SmokeRunner'
     }
     buildFeatures { aidl true; buildConfig true }

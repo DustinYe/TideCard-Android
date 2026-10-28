@@ -11,7 +11,7 @@ $repo=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $gradle=[IO.File]::ReadAllText((Join-Path $repo 'app\build.gradle'))
 $code=[regex]::Match($gradle,'versionCode\s+(\d+)').Groups[1].Value
 $version=[regex]::Match($gradle,"versionName\s+'([^']+)'").Groups[1].Value
-if($code -ne '9' -or $version -ne '2.3.0-rc3'){throw 'Review desktop protocol and package version before changing the bundled version.'}
+if($code -ne '10' -or $version -ne '2.3.0'){throw 'Review desktop protocol and package version before changing the bundled version.'}
 $name="TideCard-$version.apk"
 $hash=(Get-FileHash -LiteralPath $apk -Algorithm SHA256).Hash.ToLowerInvariant()
 New-Item -ItemType Directory -Path $out -Force | Out-Null

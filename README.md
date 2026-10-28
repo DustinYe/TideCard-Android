@@ -2,13 +2,13 @@
 
 [下载安装包](https://github.com/DustinYe/TideCard-Android/releases/latest) · [开源许可与来源](THIRD_PARTY.md) · [发布前查重记录](docs/PUBLICATION_REVIEW.md)
 
-本分支为 **2.3.0-rc3 测试版**，加入 249 个国家和地区、可搜索的圆盘选择器，以及跟随系统 / 浅色 / 深色。已在连接的小米手机验证界面、新增荷兰双卡改卡与停止恢复。Windows USB 激活工具同步为 1.1.0；没有无线配对码 / IP 时可用数据线激活。**尚未在 vivo 或报错的 Redmi K80 Ultra 上验证写入兼容性**。完整范围见 [验证记录](docs/VALIDATION.md)，桌面构建方式见 [USB_ACTIVATION.md](docs/USB_ACTIVATION.md)。
+当前正式版为 **2.3.0**，包含 249 个国家和地区、可搜索的圆盘选择器，以及跟随系统 / 浅色 / 深色。功能沿用已在连接的小米手机验证的 rc3，支持新增荷兰双卡改卡与停止恢复。Windows USB 激活工具同步为 1.1.1；没有无线配对码 / IP 时可用数据线激活。**尚未在 vivo 或报错的 Redmi K80 Ultra 上验证写入兼容性**。完整范围见 [验证记录](docs/VALIDATION.md)，桌面构建方式见 [USB_ACTIVATION.md](docs/USB_ACTIVATION.md)。
 
-已完成此前实机验证的稳定版仍为 [2.2.1](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.2.1)。Android 11 及以上。升级内容见 [CHANGELOG](CHANGELOG.md)。此项目与 Shizuku、Nrfr、Surfboard 均无官方隶属关系。
+Android 11 及以上，可从 [2.3.0 发布页面](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.3.0) 下载，旧版记录保留在 Releases。升级内容见 [CHANGELOG](CHANGELOG.md)。此项目与 Shizuku、Nrfr、Surfboard 均无官方隶属关系。
 
 ## 新系统 shell 写入限制
 
-部分新系统直接拒绝 shell UID 的 CarrierConfig 写入，重新配对或重复开启无线调试不会改变这一调用身份。测试版在遇到这条明确拒绝时，尝试同一应用内的无重启 instrumentation，并在单次写入期间临时委派 `MODIFY_PHONE_STATE`，由应用 UID 完成固定三字段的非持久写入；结束时撤回委派。仍为一个 APK，无需安装额外 Shizuku 或辅助包。具体授权、无重启和恢复行为仍需该设备验证。
+部分新系统直接拒绝 shell UID 的 CarrierConfig 写入，重新配对或重复开启无线调试不会改变这一调用身份。应用在遇到这条明确拒绝时，尝试同一应用内的无重启 instrumentation，并在单次写入期间临时委派 `MODIFY_PHONE_STATE`，由应用 UID 完成固定三字段的非持久写入；结束时撤回委派。仍为一个 APK，无需安装额外 Shizuku 或辅助包。具体授权、无重启和恢复行为仍需该设备验证。
 
 改卡失败后停止自动重复写入。明确拒绝且回读确认原配置没有改变时退出失败会话；部分写入或状态不确定时保留恢复快照并显示待恢复，不再标为持续改卡。已有失败会话若实际配置仍是原值，可通过只读核对完成停止，无需再次调用被系统拒绝的写入接口。技术说明与参考源码见 [SHELL_COMPAT.md](docs/SHELL_COMPAT.md)。
 
