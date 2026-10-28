@@ -9,8 +9,8 @@ final class NotificationOptions {
     static final String PAIRING_LIVE="pairingLiveUpdates";
     static final String SESSION_IMPORTANCE="sessionNotificationImportance";
     static void ensureSessionChannel(Context c){
-        NotificationChannel channel=new NotificationChannel(SESSION_CHANNEL,"持续改卡",NotificationManager.IMPORTANCE_LOW);
-        channel.setDescription("显示改卡运行状态，并提供停止恢复按钮");
+        NotificationChannel channel=new NotificationChannel(SESSION_CHANNEL,I18n.tr("持续改卡"),NotificationManager.IMPORTANCE_LOW);
+        channel.setDescription(I18n.tr("显示改卡运行状态，并提供停止恢复按钮"));
         c.getSystemService(NotificationManager.class).createNotificationChannel(channel);
     }
     static boolean pairingLiveEnabled(Context c){return ((TideApp)c.getApplicationContext()).prefs().getBoolean(PAIRING_LIVE,true);}

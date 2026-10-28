@@ -41,7 +41,7 @@ public class ActivationService extends Service {
         // notification before asking SystemUI to display its own protected input UI.
         inputMode=true;status("请展开本条通知，再点「输入六位码」；保持系统配对窗口打开");
         try{Object bar=getSystemService("statusbar");bar.getClass().getMethod("expandNotificationsPanel").invoke(bar);}
-        catch(Exception ignored){android.widget.Toast.makeText(this,"请下拉通知栏，点「输入六位码」",android.widget.Toast.LENGTH_LONG).show();}
+        catch(Exception ignored){android.widget.Toast.makeText(this,I18n.tr("请下拉通知栏，点「输入六位码」"),android.widget.Toast.LENGTH_LONG).show();}
     }
     @Override public int onStartCommand(Intent intent,int flags,int id){
         String action=intent==null?SCAN:intent.getAction();

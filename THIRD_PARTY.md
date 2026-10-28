@@ -8,6 +8,8 @@
 | Shizuku ADB / identity flow | v13.6.0 的 AdbClient、AdbPairingClient、AdbKey、AdbMdns | Java 改写 / 适配的参考 | Apache-2.0 |
 | BoringSSL（配对库静态依赖） | `io.github.vvb2060.ndk:boringssl:20250114`，源提交 `571a7432a19592c620fa316abde47770dad4f82b` | libadb.so 加密实现 | ISC / OpenSSL / SSLeay / MIT，完整原许可随包 |
 | LLVM libc++ | 上游依赖 `org.lsposed.libcxx:libcxx:27.0.12077973` | 原生 C++ 运行库 | Apache-2.0 WITH LLVM-exception 及历史声明 |
+| AndroidX Core 及传递依赖 | Core 1.17.0；完整依赖列表见 APK assets/AndroidX-Kotlin-LICENSES.txt | 更新 APK 的只读 FileProvider | Apache-2.0 |
+| Kotlin 标准库与 coroutines | 2.0.21 / 1.8.1，由 AndroidX 引入 | AndroidX 运行依赖 | Apache-2.0 |
 | Conscrypt | `org.conscrypt:conscrypt-android:2.8.0` | 本机 ADB TLS 1.3 | Apache-2.0 及附带声明 |
 | Nrfr | [Ackites/Nrfr](https://github.com/Ackites/Nrfr) | CarrierConfig API 方案参考 | Apache-2.0 |
 | Nrfr 兼容分支 | [a5533348/Nrfr](https://github.com/a5533348/Nrfr/tree/6c05f224dc802d0df952db93a6d2852a91c9edb0) | 无重启 instrumentation 与临时测试授权机制参考；本项目使用独立回执和固定字段实现 | Apache-2.0 |

@@ -1,0 +1,1597 @@
+[
+  {
+    "source": "\n\n配对成功后显示短暂勾选反馈，配对通知随即结束，日常改卡不占用岛。",
+    "en": "\n\nA brief checkmark confirms pairing. The notification then closes; everyday sessions do not use live updates.",
+    "zh-Hant": "\n\n配對成功後顯示短暫勾選反饋，配對通知隨即結束，日常改卡不佔用島。"
+  },
+  {
+    "source": "\n系统不允许在实况卡片中直接输入；输入使用普通通知，配对成功后自动结束。",
+    "en": "\nThe system does not allow direct input in live updates. Code entry uses a standard notification and closes after pairing succeeds.",
+    "zh-Hant": "\n系統不允許在實況卡片中直接輸入；輸入使用普通通知，配對成功後自動結束。"
+  },
+  {
+    "source": "   停止后可更改",
+    "en": "   Stop to change",
+    "zh-Hant": "   停止後可更改"
+  },
+  {
+    "source": "  ·  共 ",
+    "en": "  ·  Total: ",
+    "zh-Hant": "  ·  共 "
+  },
+  {
+    "source": " · 兼容测试版，请以实际国家码读回为准",
+    "en": " · Compatibility test build; verify the actual country-code readback",
+    "zh-Hant": " · 相容測試版，請以實際國家碼讀回為準"
+  },
+  {
+    "source": " · 可随时停止",
+    "en": " · Stop at any time",
+    "zh-Hant": " · 可隨時停止"
+  },
+  {
+    "source": " · 持续改卡",
+    "en": " · Keeping region",
+    "zh-Hant": " · 持續改卡"
+  },
+  {
+    "source": " · 点击播放键开始",
+    "en": " · Tap play to start",
+    "zh-Hant": " · 點選播放鍵開始"
+  },
+  {
+    "source": " 个国家和地区",
+    "en": " countries and regions",
+    "zh-Hant": " 個國家和地區"
+  },
+  {
+    "source": " 出现其他工具的覆盖配置；为避免误清除，请先还原其他工具后重试停止",
+    "en": " has overrides from another tool. Restore them in that tool before retrying Stop.",
+    "zh-Hant": " 出現其他工具的覆蓋配置；為避免誤清除，請先還原其他工具後重試停止"
+  },
+  {
+    "source": " 出现其他覆盖，已保留且未修改",
+    "en": " has other overrides; preserved without changes",
+    "zh-Hant": " 出現其他覆蓋，已保留且未修改"
+  },
+  {
+    "source": " 国家码尚未恢复，请重试停止",
+    "en": " country code is not yet restored. Retry Stop.",
+    "zh-Hant": " 國家碼尚未恢復，請重試停止"
+  },
+  {
+    "source": " 存在持久覆盖，未做修改；请先在设置它的工具中恢复。",
+    "en": " has persistent overrides. Restore them in the tool that set them first. No changes made.",
+    "zh-Hant": " 存在持久覆蓋，未做修改；請先在設定它的工具中恢復。"
+  },
+  {
+    "source": " 存在无法识别的覆盖，已保留且未修改；请先在设置它的工具中恢复。",
+    "en": " has unrecognized overrides. Restore them in the tool that set them first. No changes made.",
+    "zh-Hant": " 存在無法識別的覆蓋，已保留且未修改；請先在設定它的工具中恢復。"
+  },
+  {
+    "source": " 尚未就绪，请稍后重试",
+    "en": " is not ready. Try again later.",
+    "zh-Hant": " 尚未就緒，請稍後重試"
+  },
+  {
+    "source": " 已移除或更换；插回原卡后再点停止",
+    "en": " was removed or replaced. Reinsert the original SIM before stopping.",
+    "zh-Hant": " 已移除或更換；插回原卡後再點停止"
+  },
+  {
+    "source": " 的系统配置，未做修改",
+    "en": " system configuration. No changes made.",
+    "zh-Hant": " 的系統配置，未做修改"
+  },
+  {
+    "source": " 项。可前后滚动或使用下方按钮。",
+    "en": " items. Scroll or use the buttons below.",
+    "zh-Hant": " 項。可前後滾動或使用下方按鈕。"
+  },
+  {
+    "source": " 项，共 ",
+    "en": " of ",
+    "zh-Hant": " 項，共 "
+  },
+  {
+    "source": "1  在 Windows 电脑解压「潮汐改卡 USB 激活工具」，打开 TideCard-USB.exe。",
+    "en": "1  Extract the TideCard USB activation tool on Windows and open TideCard-USB.exe.",
+    "zh-Hant": "1  在 Windows 電腦解壓「潮汐改卡 USB 啟用工具」，開啟 TideCard-USB.exe。"
+  },
+  {
+    "source": "1  连接 Wi-Fi，开启系统「无线调试」。\n\n2  点击「开始配对」，打开系统的「使用配对码配对设备」。\n\n3  保持系统配对窗口打开。",
+    "en": "1  Connect to Wi-Fi and enable Wireless debugging in Settings.\n\n2  Tap Start pairing, then Pair device with pairing code in Settings.\n\n3  Keep the system pairing dialog open.",
+    "zh-Hant": "1  連線 Wi-Fi，開啟系統「無線除錯」。\n\n2  點選「開始配對」，開啟系統的「使用配對碼配對裝置」。\n\n3  保持系統配對視窗開啟。"
+  },
+  {
+    "source": "1. 点击「激活 / 配对」进入内置激活向导。首次通过系统无线调试配对；在通知中输入配对码，无需安装其他应用。也可用电脑 USB 激活。\n\n2. 选择目标地区，建议与 VPN 出口地区相同。选择卡 1、卡 2 或双卡；推荐改双卡。\n\n3. 点击右下角播放键开始，点击停止键或通知中的停止按钮恢复原配置。\n\n运行时每 30 秒检查所选卡的配置，仅在偏离目标时重新应用。请先停止再拔卡、换卡或卸载。重启手机后可能需要重新激活后台，通常无需重新配对。\n\n本应用不提供 VPN，也不保证第三方应用一定可用。网络权限用于本机无线调试配对和连接，以及你主动检查更新时访问 GitHub 获取版本信息和 APK。",
+    "en": "1. Open Activate / Pair. Pair through system Wireless debugging and enter the code in the notification, or use USB activation from a computer.\n\n2. Choose a target region that matches your VPN exit region. Select SIM 1, SIM 2 or both; both SIMs are recommended.\n\n3. Tap play at the bottom right to start. Tap Stop in the app or notification to restore the original configuration.\n\nThe selected SIM configuration is checked every 30 seconds and reapplied only when it differs. Stop before removing or replacing a SIM or uninstalling. After a reboot, the backend may need activation again; pairing can usually be reused.\n\nTideCard does not provide a VPN or guarantee access to third-party apps. Network access is used for local debugging and, only when you request an update, GitHub release checks and APK downloads.",
+    "zh-Hant": "1. 點選「啟用 / 配對」進入內建啟用嚮導。首次透過系統無線除錯配對；在通知中輸入配對碼，無需安裝其他應用。也可用電腦 USB 啟用。\n\n2. 選擇目標地區，建議與 VPN 出口地區相同。選擇卡 1、卡 2 或雙卡；推薦改雙卡。\n\n3. 點選右下角播放鍵開始，點選停止鍵或通知中的停止按鈕恢復原配置。\n\n執行時每 30 秒檢查所選卡的配置，僅在偏離目標時重新應用。請先停止再拔卡、換卡或解除安裝。重啟手機後可能需要重新啟用後臺，通常無需重新配對。\n\n本應用不提供 VPN，也不保證第三方應用一定可用。網路許可權用於本機無線除錯配對和連線，以及你主動檢查更新時訪問 GitHub 獲取版本資訊和 APK。"
+  },
+  {
+    "source": "2  在手机开发者选项开启「USB 调试」，用可传输数据的数据线连接电脑。",
+    "en": "2  Enable USB debugging in Developer options on your phone, then connect a data-capable USB cable.",
+    "zh-Hant": "2  在手機開發者選項開啟「USB 除錯」，用可傳輸資料的資料線連線電腦。"
+  },
+  {
+    "source": "3  解锁手机，在「允许 USB 调试」提示中确认这是自己的电脑并允许。电脑中选择这台手机，点击「安装 / 更新并激活」。",
+    "en": "3  Unlock the phone and allow USB debugging only after confirming this is your computer. Select the phone in the computer tool and click Install / Update and activate.",
+    "zh-Hant": "3  解鎖手機，在「允許 USB 除錯」提示中確認這是自己的電腦並允許。電腦中選擇這臺手機，點選「安裝 / 更新並啟用」。"
+  },
+  {
+    "source": "4  若系统要求允许 USB 安装，请手动允许。这里显示已激活后，返回改卡界面选择地区和卡槽。",
+    "en": "4  Allow USB installation if prompted. When activation is shown here, return to the main screen to select a region and SIM slots.",
+    "zh-Hant": "4  若系統要求允許 USB 安裝，請手動允許。這裡顯示已啟用後，返回改卡介面選擇地區和卡槽。"
+  },
+  {
+    "source": "BoringSSL · 2025 原生库许可",
+    "en": "BoringSSL · 2025 native-library license",
+    "zh-Hant": "BoringSSL · 2025 原生庫許可"
+  },
+  {
+    "source": "BoringSSL · Conscrypt 许可副本",
+    "en": "BoringSSL · Conscrypt license copy",
+    "zh-Hant": "BoringSSL · Conscrypt 許可副本"
+  },
+  {
+    "source": "Conscrypt · Apache 2.0 / 附带声明",
+    "en": "Conscrypt · Apache 2.0 / notices",
+    "zh-Hant": "Conscrypt · Apache 2.0 / 附帶宣告"
+  },
+  {
+    "source": "Nrfr · 参考方案许可",
+    "en": "Nrfr · reference implementation license",
+    "zh-Hant": "Nrfr · 參考方案許可"
+  },
+  {
+    "source": "SIM 卡已变更，请先停止并恢复原设置",
+    "en": "The SIM has changed. Stop and restore the original settings first.",
+    "zh-Hant": "SIM 卡已變更，請先停止並恢復原設定"
+  },
+  {
+    "source": "{\"ok\":false,\"error\":\"系统调用失败\"}",
+    "en": "{\"ok\":false,\"error\":\"System call failed\"}",
+    "zh-Hant": "{\"ok\":false,\"error\":\"系統呼叫失敗\"}"
+  },
+  {
+    "source": "‹  上一个",
+    "en": "‹ Previous",
+    "zh-Hant": "‹  上一個"
+  },
+  {
+    "source": "‹ 返回",
+    "en": "‹ Back",
+    "zh-Hant": "‹ 返回"
+  },
+  {
+    "source": "○ 等待电脑激活\n请在电脑工具中点击「安装 / 更新并激活」",
+    "en": "○ Waiting for USB activation\nClick Install / Update and activate on your computer",
+    "zh-Hant": "○ 等待電腦啟用\n請在電腦工具中點選「安裝 / 更新並啟用」"
+  },
+  {
+    "source": "●  会话运行中",
+    "en": "● Session running",
+    "zh-Hant": "●  會話執行中"
+  },
+  {
+    "source": "●  启动未成功",
+    "en": "● Start failed",
+    "zh-Hant": "●  啟動未成功"
+  },
+  {
+    "source": "●  已停止",
+    "en": "● Stopped",
+    "zh-Hant": "●  已停止"
+  },
+  {
+    "source": "●  操作未完成 · 待恢复",
+    "en": "● Incomplete · Restore required",
+    "zh-Hant": "●  操作未完成 · 待恢復"
+  },
+  {
+    "source": "●  正在处理",
+    "en": "● Working",
+    "zh-Hant": "●  正在處理"
+  },
+  {
+    "source": "● 内置后台已激活\n可以拔线，返回主界面使用",
+    "en": "● Backend activated\nYou can disconnect USB and return to the main screen",
+    "zh-Hant": "● 內建後臺已啟用\n可以拔線，返回主介面使用"
+  },
+  {
+    "source": "● 内置后台已激活\n返回主界面即可一键改卡",
+    "en": "● Backend activated\nReturn to the main screen to start",
+    "zh-Hant": "● 內建後臺已啟用\n返回主介面即可一鍵改卡"
+  },
+  {
+    "source": "。原配置备份已保留，可重试停止。",
+    "en": ". The original backup is retained. Retry Stop.",
+    "zh-Hant": "。原配置備份已保留，可重試停止。"
+  },
+  {
+    "source": "。请保持窗口打开，输入当前六位码重试。",
+    "en": ". Keep the pairing dialog open and retry with its current six-digit code.",
+    "zh-Hant": "。請保持視窗開啟，輸入當前六位碼重試。"
+  },
+  {
+    "source": "。请确认无线调试已开启，或重新配对。",
+    "en": ". Enable Wireless debugging or pair again.",
+    "zh-Hant": "。請確認無線除錯已開啟，或重新配對。"
+  },
+  {
+    "source": "一个应用即可完成，无需安装 Shizuku。",
+    "en": "Everything in one app. No Shizuku installation required.",
+    "zh-Hant": "一個應用即可完成，無需安裝 Shizuku。"
+  },
+  {
+    "source": "一键启程",
+    "en": "Start",
+    "zh-Hant": "一鍵啟程"
+  },
+  {
+    "source": "下一个  ›",
+    "en": "Next ›",
+    "zh-Hant": "下一個  ›"
+  },
+  {
+    "source": "下拉通知栏，展开潮汐改卡的配对通知，点「输入六位码」并发送。",
+    "en": "Open the notification shade, expand TideCard's pairing notification, tap Enter code and send it.",
+    "zh-Hant": "下拉通知欄，展開潮汐改卡的配對通知，點「輸入六位碼」併傳送。"
+  },
+  {
+    "source": "临时权限清理未完成",
+    "en": "Temporary permission cleanup incomplete",
+    "zh-Hant": "臨時許可權清理未完成"
+  },
+  {
+    "source": "为你的 SIM 信息，换一个目的地。",
+    "en": "Give your SIM metadata a new destination.",
+    "zh-Hant": "為你的 SIM 資訊，換一個目的地。"
+  },
+  {
+    "source": "仅供自己的电脑使用。命令含本次安装的激活凭据，请勿公开分享。",
+    "en": "For your own computer only. This command contains this installation's activation credential. Do not share it.",
+    "zh-Hant": "僅供自己的電腦使用。命令含本次安裝的啟用憑據，請勿公開分享。"
+  },
+  {
+    "source": "仅在主动配对时显示，成功反馈后自动结束。关闭后直接在普通通知中输入配对码。",
+    "en": "Shown only during pairing and removed after the success feedback. Turn off to enter the code directly in a standard notification.",
+    "zh-Hant": "僅在主動配對時顯示，成功反饋後自動結束。關閉後直接在普通通知中輸入配對碼。"
+  },
+  {
+    "source": "仅连接该端口",
+    "en": "Connect to this port only",
+    "zh-Hant": "僅連線該埠"
+  },
+  {
+    "source": "使用 ",
+    "en": "Use ",
+    "zh-Hant": "使用 "
+  },
+  {
+    "source": "使用此地区",
+    "en": "Use this region",
+    "zh-Hant": "使用此地區"
+  },
+  {
+    "source": "使用电脑 USB 激活 ↗",
+    "en": "Activate via computer USB ↗",
+    "zh-Hant": "使用電腦 USB 啟用 ↗"
+  },
+  {
+    "source": "使用说明  ↗",
+    "en": "Help ↗",
+    "zh-Hant": "使用說明  ↗"
+  },
+  {
+    "source": "保持目的地",
+    "en": "Keep this destination",
+    "zh-Hant": "保持目的地"
+  },
+  {
+    "source": "停止并恢复",
+    "en": "Stop and restore",
+    "zh-Hant": "停止並恢復"
+  },
+  {
+    "source": "停止改卡并恢复原配置",
+    "en": "Stop and restore the original configuration",
+    "zh-Hant": "停止改卡並恢復原配置"
+  },
+  {
+    "source": "六位配对码",
+    "en": "Six-digit pairing code",
+    "zh-Hant": "六位配對碼"
+  },
+  {
+    "source": "六位配对码（需保持配对窗口打开）",
+    "en": "Six-digit code (keep the pairing dialog open)",
+    "zh-Hant": "六位配對碼（需保持配對視窗開啟）"
+  },
+  {
+    "source": "关闭",
+    "en": "Close",
+    "zh-Hant": "關閉"
+  },
+  {
+    "source": "关闭后只隐藏提醒，改卡与定时检查继续运行。停止并恢复时，请回到主界面操作。",
+    "en": "Hides the notification while the session and periodic checks continue. Return to the main screen to stop and restore.",
+    "zh-Hant": "關閉後只隱藏提醒，改卡與定時檢查繼續執行。停止並恢復時，請回到主介面操作。"
+  },
+  {
+    "source": "兼容调用未成功：",
+    "en": "Compatibility call failed: ",
+    "zh-Hant": "相容呼叫未成功："
+  },
+  {
+    "source": "兼容调用未返回结果",
+    "en": "Compatibility call returned no result",
+    "zh-Hant": "相容呼叫未返回結果"
+  },
+  {
+    "source": "兼容调用清理失败，请重启应用后重试",
+    "en": "Compatibility cleanup failed. Restart the app and retry.",
+    "zh-Hant": "相容呼叫清理失敗，請重啟應用後重試"
+  },
+  {
+    "source": "兼容调用超时；恢复备份已保留",
+    "en": "Compatibility call timed out; restore backup retained",
+    "zh-Hant": "相容呼叫超時；恢復備份已保留"
+  },
+  {
+    "source": "内置后台 · ",
+    "en": "Built-in backend · ",
+    "zh-Hant": "內建後臺 · "
+  },
+  {
+    "source": "内置后台 · 待激活",
+    "en": "Built-in backend · Not activated",
+    "zh-Hant": "內建後臺 · 待啟用"
+  },
+  {
+    "source": "内置后台已激活",
+    "en": "Backend activated",
+    "zh-Hant": "內建後臺已啟用"
+  },
+  {
+    "source": "内置后台已激活，可以一键改卡",
+    "en": "Backend activated. Ready to start.",
+    "zh-Hant": "內建後臺已啟用，可以一鍵改卡"
+  },
+  {
+    "source": "内置后台已激活，无需外部应用",
+    "en": "Backend activated. No external app required.",
+    "zh-Hant": "內建後臺已啟用，無需外部應用"
+  },
+  {
+    "source": "内置后台已重连，正在同步会话",
+    "en": "Backend reconnected. Syncing the session.",
+    "zh-Hant": "內建後臺已重連，正在同步會話"
+  },
+  {
+    "source": "内置后台未激活，请先激活",
+    "en": "Activate the built-in backend first",
+    "zh-Hant": "內建後臺未啟用，請先啟用"
+  },
+  {
+    "source": "内置后台未激活，请在系统中调整本通知类别",
+    "en": "Backend inactive. Adjust this notification category in system settings.",
+    "zh-Hant": "內建後臺未啟用，請在系統中調整本通知類別"
+  },
+  {
+    "source": "内置后台激活",
+    "en": "Activate backend",
+    "zh-Hant": "內建後臺啟用"
+  },
+  {
+    "source": "准备启程",
+    "en": "Ready to go",
+    "zh-Hant": "準備啟程"
+  },
+  {
+    "source": "卡 ",
+    "en": "SIM ",
+    "zh-Hant": "卡 "
+  },
+  {
+    "source": "卡 1",
+    "en": "SIM 1",
+    "zh-Hant": "卡 1"
+  },
+  {
+    "source": "卡 2",
+    "en": "SIM 2",
+    "zh-Hant": "卡 2"
+  },
+  {
+    "source": "原始系统配置不完整，未做修改",
+    "en": "Original system configuration is incomplete. No changes made.",
+    "zh-Hant": "原始系統配置不完整，未做修改"
+  },
+  {
+    "source": "双卡",
+    "en": "Both SIMs",
+    "zh-Hant": "雙卡"
+  },
+  {
+    "source": "取消",
+    "en": "Cancel",
+    "zh-Hant": "取消"
+  },
+  {
+    "source": "取消激活",
+    "en": "Cancel activation",
+    "zh-Hant": "取消啟用"
+  },
+  {
+    "source": "后台已断开，备份已保留；重新激活后可恢复",
+    "en": "Backend disconnected. Backup retained; reactivate to restore.",
+    "zh-Hant": "後臺已斷開，備份已保留；重新啟用後可恢復"
+  },
+  {
+    "source": "后台已断开，请重新激活",
+    "en": "Backend disconnected. Please reactivate.",
+    "zh-Hant": "後臺已斷開，請重新啟用"
+  },
+  {
+    "source": "后台连接超时，请返回应用重试，或使用电脑激活",
+    "en": "Backend connection timed out. Retry in the app or activate via USB.",
+    "zh-Hant": "後臺連線超時，請返回應用重試，或使用電腦啟用"
+  },
+  {
+    "source": "向世界，转动一格。",
+    "en": "Turn the dial. Choose the world.",
+    "zh-Hant": "向世界，轉動一格。"
+  },
+  {
+    "source": "启动内置后台",
+    "en": "Start backend",
+    "zh-Hant": "啟動內建後臺"
+  },
+  {
+    "source": "启动失败：",
+    "en": "Start failed: ",
+    "zh-Hant": "啟動失敗："
+  },
+  {
+    "source": "启动持续改卡",
+    "en": "Start keeping the SIM region",
+    "zh-Hant": "啟動持續改卡"
+  },
+  {
+    "source": "启动输出过长",
+    "en": "Startup output is too long",
+    "zh-Hant": "啟動輸出過長"
+  },
+  {
+    "source": "地区圆盘，",
+    "en": "Region dial, ",
+    "zh-Hant": "地區圓盤，"
+  },
+  {
+    "source": "复制命令",
+    "en": "Copy command",
+    "zh-Hant": "複製命令"
+  },
+  {
+    "source": "外观与通知",
+    "en": "Appearance and notifications",
+    "zh-Hant": "外觀與通知"
+  },
+  {
+    "source": "外观模式",
+    "en": "Appearance",
+    "zh-Hant": "外觀模式"
+  },
+  {
+    "source": "实况通知可用 · 最终样式由系统决定",
+    "en": "Live updates available · Appearance depends on the system",
+    "zh-Hant": "實況通知可用 · 最終樣式由系統決定"
+  },
+  {
+    "source": "展开本条通知，点「输入六位码」。无需切换应用。",
+    "en": "Expand this notification and tap Enter code. No need to switch apps.",
+    "zh-Hant": "展開本條通知，點「輸入六位碼」。無需切換應用。"
+  },
+  {
+    "source": "已保存选择；当前系统使用普通通知",
+    "en": "Saved; this system uses standard notifications",
+    "zh-Hant": "已儲存選擇；當前系統使用普通通知"
+  },
+  {
+    "source": "已保存选择；系统暂未允许实况通知",
+    "en": "Saved; live updates are not permitted by the system",
+    "zh-Hant": "已儲存選擇；系統暫未允許實況通知"
+  },
+  {
+    "source": "已保存选择；需先允许系统通知权限",
+    "en": "Saved; allow system notifications first",
+    "zh-Hant": "已儲存選擇；需先允許系統通知許可權"
+  },
+  {
+    "source": "已停止持续检查，原配置备份已保留",
+    "en": "Periodic checks stopped; original backup retained",
+    "zh-Hant": "已停止持續檢查，原配置備份已保留"
+  },
+  {
+    "source": "已停止，原配置已恢复",
+    "en": "Stopped. Original configuration restored.",
+    "zh-Hant": "已停止，原配置已恢復"
+  },
+  {
+    "source": "已切换到电脑 USB 激活",
+    "en": "Switched to computer USB activation",
+    "zh-Hant": "已切換到電腦 USB 啟用"
+  },
+  {
+    "source": "已发现配对窗口，请保持窗口打开并在通知中输入",
+    "en": "Pairing dialog found. Keep it open and enter the code in the notification.",
+    "zh-Hant": "已發現配對視窗，請保持視窗開啟並在通知中輸入"
+  },
+  {
+    "source": "已取消激活",
+    "en": "Activation cancelled",
+    "zh-Hant": "已取消啟用"
+  },
+  {
+    "source": "已复制激活命令",
+    "en": "Activation command copied",
+    "zh-Hant": "已複製啟用命令"
+  },
+  {
+    "source": "已安全保存本机配对身份，即将收起",
+    "en": "Local pairing identity saved securely. Closing shortly.",
+    "zh-Hant": "已安全儲存本機配對身份，即將收起"
+  },
+  {
+    "source": "已显示持续改卡通知",
+    "en": "Session notification is visible",
+    "zh-Hant": "已顯示持續改卡通知"
+  },
+  {
+    "source": "已有覆盖包含其他字段",
+    "en": "Existing override contains other fields",
+    "zh-Hant": "已有覆蓋包含其他欄位"
+  },
+  {
+    "source": "已有配置存在重复字段",
+    "en": "Existing configuration contains duplicate fields",
+    "zh-Hant": "已有配置存在重複欄位"
+  },
+  {
+    "source": "已核对国家码 · 持续保持中",
+    "en": "Country code verified · Keeping region",
+    "zh-Hant": "已核對國家碼 · 持續保持中"
+  },
+  {
+    "source": "已激活",
+    "en": "Activated",
+    "zh-Hant": "已啟用"
+  },
+  {
+    "source": "已识别遗留地区配置，并重建系统原配置备份",
+    "en": "Previous region override recognized; original backup rebuilt",
+    "zh-Hant": "已識別遺留地區配置，並重建系統原配置備份"
+  },
+  {
+    "source": "已选择实况展示，具体样式由系统决定",
+    "en": "Live updates selected; appearance depends on the system",
+    "zh-Hant": "已選擇實況展示，具體樣式由系統決定"
+  },
+  {
+    "source": "已选择普通通知配对输入",
+    "en": "Standard notification code entry selected",
+    "zh-Hant": "已選擇普通通知配對輸入"
+  },
+  {
+    "source": "已配对过？",
+    "en": "Already paired?",
+    "zh-Hant": "已配對過？"
+  },
+  {
+    "source": "已隐藏持续改卡通知，运行状态请看主界面",
+    "en": "Session notification hidden. Check the main screen for status.",
+    "zh-Hant": "已隱藏持續改卡通知，執行狀態請看主介面"
+  },
+  {
+    "source": "建议改卡目标区域与 VPN 区域相同。",
+    "en": "Use the same target region as your VPN exit region.",
+    "zh-Hant": "建議改卡目標區域與 VPN 區域相同。"
+  },
+  {
+    "source": "建议目标地区与 VPN 出口地区相同。",
+    "en": "Use the same target region as your VPN exit region.",
+    "zh-Hant": "建議目標地區與 VPN 出口地區相同。"
+  },
+  {
+    "source": "开启无线调试后，点击下面的按钮即可再次启动。重启手机后通常可复用配对。",
+    "en": "Enable Wireless debugging, then tap below to restart the backend. Pairing can usually be reused after rebooting.",
+    "zh-Hant": "開啟無線除錯後，點選下面的按鈕即可再次啟動。重啟手機後通常可複用配對。"
+  },
+  {
+    "source": "开始前，三步就绪",
+    "en": "Three steps to get ready",
+    "zh-Hant": "開始前，三步就緒"
+  },
+  {
+    "source": "开始配对",
+    "en": "Start pairing",
+    "zh-Hant": "開始配對"
+  },
+  {
+    "source": "开源许可",
+    "en": "Open-source licenses",
+    "zh-Hant": "開源許可"
+  },
+  {
+    "source": "开源许可与来源",
+    "en": "Licenses and sources",
+    "zh-Hant": "開源許可與來源"
+  },
+  {
+    "source": "当前系统缺少兼容调用入口",
+    "en": "This system lacks the compatibility entry point",
+    "zh-Hant": "當前系統缺少相容呼叫入口"
+  },
+  {
+    "source": "当前系统缺少兼容调用入口，未执行写入",
+    "en": "Compatibility entry point unavailable. No writes performed.",
+    "zh-Hant": "當前系統缺少相容呼叫入口，未執行寫入"
+  },
+  {
+    "source": "待激活",
+    "en": "Not activated",
+    "zh-Hant": "待啟用"
+  },
+  {
+    "source": "恢复待处理的原配置",
+    "en": "Restore the pending original configuration",
+    "zh-Hant": "恢復待處理的原配置"
+  },
+  {
+    "source": "恢复待处理，请点击停止重试；配置不会被继续保持",
+    "en": "Restore pending. Tap Stop to retry; the region is no longer being maintained.",
+    "zh-Hant": "恢復待處理，請點選停止重試；配置不會被繼續保持"
+  },
+  {
+    "source": "恢复未完成：",
+    "en": "Restore incomplete: ",
+    "zh-Hant": "恢復未完成："
+  },
+  {
+    "source": "或使用无线配对",
+    "en": "Or pair wirelessly",
+    "zh-Hant": "或使用無線配對"
+  },
+  {
+    "source": "所选卡槽没有可用 SIM 卡",
+    "en": "No usable SIM in the selected slots",
+    "zh-Hant": "所選卡槽沒有可用 SIM 卡"
+  },
+  {
+    "source": "手动命令（备用）",
+    "en": "Manual command (fallback)",
+    "zh-Hant": "手動命令（備用）"
+  },
+  {
+    "source": "手动电脑激活",
+    "en": "Manual computer activation",
+    "zh-Hant": "手動電腦啟用"
+  },
+  {
+    "source": "手动输入端口 / 配对码",
+    "en": "Enter port / pairing code manually",
+    "zh-Hant": "手動輸入埠 / 配對碼"
+  },
+  {
+    "source": "手动配对 / 连接",
+    "en": "Manual pairing / connection",
+    "zh-Hant": "手動配對 / 連線"
+  },
+  {
+    "source": "打开开发者选项",
+    "en": "Open Developer options",
+    "zh-Hant": "開啟開發者選項"
+  },
+  {
+    "source": "打开无线调试设置 ↗",
+    "en": "Open Wireless debugging ↗",
+    "zh-Hant": "開啟無線除錯設定 ↗"
+  },
+  {
+    "source": "打开系统无线调试 → 使用配对码配对设备",
+    "en": "Open Wireless debugging → Pair device with pairing code",
+    "zh-Hant": "開啟系統無線除錯 → 使用配對碼配對裝置"
+  },
+  {
+    "source": "打开配对输入",
+    "en": "Open code entry",
+    "zh-Hant": "開啟配對輸入"
+  },
+  {
+    "source": "持续改卡",
+    "en": "Keep SIM region",
+    "zh-Hant": "持續改卡"
+  },
+  {
+    "source": "持续改卡通知",
+    "en": "Session notification",
+    "zh-Hant": "持續改卡通知"
+  },
+  {
+    "source": "持续改卡通知的系统设置 ↗",
+    "en": "System settings for session notifications ↗",
+    "zh-Hant": "持續改卡通知的系統設定 ↗"
+  },
+  {
+    "source": "推荐改双卡",
+    "en": "Both SIMs recommended",
+    "zh-Hant": "推薦改雙卡"
+  },
+  {
+    "source": "搜索国家 / 地区 · 中文、English、ISO",
+    "en": "Search country / region · Name or ISO code",
+    "zh-Hant": "搜尋國家 / 地區 · 中文、English、ISO"
+  },
+  {
+    "source": "操作未完成 · 原配置备份已保留",
+    "en": "Incomplete · Original backup retained",
+    "zh-Hant": "操作未完成 · 原配置備份已保留"
+  },
+  {
+    "source": "改卡未完成：",
+    "en": "Region change incomplete: ",
+    "zh-Hant": "改卡未完成："
+  },
+  {
+    "source": "改卡未成功",
+    "en": "Region change failed",
+    "zh-Hant": "改卡未成功"
+  },
+  {
+    "source": "旋转圆盘或点选地区码，确认后才会保存。",
+    "en": "Rotate the dial or tap a country code. Changes are saved only after confirmation.",
+    "zh-Hant": "旋轉圓盤或點選地區碼，確認後才會儲存。"
+  },
+  {
+    "source": "无效的卡槽选择",
+    "en": "Invalid SIM-slot selection",
+    "zh-Hant": "無效的卡槽選擇"
+  },
+  {
+    "source": "无效的本地 ADB 数据",
+    "en": "Invalid local ADB data",
+    "zh-Hant": "無效的本地 ADB 資料"
+  },
+  {
+    "source": "无效的目标地区",
+    "en": "Invalid target region",
+    "zh-Hant": "無效的目標地區"
+  },
+  {
+    "source": "无效的通知级别",
+    "en": "Invalid notification importance",
+    "zh-Hant": "無效的通知級別"
+  },
+  {
+    "source": "无效连接端口",
+    "en": "Invalid connection port",
+    "zh-Hant": "無效連線埠"
+  },
+  {
+    "source": "无效配对数据",
+    "en": "Invalid pairing data",
+    "zh-Hant": "無效配對資料"
+  },
+  {
+    "source": "无法保存外观选择",
+    "en": "Could not save appearance preference",
+    "zh-Hant": "無法儲存外觀選擇"
+  },
+  {
+    "source": "无法保存恢复备份，未做修改",
+    "en": "Could not save restore backup. No changes made.",
+    "zh-Hant": "無法儲存恢復備份，未做修改"
+  },
+  {
+    "source": "无法保存激活凭据",
+    "en": "Could not save activation credential",
+    "zh-Hant": "無法儲存啟用憑據"
+  },
+  {
+    "source": "无法保存配对密钥",
+    "en": "Could not save pairing key",
+    "zh-Hant": "無法儲存配對金鑰"
+  },
+  {
+    "source": "无法加密配对信息",
+    "en": "Could not encrypt pairing data",
+    "zh-Hant": "無法加密配對資訊"
+  },
+  {
+    "source": "无法启动兼容调用：",
+    "en": "Could not start compatibility call: ",
+    "zh-Hant": "無法啟動相容呼叫："
+  },
+  {
+    "source": "无法撤销临时测试权限",
+    "en": "Could not revoke temporary test permission",
+    "zh-Hant": "無法撤銷臨時測試許可權"
+  },
+  {
+    "source": "无法核对原始名称配置，未做修改",
+    "en": "Could not verify the original carrier-name configuration. No changes made.",
+    "zh-Hant": "無法核對原始名稱配置，未做修改"
+  },
+  {
+    "source": "无法核对原始国家码，未做修改",
+    "en": "Could not verify the original country code. No changes made.",
+    "zh-Hant": "無法核對原始國家碼，未做修改"
+  },
+  {
+    "source": "无法识别已有覆盖配置",
+    "en": "Unrecognized existing override configuration",
+    "zh-Hant": "無法識別已有覆蓋配置"
+  },
+  {
+    "source": "无法读取 SIM 原始国家码，未做修改",
+    "en": "Could not read the original SIM country code. No changes made.",
+    "zh-Hant": "無法讀取 SIM 原始國家碼，未做修改"
+  },
+  {
+    "source": "无法读取卡 ",
+    "en": "Could not read SIM ",
+    "zh-Hant": "無法讀取卡 "
+  },
+  {
+    "source": "无法读取许可文件",
+    "en": "Could not read the license file",
+    "zh-Hant": "無法讀取許可檔案"
+  },
+  {
+    "source": "无需开启无线调试或填写配对码。电脑只负责安装和激活，不会替你选择地区或开始改卡。激活后可拔线；重启或系统终止后台后可能需要再次连接。USB 激活不代表系统一定允许改卡。",
+    "en": "No Wireless debugging or pairing code is needed. The computer installs and activates the backend; you choose the region and start the session yourself. You can disconnect after activation. Rebooting or system termination may require USB activation again. USB activation does not guarantee that the system permits region changes.",
+    "zh-Hant": "無需開啟無線除錯或填寫配對碼。電腦只負責安裝和啟用，不會替你選擇地區或開始改卡。啟用後可拔線；重啟或系統終止後臺後可能需要再次連線。USB 啟用不代表系統一定允許改卡。"
+  },
+  {
+    "source": "日本",
+    "en": "Japan",
+    "zh-Hant": "日本"
+  },
+  {
+    "source": "显示改卡运行状态，并提供停止恢复按钮",
+    "en": "Shows session status and a stop-and-restore action",
+    "zh-Hant": "顯示改卡執行狀態，並提供停止恢復按鈕"
+  },
+  {
+    "source": "更改  ›",
+    "en": "Change ›",
+    "zh-Hant": "更改  ›"
+  },
+  {
+    "source": "更改哪些卡",
+    "en": "Which SIMs?",
+    "zh-Hant": "更改哪些卡"
+  },
+  {
+    "source": "未检测到 SIM",
+    "en": "No SIM detected",
+    "zh-Hant": "未檢測到 SIM"
+  },
+  {
+    "source": "未知操作",
+    "en": "Unknown operation",
+    "zh-Hant": "未知操作"
+  },
+  {
+    "source": "未能确认通知设置，请检查当前状态，或使用下方系统设置。",
+    "en": "Notification setting could not be confirmed. Check its current state or use system settings below.",
+    "zh-Hant": "未能確認通知設定，請檢查當前狀態，或使用下方系統設定。"
+  },
+  {
+    "source": "本地 ADB 数据校验失败",
+    "en": "Local ADB checksum failed",
+    "zh-Hant": "本地 ADB 資料校驗失敗"
+  },
+  {
+    "source": "本机无线调试尚未授权，请先配对",
+    "en": "Local Wireless debugging is not authorized. Pair first.",
+    "zh-Hant": "本機無線除錯尚未授權，請先配對"
+  },
+  {
+    "source": "本机配对密钥损坏",
+    "en": "Local pairing key is corrupt",
+    "zh-Hant": "本機配對金鑰損壞"
+  },
+  {
+    "source": "本系统使用通知栏配对输入",
+    "en": "This system uses notification code entry",
+    "zh-Hant": "本系統使用通知欄配對輸入"
+  },
+  {
+    "source": "来源、改动与致谢",
+    "en": "Sources, changes and acknowledgments",
+    "zh-Hant": "來源、改動與致謝"
+  },
+  {
+    "source": "正在保存…",
+    "en": "Saving…",
+    "zh-Hant": "正在儲存…"
+  },
+  {
+    "source": "正在准备改卡",
+    "en": "Preparing region change",
+    "zh-Hant": "正在準備改卡"
+  },
+  {
+    "source": "正在启动内置后台…",
+    "en": "Starting backend…",
+    "zh-Hant": "正在啟動內建後臺…"
+  },
+  {
+    "source": "正在处理…",
+    "en": "Working…",
+    "zh-Hant": "正在處理…"
+  },
+  {
+    "source": "正在处理，请稍候",
+    "en": "Working. Please wait.",
+    "zh-Hant": "正在處理，請稍候"
+  },
+  {
+    "source": "正在备份原配置",
+    "en": "Backing up the original configuration",
+    "zh-Hant": "正在備份原配置"
+  },
+  {
+    "source": "正在恢复原配置",
+    "en": "Restoring the original configuration",
+    "zh-Hant": "正在恢復原配置"
+  },
+  {
+    "source": "正在连接改卡服务，请稍候",
+    "en": "Connecting to the backend. Please wait.",
+    "zh-Hant": "正在連線改卡服務，請稍候"
+  },
+  {
+    "source": "正在配对",
+    "en": "Pairing",
+    "zh-Hant": "正在配對"
+  },
+  {
+    "source": "正在配对，请保持系统配对窗口打开…",
+    "en": "Pairing. Keep the system pairing dialog open…",
+    "zh-Hant": "正在配對，請保持系統配對視窗開啟…"
+  },
+  {
+    "source": "此 SIM 的原始地区尚无法核对，请重启手机后再试",
+    "en": "The original region of this SIM cannot be verified yet. Reboot the phone and retry.",
+    "zh-Hant": "此 SIM 的原始地區尚無法核對，請重啟手機後再試"
+  },
+  {
+    "source": "没有匹配地区",
+    "en": "No matching regions",
+    "zh-Hant": "沒有匹配地區"
+  },
+  {
+    "source": "没有匹配项 · 可尝试完整名称或两位地区码",
+    "en": "No matches · Try a full name or two-letter code",
+    "zh-Hant": "沒有匹配項 · 可嘗試完整名稱或兩位地區碼"
+  },
+  {
+    "source": "没有配对码或 IP，也可以通过数据线启动内置后台。",
+    "en": "Start the backend with a USB cable even without a pairing code or IP address.",
+    "zh-Hant": "沒有配對碼或 IP，也可以透過資料線啟動內建後臺。"
+  },
+  {
+    "source": "浅色",
+    "en": "Light",
+    "zh-Hant": "淺色"
+  },
+  {
+    "source": "深色",
+    "en": "Dark",
+    "zh-Hant": "深色"
+  },
+  {
+    "source": "潮汐改卡",
+    "en": "TideCard",
+    "zh-Hant": "潮汐改卡"
+  },
+  {
+    "source": "潮汐改卡 · 启动后台",
+    "en": "TideCard · Starting backend",
+    "zh-Hant": "潮汐改卡 · 啟動後臺"
+  },
+  {
+    "source": "潮汐改卡 · 设备配对",
+    "en": "TideCard · Device pairing",
+    "zh-Hant": "潮汐改卡 · 裝置配對"
+  },
+  {
+    "source": "潮汐改卡 · 配对成功",
+    "en": "TideCard · Paired",
+    "zh-Hant": "潮汐改卡 · 配對成功"
+  },
+  {
+    "source": "激活 / 配对  ↗",
+    "en": "Activate / Pair ↗",
+    "zh-Hant": "啟用 / 配對  ↗"
+  },
+  {
+    "source": "激活内置后台后即可开始",
+    "en": "Activate the backend to start",
+    "zh-Hant": "啟用內建後臺後即可開始"
+  },
+  {
+    "source": "激活内置后台后显示两张卡的实际国家码",
+    "en": "Activate the backend to see actual country codes for both SIMs",
+    "zh-Hant": "啟用內建後臺後顯示兩張卡的實際國家碼"
+  },
+  {
+    "source": "激活完成后此通知自动结束",
+    "en": "This notification closes when activation finishes",
+    "zh-Hant": "啟用完成後此通知自動結束"
+  },
+  {
+    "source": "激活已超时，请重新开始配对",
+    "en": "Activation timed out. Start pairing again.",
+    "zh-Hant": "啟用已超時，請重新開始配對"
+  },
+  {
+    "source": "点「打开配对输入」，进入系统通知输入；请保持配对窗口打开",
+    "en": "Tap Open code entry to use the system notification input. Keep the pairing dialog open.",
+    "zh-Hant": "點「開啟配對輸入」，進入系統通知輸入；請保持配對視窗開啟"
+  },
+  {
+    "source": "点击停止键恢复原配置",
+    "en": "Tap Stop to restore the original configuration",
+    "zh-Hant": "點選停止鍵恢復原配置"
+  },
+  {
+    "source": "点岛展开卡片 →「打开配对输入」→ 展开系统通知并点「输入六位码」。岛被系统隐藏时，可直接下拉通知栏操作。",
+    "en": "Tap the live-update pill → Open code entry → expand the system notification and tap Enter code. If the system hides the pill, open the notification shade directly.",
+    "zh-Hant": "點島展開卡片 →「開啟配對輸入」→ 展開系統通知並點「輸入六位碼」。島被系統隱藏時，可直接下拉通知欄操作。"
+  },
+  {
+    "source": "电脑 USB 一键激活（无需无线配对）",
+    "en": "USB activation from a computer (no wireless pairing)",
+    "zh-Hant": "電腦 USB 一鍵啟用（無需無線配對）"
+  },
+  {
+    "source": "电脑 USB 激活",
+    "en": "Computer USB activation",
+    "zh-Hant": "電腦 USB 啟用"
+  },
+  {
+    "source": "目标地区",
+    "en": "Target region",
+    "zh-Hant": "目標地區"
+  },
+  {
+    "source": "目的地",
+    "en": "Destination",
+    "zh-Hant": "目的地"
+  },
+  {
+    "source": "知道了",
+    "en": "Got it",
+    "zh-Hant": "知道了"
+  },
+  {
+    "source": "稍候片刻",
+    "en": "Please wait",
+    "zh-Hant": "稍候片刻"
+  },
+  {
+    "source": "第三方组件说明",
+    "en": "Third-party components",
+    "zh-Hant": "第三方元件說明"
+  },
+  {
+    "source": "等待内置后台连接",
+    "en": "Waiting for backend connection",
+    "zh-Hant": "等待內建後臺連線"
+  },
+  {
+    "source": "等待内置后台连接；原配置备份已保留",
+    "en": "Waiting for backend connection; original backup retained",
+    "zh-Hant": "等待內建後臺連線；原配置備份已保留"
+  },
+  {
+    "source": "等待恢复",
+    "en": "Awaiting restoration",
+    "zh-Hant": "等待恢復"
+  },
+  {
+    "source": "等待打开系统的「使用配对码配对设备」",
+    "en": "Open Pair device with pairing code in system settings",
+    "zh-Hant": "等待開啟系統的「使用配對碼配對裝置」"
+  },
+  {
+    "source": "等待配对",
+    "en": "Waiting to pair",
+    "zh-Hant": "等待配對"
+  },
+  {
+    "source": "系统可能隐藏受保护设置页面上的岛；配对输入仍使用系统通知。通知关闭后，Android 仍可能在“活动应用”中列出运行中的服务。",
+    "en": "The system may hide live updates over protected settings screens; code entry still uses a standard notification. Android may list the service under Active apps even when notifications are hidden.",
+    "zh-Hant": "系統可能隱藏受保護設定頁面上的島；配對輸入仍使用系統通知。通知關閉後，Android 仍可能在“活動應用”中列出執行中的服務。"
+  },
+  {
+    "source": "系统启动响应异常",
+    "en": "Unexpected system startup response",
+    "zh-Hant": "系統啟動響應異常"
+  },
+  {
+    "source": "系统已关闭实况通知，可使用通知栏输入",
+    "en": "Live updates disabled by the system. Use the notification shade.",
+    "zh-Hant": "系統已關閉實況通知，可使用通知欄輸入"
+  },
+  {
+    "source": "系统拒绝启动内置后台",
+    "en": "The system refused to start the backend",
+    "zh-Hant": "系統拒絕啟動內建後臺"
+  },
+  {
+    "source": "系统拒绝操作",
+    "en": "The system rejected the operation",
+    "zh-Hant": "系統拒絕操作"
+  },
+  {
+    "source": "系统未允许改卡写入，兼容调用未完成：",
+    "en": "System did not permit region writes; compatibility call incomplete: ",
+    "zh-Hant": "系統未允許改卡寫入，相容呼叫未完成："
+  },
+  {
+    "source": "系统未允许无重启兼容调用",
+    "en": "System did not permit the compatibility call without a reboot",
+    "zh-Hant": "系統未允許無重啟相容呼叫"
+  },
+  {
+    "source": "系统未接受通知设置",
+    "en": "System did not accept the notification setting",
+    "zh-Hant": "系統未接受通知設定"
+  },
+  {
+    "source": "系统调用失败",
+    "en": "System call failed",
+    "zh-Hant": "系統呼叫失敗"
+  },
+  {
+    "source": "系统返回了不支持的配对协议",
+    "en": "System returned an unsupported pairing protocol",
+    "zh-Hant": "系統返回了不支援的配對協議"
+  },
+  {
+    "source": "系统通知总权限已关闭",
+    "en": "System notifications are disabled",
+    "zh-Hant": "系統通知總許可權已關閉"
+  },
+  {
+    "source": "系统通知设置 ↗",
+    "en": "System notification settings ↗",
+    "zh-Hant": "系統通知設定 ↗"
+  },
+  {
+    "source": "系统配对窗口中的端口",
+    "en": "Port shown in the system pairing dialog",
+    "zh-Hant": "系統配對視窗中的埠"
+  },
+  {
+    "source": "缺少系统配置层 ",
+    "en": "Missing system configuration layer ",
+    "zh-Hant": "缺少系統配置層 "
+  },
+  {
+    "source": "自动发现暂不可用，可手动输入系统显示的端口",
+    "en": "Automatic discovery unavailable. Enter the port shown in system settings manually.",
+    "zh-Hant": "自動發現暫不可用，可手動輸入系統顯示的埠"
+  },
+  {
+    "source": "设置",
+    "en": "Settings",
+    "zh-Hant": "設定"
+  },
+  {
+    "source": "试试其他搜索词",
+    "en": "Try another search",
+    "zh-Hant": "試試其他搜尋詞"
+  },
+  {
+    "source": "请下拉通知栏，点「输入六位码」",
+    "en": "Open the notification shade and tap Enter code",
+    "zh-Hant": "請下拉通知欄，點「輸入六位碼」"
+  },
+  {
+    "source": "请先停止当前会话再更改地区",
+    "en": "Stop the current session before changing regions",
+    "zh-Hant": "請先停止當前會話再更改地區"
+  },
+  {
+    "source": "请先允许本应用的系统通知权限",
+    "en": "Allow system notifications for this app first",
+    "zh-Hant": "請先允許本應用的系統通知許可權"
+  },
+  {
+    "source": "请先在应用内打开通知设置",
+    "en": "Open notification settings in the app first",
+    "zh-Hant": "請先在應用內開啟通知設定"
+  },
+  {
+    "source": "请在系统设置中打开开发者选项 → 无线调试",
+    "en": "Open Settings → Developer options → Wireless debugging",
+    "zh-Hant": "請在系統設定中開啟開發者選項 → 無線除錯"
+  },
+  {
+    "source": "请在系统设置中打开开发者选项和 USB 调试",
+    "en": "Enable Developer options and USB debugging in Settings",
+    "zh-Hant": "請在系統設定中開啟開發者選項和 USB 除錯"
+  },
+  {
+    "source": "请展开本条通知，再点「输入六位码」；保持系统配对窗口打开",
+    "en": "Expand this notification and tap Enter code; keep the system pairing dialog open",
+    "zh-Hant": "請展開本條通知，再點「輸入六位碼」；保持系統配對視窗開啟"
+  },
+  {
+    "source": "请开启无线调试，正在寻找本机连接端口…",
+    "en": "Enable Wireless debugging. Searching for the local connection port…",
+    "zh-Hant": "請開啟無線除錯，正在尋找本機連線埠…"
+  },
+  {
+    "source": "请查看下方失败原因，可重新尝试",
+    "en": "See the error below and retry",
+    "zh-Hant": "請檢視下方失敗原因，可重新嘗試"
+  },
+  {
+    "source": "请输入当前系统配对窗口中的六位数字",
+    "en": "Enter the six digits from the current system pairing dialog",
+    "zh-Hant": "請輸入當前系統配對視窗中的六位數字"
+  },
+  {
+    "source": "请输入正确的六位配对码",
+    "en": "Enter a valid six-digit pairing code",
+    "zh-Hant": "請輸入正確的六位配對碼"
+  },
+  {
+    "source": "请输入端口和配对码",
+    "en": "Enter the port and pairing code",
+    "zh-Hant": "請輸入埠和配對碼"
+  },
+  {
+    "source": "请连接 Wi-Fi 并开启无线调试",
+    "en": "Connect to Wi-Fi and enable Wireless debugging",
+    "zh-Hant": "請連線 Wi-Fi 並開啟無線除錯"
+  },
+  {
+    "source": "请选择地区",
+    "en": "Choose a region",
+    "zh-Hant": "請選擇地區"
+  },
+  {
+    "source": "读取原配置超时，请重试",
+    "en": "Timed out reading the original configuration. Retry.",
+    "zh-Hant": "讀取原配置超時，請重試"
+  },
+  {
+    "source": "超级岛已关闭 · 直接使用普通通知输入",
+    "en": "Live updates off · Use standard notification input",
+    "zh-Hant": "超級島已關閉 · 直接使用普通通知輸入"
+  },
+  {
+    "source": "跟随系统",
+    "en": "Follow system",
+    "zh-Hant": "跟隨系統"
+  },
+  {
+    "source": "跟随系统，或选择一直使用浅色 / 深色。",
+    "en": "Follow your system, or always use light or dark mode.",
+    "zh-Hant": "跟隨系統，或選擇一直使用淺色 / 深色。"
+  },
+  {
+    "source": "轻触播放键，开始持续改卡",
+    "en": "Tap play to keep the SIM region",
+    "zh-Hant": "輕觸播放鍵，開始持續改卡"
+  },
+  {
+    "source": "输入六位码",
+    "en": "Enter code",
+    "zh-Hant": "輸入六位碼"
+  },
+  {
+    "source": "输入配对码",
+    "en": "Enter pairing code",
+    "zh-Hant": "輸入配對碼"
+  },
+  {
+    "source": "运行时自动检查，停止时恢复原配置。\n不占用 VPN 通道，不修改实体 SIM 卡。",
+    "en": "Automatically checks while running and restores when stopped.\nDoes not use the VPN channel or change the physical SIM.",
+    "zh-Hant": "執行時自動檢查，停止時恢復原配置。\n不佔用 VPN 通道，不修改實體 SIM 卡。"
+  },
+  {
+    "source": "返回",
+    "en": "Back",
+    "zh-Hant": "返回"
+  },
+  {
+    "source": "返回改卡界面",
+    "en": "Back to the main screen",
+    "zh-Hant": "返回改卡介面"
+  },
+  {
+    "source": "连接失败：",
+    "en": "Connection failed: ",
+    "zh-Hant": "連線失敗："
+  },
+  {
+    "source": "连接超时，请重新激活内置后台后重试",
+    "en": "Connection timed out. Reactivate the backend and retry.",
+    "zh-Hant": "連線超時，請重新啟用內建後臺後重試"
+  },
+  {
+    "source": "选择上一个地区",
+    "en": "Select previous region",
+    "zh-Hant": "選擇上一個地區"
+  },
+  {
+    "source": "选择下一个地区",
+    "en": "Select next region",
+    "zh-Hant": "選擇下一個地區"
+  },
+  {
+    "source": "选择明暗外观、改卡提醒与配对的呈现方式。",
+    "en": "Choose appearance, session reminders and pairing presentation.",
+    "zh-Hant": "選擇明暗外觀、改卡提醒與配對的呈現方式。"
+  },
+  {
+    "source": "选择目的地",
+    "en": "Choose a destination",
+    "zh-Hant": "選擇目的地"
+  },
+  {
+    "source": "通知与超级岛设置",
+    "en": "Notifications and live updates",
+    "zh-Hant": "通知與超級島設定"
+  },
+  {
+    "source": "通知权限用于在系统配对窗口保持打开时输入配对码。也可使用手动输入或电脑 USB 激活。",
+    "en": "Notifications let you enter the code while the system pairing dialog remains open. Manual entry or computer USB activation is also available.",
+    "zh-Hant": "通知許可權用於在系統配對視窗保持開啟時輸入配對碼。也可使用手動輸入或電腦 USB 啟用。"
+  },
+  {
+    "source": "配对",
+    "en": "Pair",
+    "zh-Hant": "配對"
+  },
+  {
+    "source": "配对与后台激活",
+    "en": "Pairing and backend activation",
+    "zh-Hant": "配對與後臺啟用"
+  },
+  {
+    "source": "配对和连接仅访问本机。首次系统授权需要你手动完成；应用不能自动开启调试。若系统停止后台，可回到这里重新激活。",
+    "en": "Pairing and debugging connections stay on this device. You must authorize them in system settings; the app cannot enable debugging automatically. Return here to reactivate if the system stops the backend.",
+    "zh-Hant": "配對和連線僅訪問本機。首次系統授權需要你手動完成；應用不能自動開啟除錯。若系統停止後臺，可回到這裡重新啟用。"
+  },
+  {
+    "source": "配对失败：",
+    "en": "Pairing failed: ",
+    "zh-Hant": "配對失敗："
+  },
+  {
+    "source": "配对成功",
+    "en": "Paired",
+    "zh-Hant": "配對成功"
+  },
+  {
+    "source": "配对成功，内置后台已就绪",
+    "en": "Paired. Backend ready.",
+    "zh-Hant": "配對成功，內建後臺已就緒"
+  },
+  {
+    "source": "配对成功，正在启动内置后台…",
+    "en": "Paired. Starting backend…",
+    "zh-Hant": "配對成功，正在啟動內建後臺…"
+  },
+  {
+    "source": "配对时显示实况状态；配对成功后自动结束",
+    "en": "Shows pairing progress and closes after pairing succeeds",
+    "zh-Hant": "配對時顯示實況狀態；配對成功後自動結束"
+  },
+  {
+    "source": "配对时显示超级岛",
+    "en": "Show live updates during pairing",
+    "zh-Hant": "配對時顯示超級島"
+  },
+  {
+    "source": "配对码错误或已失效",
+    "en": "Pairing code is incorrect or expired",
+    "zh-Hant": "配對碼錯誤或已失效"
+  },
+  {
+    "source": "配对码错误或已失效，请重新打开系统配对窗口",
+    "en": "Pairing code is incorrect or expired. Reopen the system pairing dialog.",
+    "zh-Hant": "配對碼錯誤或已失效，請重新開啟系統配對視窗"
+  },
+  {
+    "source": "配对窗口已关闭，请重新打开系统配对窗口",
+    "en": "Pairing dialog closed. Reopen it in system settings.",
+    "zh-Hant": "配對視窗已關閉，請重新開啟系統配對視窗"
+  },
+  {
+    "source": "配置已应用，等待系统更新国家码",
+    "en": "Configuration applied. Waiting for the system country code to update.",
+    "zh-Hant": "配置已應用，等待系統更新國家碼"
+  },
+  {
+    "source": "重新尝试",
+    "en": "Try again",
+    "zh-Hant": "重新嘗試"
+  },
+  {
+    "source": "重试恢复",
+    "en": "Retry restore",
+    "zh-Hant": "重試恢復"
+  },
+  {
+    "source": "首次使用，先激活内置后台",
+    "en": "Activate the backend before first use",
+    "zh-Hant": "首次使用，先啟用內建後臺"
+  },
+  {
+    "source": "首次使用，请按步骤激活",
+    "en": "Follow the steps to activate",
+    "zh-Hant": "首次使用，請按步驟啟用"
+  },
+  {
+    "source": "首次使用，请激活内置后台",
+    "en": "Activate the built-in backend to get started",
+    "zh-Hant": "首次使用，請啟用內建後臺"
+  },
+  {
+    "source": "首次配对后即可一键改卡，无需外部应用",
+    "en": "Pair once, then start with one tap. No external app needed.",
+    "zh-Hant": "首次配對後即可一鍵改卡，無需外部應用"
+  },
+  {
+    "source": "，未做修改",
+    "en": "; no changes made",
+    "zh-Hant": "，未做修改"
+  },
+  {
+    "source": "，第 ",
+    "en": ", item ",
+    "zh-Hant": "，第 "
+  },
+  {
+    "source": "语言、外观、通知与应用更新。",
+    "en": "Language, appearance, notifications and app updates.",
+    "zh-Hant": "語言、外觀、通知與應用更新。"
+  },
+  {
+    "source": "应用语言",
+    "en": "App language",
+    "zh-Hant": "應用語言"
+  },
+  {
+    "source": "应用更新",
+    "en": "App updates",
+    "zh-Hant": "應用更新"
+  },
+  {
+    "source": "当前版本：",
+    "en": "Installed version: ",
+    "zh-Hant": "當前版本："
+  },
+  {
+    "source": "检查更新",
+    "en": "Check for updates",
+    "zh-Hant": "檢查更新"
+  },
+  {
+    "source": "仅在你点击时访问 GitHub 官方仓库，检查最新正式版并下载 APK。安装前会验证文件校验和、包名、版本和签名。",
+    "en": "Only contacts the official GitHub repository when you request an update. Downloads are checked for checksum, package name, version and signing certificate before installation.",
+    "zh-Hant": "僅在你點選時訪問 GitHub 官方倉庫，檢查最新正式版並下載 APK。安裝前會驗證檔案校驗和、包名、版本和簽名。"
+  },
+  {
+    "source": "下载更新",
+    "en": "Download update",
+    "zh-Hant": "下載更新"
+  },
+  {
+    "source": "打开 GitHub 发布页 ↗",
+    "en": "Open GitHub releases ↗",
+    "zh-Hant": "開啟 GitHub 釋出頁 ↗"
+  },
+  {
+    "source": "没有可用浏览器",
+    "en": "No browser available",
+    "zh-Hant": "沒有可用瀏覽器"
+  },
+  {
+    "source": "首次安装更新需要允许本应用安装未知应用，并在系统安装界面确认。更新前请先停止改卡并恢复原配置；升级后可能需要重新激活后台。",
+    "en": "Allow this app to install unknown apps when prompted, then confirm in the system installer. Stop the session and restore the original configuration first. The backend may need reactivation after upgrading.",
+    "zh-Hant": "首次安裝更新需要允許本應用安裝未知應用，並在系統安裝介面確認。更新前請先停止改卡並恢復原配置；升級後可能需要重新啟用後臺。"
+  },
+  {
+    "source": "请先返回主界面停止改卡并恢复原配置，再安装更新。",
+    "en": "Return to the main screen, stop the session and restore the original configuration before installing an update.",
+    "zh-Hant": "請先返回主介面停止改卡並恢復原配置，再安裝更新。"
+  },
+  {
+    "source": "允许安装更新",
+    "en": "Allow update installation",
+    "zh-Hant": "允許安裝更新"
+  },
+  {
+    "source": "请在下一页允许来自潮汐改卡的安装。返回后将打开系统安装界面。",
+    "en": "On the next screen, allow installations from TideCard. The system installer will open when you return.",
+    "zh-Hant": "請在下一頁允許來自潮汐改卡的安裝。返回後將開啟系統安裝介面。"
+  },
+  {
+    "source": "前往设置",
+    "en": "Open settings",
+    "zh-Hant": "前往設定"
+  },
+  {
+    "source": "请在系统设置中允许安装未知应用",
+    "en": "Allow installation of unknown apps in system settings",
+    "zh-Hant": "請在系統設定中允許安裝未知應用"
+  },
+  {
+    "source": "无法打开安装界面：",
+    "en": "Could not open the system installer: ",
+    "zh-Hant": "無法開啟安裝介面："
+  },
+  {
+    "source": "正在检查更新…",
+    "en": "Checking for updates…",
+    "zh-Hant": "正在檢查更新…"
+  },
+  {
+    "source": "已是最新正式版",
+    "en": "You have the latest stable release",
+    "zh-Hant": "已是最新正式版"
+  },
+  {
+    "source": "发现新版本：",
+    "en": "New version: ",
+    "zh-Hant": "發現新版本："
+  },
+  {
+    "source": "正在下载：",
+    "en": "Downloading: ",
+    "zh-Hant": "正在下載："
+  },
+  {
+    "source": "校验通过，可以安装",
+    "en": "Verified and ready to install",
+    "zh-Hant": "校驗透過，可以安裝"
+  },
+  {
+    "source": "更新失败，请重试或打开发布页",
+    "en": "Update failed. Retry or open the releases page.",
+    "zh-Hant": "更新失敗，請重試或開啟發布頁"
+  },
+  {
+    "source": "点击检查更新，获取最新正式版",
+    "en": "Check for updates to get the latest stable release",
+    "zh-Hant": "點選檢查更新，獲取最新正式版"
+  },
+  {
+    "source": "安装更新",
+    "en": "Install update",
+    "zh-Hant": "安裝更新"
+  },
+  {
+    "source": "GitHub 版本说明（原文）：",
+    "en": "GitHub release notes (original language):",
+    "zh-Hant": "GitHub 版本說明（原文）："
+  },
+  {
+    "source": "当前版本高于 GitHub 正式版",
+    "en": "Installed version is newer than the GitHub stable release",
+    "zh-Hant": "當前版本高於 GitHub 正式版"
+  }
+]

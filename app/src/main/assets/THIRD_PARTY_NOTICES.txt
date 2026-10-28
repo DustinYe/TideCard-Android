@@ -1,4 +1,4 @@
-TideCard 2.0.1 third-party components
+TideCard 2.4.0 third-party components
 
 Readable component attribution and modifications: NOTICE.txt.
 Full license texts shipped in this APK:
@@ -10,11 +10,15 @@ Full license texts shipped in this APK:
   licenses for the upstream C++ runtime packaging.
 - Conscrypt-LICENSE.txt: Conscrypt Android 2.8.0 plus accompanying notices.
 - BoringSSL-LICENSE.txt: additional BoringSSL TLS license copy.
+- AndroidX-Kotlin-LICENSES.txt: AndroidX Core 1.17.0 and its Apache-2.0
+  dependencies, including Kotlin standard library 2.0.21, coroutines 1.8.1
+  and Guava listenablefuture. See the component list in that file.
 
 No external Shizuku manager or server is required or included. JNI binaries
 remain unmodified from the official release identified in NOTICE.txt.
 TideCard code uses local service discovery and 127.0.0.1 pairing/connection;
-no remote analytics, update API or advertising has been added.
+no analytics or advertising has been added. User-requested release checks and
+APK downloads contact the official GitHub repository over HTTPS.
 
 App menu: 使用说明 -> 开源许可.
 Repository: https://github.com/DustinYe/TideCard-Android

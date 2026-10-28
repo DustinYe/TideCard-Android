@@ -28,8 +28,8 @@ public final class Regions {
     public static String[] get(String iso) { String[] row=find(iso);return row==null?ALL[0]:row; }
     public static java.util.List<String[]> search(String query){
         String q=normalize(query);java.util.ArrayList<String[]> result=new java.util.ArrayList<>();
-        for(String[] row:ALL)if(q.isEmpty()||normalize(row[0]).contains(q)||normalize(row[1]).contains(q)||normalize(row[2]).contains(q)){if(!q.isEmpty()&&(row[0].equals(q)||normalize(row[1]).equals(q)||normalize(row[2]).equals(q)))result.add(0,row);else result.add(row);}return result;
+        for(String[] row:ALL){String traditional=normalize(new java.util.Locale("",row[4]).getDisplayCountry(java.util.Locale.TRADITIONAL_CHINESE));if(q.isEmpty()||normalize(row[0]).contains(q)||normalize(row[1]).contains(q)||normalize(row[2]).contains(q)||traditional.contains(q)){if(!q.isEmpty()&&(row[0].equals(q)||normalize(row[1]).equals(q)||normalize(row[2]).equals(q)||traditional.equals(q)))result.add(0,row);else result.add(row);}}return result;
     }
-    private static String normalize(String value){return java.text.Normalizer.normalize(value==null?"":value.trim(),java.text.Normalizer.Form.NFKD).replaceAll("\\p{M}+","").toLowerCase(java.util.Locale.ROOT);}
+    private static String normalize(String value){return java.text.Normalizer.normalize(value==null?"":value.trim().replace('臺','台'),java.text.Normalizer.Form.NFKD).replaceAll("\\p{M}+","").toLowerCase(java.util.Locale.ROOT);}
     public static String slots(int mask) { return mask == 3 ? "双卡" : mask == 1 ? "卡 1" : "卡 2"; }
 }

@@ -8,10 +8,13 @@ $apk=(Resolve-Path -LiteralPath $ApkPath).Path
 $sdk=(Resolve-Path -LiteralPath $SdkRoot).Path
 $out=[IO.Path]::GetFullPath($OutDir)
 $repo=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
-$gradle=[IO.File]::ReadAllText((Join-Path $repo 'app\build.gradle'))
-$code=[regex]::Match($gradle,'versionCode\s+(\d+)').Groups[1].Value
-$version=[regex]::Match($gradle,"versionName\s+'([^']+)'").Groups[1].Value
-if($code -ne '10' -or $version -ne '2.3.0'){throw 'Review desktop protocol and package version before changing the bundled version.'}
+$aapt=Join-Path $sdk 'build-tools\36.0.0\aapt.exe'
+$badging=(& $aapt dump badging $apk) -join "`n"
+if($LASTEXITCODE -ne 0){throw 'Could not inspect the bundled APK.'}
+$package=[regex]::Match($badging,"package: name='app.tidecard' versionCode='(\d+)' versionName='([^']+)'")
+$code=$package.Groups[1].Value
+$version=$package.Groups[2].Value
+if($code -ne '11' -or $version -ne '2.4.0'){throw 'Review desktop protocol and package version before changing the bundled version.'}
 $name="TideCard-$version.apk"
 $hash=(Get-FileHash -LiteralPath $apk -Algorithm SHA256).Hash.ToLowerInvariant()
 New-Item -ItemType Directory -Path $out -Force | Out-Null

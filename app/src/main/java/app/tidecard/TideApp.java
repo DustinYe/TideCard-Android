@@ -8,6 +8,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.json.*;
 
 public class TideApp extends Application {
+    public UpdateController updates;
     public final Handler main=new Handler(Looper.getMainLooper());
     public final ExecutorService worker=Executors.newSingleThreadExecutor();
     public final CopyOnWriteArrayList<Runnable> observers=new CopyOnWriteArrayList<>();
@@ -16,7 +17,7 @@ public class TideApp extends Application {
     public volatile String message="首次使用，请激活内置后台";
     public volatile JSONObject cards;
     private volatile SharedPreferences prefs;
-    @Override public void onCreate(){super.onCreate();prefs();token();if(prefs.contains("sessionFailure"))message=prefs.getString("sessionFailure",message);}
+    @Override public void onCreate(){super.onCreate();I18n.init(this);updates=new UpdateController(this);prefs();token();if(prefs.contains("sessionFailure"))message=prefs.getString("sessionFailure",message);}
     public SharedPreferences prefs(){if(prefs==null)synchronized(this){if(prefs==null)prefs=getSharedPreferences("tidecard",MODE_PRIVATE);}return prefs;}
     public synchronized String token(){prefs();String token=prefs.getString("bridgeToken",null);if(token==null){byte[] b=new byte[32];new SecureRandom().nextBytes(b);token=android.util.Base64.encodeToString(b,android.util.Base64.URL_SAFE|android.util.Base64.NO_WRAP|android.util.Base64.NO_PADDING);if(!prefs.edit().putString("bridgeToken",token).commit())throw new IllegalStateException("无法保存激活凭据");}return token;}
     public boolean active(){return prefs.contains("snapshot");}

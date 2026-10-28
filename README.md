@@ -2,9 +2,9 @@
 
 [下载安装包](https://github.com/DustinYe/TideCard-Android/releases/latest) · [开源许可与来源](THIRD_PARTY.md) · [发布前查重记录](docs/PUBLICATION_REVIEW.md)
 
-当前正式版为 **2.3.0**，包含 249 个国家和地区、可搜索的圆盘选择器，以及跟随系统 / 浅色 / 深色。功能沿用已在连接的小米手机验证的 rc3，支持新增荷兰双卡改卡与停止恢复。Windows USB 激活工具同步为 1.1.1；没有无线配对码 / IP 时可用数据线激活。**尚未在 vivo 或报错的 Redmi K80 Ultra 上验证写入兼容性**。完整范围见 [验证记录](docs/VALIDATION.md)，桌面构建方式见 [USB_ACTIVATION.md](docs/USB_ACTIVATION.md)。
+当前正式版为 **2.4.0**，新增简体中文、繁體中文、English 与跟随系统，以及设置中的 GitHub 更新检查、APK 下载校验和系统安装入口。保留 249 个国家和地区、圆盘选择器及深浅色外观。Windows USB 激活工具为 **1.1.2**，随附同版 APK。**尚未在 vivo 或报错的 Redmi K80 Ultra 上验证写入兼容性**。完整范围见 [验证记录](docs/VALIDATION.md)，桌面构建方式见 [USB_ACTIVATION.md](docs/USB_ACTIVATION.md)。
 
-Android 11 及以上，可从 [2.3.0 发布页面](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.3.0) 下载，旧版记录保留在 Releases。升级内容见 [CHANGELOG](CHANGELOG.md)。此项目与 Shizuku、Nrfr、Surfboard 均无官方隶属关系。
+Android 11 及以上，可从 [2.4.0 发布页面](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.4.0) 下载，旧版记录保留在 Releases。升级内容见 [CHANGELOG](CHANGELOG.md)。此项目与 Shizuku、Nrfr、Surfboard 均无官方隶属关系。
 
 ## 新系统 shell 写入限制
 
@@ -63,9 +63,17 @@ Android 的实况通知明确不展示 RemoteInput 回复输入；此手机的�
 
 这不会找回已经删除的历史备份，也不会假定所有残留都来自潮汐改卡。额外字段、无法识别的组合、持久覆盖或无法核对原地区时均保留现状并拒绝修改。停止时先恢复原国家码，再清除本次覆盖，处理部分系统清除配置后仍缓存旧国家码的行为。恢复失败会保留快照及待恢复状态，重新连接后可重试，不能把失败当作已停止。卸载前仍建议先停止恢复。
 
-## 本机通信与权限
+## 语言与应用更新（2.4.0）
 
-INTERNET 权限用于访问 `127.0.0.1` 的系统无线调试端口；本机服务发现通过 Android NSD 查找端口，只接受当前手机的网卡地址。代码没有远程 API、广告或统计上报。无需位置、电话、短信、联系人或存储权限。通知权限用于配对码输入及运行状态；POST_PROMOTED_NOTIFICATIONS 用于用户主动开始配对时的短时实况状态，EXPAND_STATUS_BAR 用于用户点击配对入口后尝试展开系统通知栏。
+设置中可选择跟随系统、简体中文、繁體中文或 English；Android 13 及以上也会同步系统应用语言设置。地区名称随语言变化，搜索接受简体、繁体、英语和 ISO 地区码。切换语言不会修改地区、卡槽、配对身份或恢复备份。
+
+点击设置中的“检查更新”会查询 GitHub 最新正式版。发现较新版本后下载 APK，核对大小、GitHub 提供的 SHA-256、包名、版本及与已安装版本相同的签名证书，再交给系统安装器。首次需手动允许本应用安装未知应用，安装仍需系统确认。请先停止改卡并恢复原配置再安装；更新后可能需要重新激活后台。检查和下载失败时可重试或打开发布页；不自动定时检查，不包含 GitHub 令牌或镜像服务。
+
+覆盖升级可保留应用数据；APK 和匹配的电脑激活工具均在 Releases 提供。
+
+## 通信与权限
+
+INTERNET 权限用于访问 `127.0.0.1` 的系统无线调试端口；本机服务发现通过 Android NSD 查找端口，只接受当前手机的网卡地址。此外，仅在用户主动检查更新或下载时访问官方 GitHub API / 发布资源；没有广告或统计上报。无需位置、电话、短信、联系人或存储权限。REQUEST_INSTALL_PACKAGES 用于将已校验的更新 APK 交给系统安装器，不用于静默安装。通知权限用于配对码输入及运行状态；POST_PROMOTED_NOTIFICATIONS 用于用户主动开始配对时的短时实况状态，EXPAND_STATUS_BAR 用于用户点击配对入口后尝试展开系统通知栏。
 
 ADB RSA 身份存放于应用私有目录，使用 AndroidKeyStore 的 AES-GCM 密钥加密；配对码不持久保存。应用备份关闭。卸载或清除数据后需重新配对。内置后台只暴露改卡所需的固定操作，不向其他应用提供任意命令执行接口。后台通过 shell UID、应用 UID、安装专用随机令牌、版本号及 Binder 调用方身份校验连接。
 

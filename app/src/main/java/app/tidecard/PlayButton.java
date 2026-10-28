@@ -18,7 +18,7 @@ public class PlayButton extends View {
     public void state(boolean running,boolean waiting,boolean recovery){
         busy=waiting;paused=recovery;
         if(active!=running){active=running;if(morph!=null)morph.cancel();morph=ValueAnimator.ofFloat(progress,active?1:0);morph.setDuration(280);morph.addUpdateListener(a->{progress=(float)a.getAnimatedValue();invalidate();});morph.start();}
-        setContentDescription(waiting?"正在处理，请稍候":running?recovery?"恢复待处理的原配置":"停止改卡并恢复原配置":"启动持续改卡");invalidate();
+        setContentDescription(waiting?I18n.tr("正在处理，请稍候"):running?recovery?I18n.tr("恢复待处理的原配置"):I18n.tr("停止改卡并恢复原配置"):I18n.tr("启动持续改卡"));invalidate();
         if(loop!=null){if(((active&&!paused)||busy)&&!loop.isRunning())loop.start();else if((!active||paused)&&!busy)loop.cancel();}
     }
     @Override public CharSequence getAccessibilityClassName(){return android.widget.Button.class.getName();}

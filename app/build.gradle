@@ -6,11 +6,12 @@ android {
         applicationId 'app.tidecard'
         minSdk 30
         targetSdk 36
-        versionCode 10
-        versionName '2.3.0'
+        versionCode = (project.findProperty('tideVersionCode') ?: '11').toInteger()
+        versionName = (project.findProperty('tideVersionName') ?: '2.4.0')
         testInstrumentationRunner 'app.tidecard.test.SmokeRunner'
     }
     buildFeatures { aidl true; buildConfig true }
+    bundle { language { enableSplit = false } }
     compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
     def keyFile = rootProject.file('../tidecard-signing/key.properties')
     if (keyFile.exists()) {
@@ -27,5 +28,6 @@ android {
     testBuildType 'release'
 }
 dependencies {
+    implementation 'androidx.core:core:1.17.0'
     implementation 'org.conscrypt:conscrypt-android:2.8.0'
 }

@@ -18,9 +18,9 @@ public class KeepService extends Service {
     private Notification notification(){
         Intent open=new Intent(this,MainActivity.class);PendingIntent pi=PendingIntent.getActivity(this,0,open,PendingIntent.FLAG_IMMUTABLE|PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent stop=PendingIntent.getService(this,1,new Intent(this,KeepService.class).setAction(STOP),PendingIntent.FLAG_IMMUTABLE|PendingIntent.FLAG_UPDATE_CURRENT);
-        String title=app.prefs().getBoolean("restorePending",false)?"操作未完成 · 原配置备份已保留":app.prefs().contains("sessionFailure")?"改卡未成功":app.active()?Regions.get(app.country())[1]+" · "+Regions.slots(app.mask())+" · 持续改卡":"正在准备改卡";
+        String title=app.prefs().getBoolean("restorePending",false)?"操作未完成 · 原配置备份已保留":app.prefs().contains("sessionFailure")?"改卡未成功":app.active()?I18n.region(Regions.get(app.country()))+" · "+I18n.slots(app.mask())+" · 持续改卡":"正在准备改卡";
         Bundle extras=new Bundle();extras.putBoolean(PairingNotifications.PROMOTE,false);
-        return new Notification.Builder(this,CHANNEL).setSmallIcon(R.drawable.ic_launcher).setContentTitle(title).setContentText(app.message).setContentIntent(pi).setOngoing(true).setOnlyAlertOnce(true).addExtras(extras).addAction(new Notification.Action.Builder(null,"停止并恢复",stop).build()).build();
+        return new Notification.Builder(this,CHANNEL).setSmallIcon(R.drawable.ic_launcher).setContentTitle(I18n.message(title)).setContentText(I18n.message(app.message)).setContentIntent(pi).setOngoing(true).setOnlyAlertOnce(true).addExtras(extras).addAction(new Notification.Action.Builder(null,I18n.tr("停止并恢复"),stop).build()).build();
     }
     private void update(){getSystemService(NotificationManager.class).notify(21,notification());app.changed();}
     @Override public int onStartCommand(Intent intent,int flags,int id){

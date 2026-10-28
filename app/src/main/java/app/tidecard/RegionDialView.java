@@ -21,10 +21,10 @@ public final class RegionDialView extends View {
         paint.setStyle(Paint.Style.FILL);paint.setShader(new RadialGradient(cx,cy,r,new int[]{0xFF263D30,0xFF101C16},null,Shader.TileMode.CLAMP));c.drawCircle(cx,cy,r,paint);paint.setShader(null);
         paint.setStrokeWidth(dp(1.2f));for(int i=0;i<60;i++){double a=Math.toRadians(i*6-90);float outer=r*.95f,inner=r*(i%5==0?.90f:.93f);paint.setColor(i%5==0?0xFF6F8C77:0xFF3B5442);c.drawLine(cx+(float)Math.cos(a)*inner,cy+(float)Math.sin(a)*inner,cx+(float)Math.cos(a)*outer,cy+(float)Math.sin(a)*outer,paint);}
         paint.setColor(0xFF1A2D22);c.drawCircle(cx,cy,r*.49f,paint);paint.setColor(0xFF38513E);paint.setStyle(Paint.Style.STROKE);paint.setStrokeWidth(dp(1));c.drawCircle(cx,cy,r*.49f,paint);paint.setStyle(Paint.Style.FILL);
-        String[] selected=model.selected();if(selected==null){label(c,"没有匹配地区",cx,cy,Math.min(sp(18),r*.14f),0xFFE8F1E2);return;}
-        label(c,"目的地",cx,cy-r*.28f,Math.min(sp(10),r*.085f),0xFF9CB59C);label(c,selected[4],cx,cy-r*.025f,Math.min(sp(46),r*.34f),0xFFD6EF9B);
+        String[] selected=model.selected();if(selected==null){label(c,I18n.tr("没有匹配地区"),cx,cy,Math.min(sp(18),r*.14f),0xFFE8F1E2);return;}
+        label(c,I18n.tr("目的地"),cx,cy-r*.28f,Math.min(sp(10),r*.085f),0xFF9CB59C);label(c,selected[4],cx,cy-r*.025f,Math.min(sp(46),r*.34f),0xFFD6EF9B);
         text.setTypeface(Typeface.create("sans-serif",Typeface.NORMAL));text.setTextAlign(Paint.Align.LEFT);text.setTextSize(Math.min(sp(15),r*.115f));text.setColor(0xFFE7EEE0);int width=(int)(r*.82f);
-        StaticLayout name=StaticLayout.Builder.obtain(selected[1],0,selected[1].length(),text,width).setAlignment(Layout.Alignment.ALIGN_CENTER).setIncludePad(false).setMaxLines(2).setEllipsize(TextUtils.TruncateAt.END).build();c.save();c.translate(cx-width/2f,cy+r*.17f);name.draw(c);c.restore();
+        StaticLayout name=StaticLayout.Builder.obtain(I18n.region(selected),0,I18n.region(selected).length(),text,width).setAlignment(Layout.Alignment.ALIGN_CENTER).setIncludePad(false).setMaxLines(2).setEllipsize(TextUtils.TruncateAt.END).build();c.save();c.translate(cx-width/2f,cy+r*.17f);name.draw(c);c.restore();
         for(int j=0;j<visible();j++){int relative=first()+j;double a=Math.toRadians(-90+relative*gap()+offset);float x=cx+(float)Math.cos(a)*r*.74f,y=cy+(float)Math.sin(a)*r*.74f;String[] row=model.neighbor(relative);
             paint.setColor(relative==0?0xFFD6EF9B:0xFF2D4434);c.drawCircle(x,y,r*.125f,paint);label(c,row[4],x,y,Math.min(sp(13),r*.105f),relative==0?0xFF20351E:0xFFCDDFC8);
         }
@@ -33,7 +33,7 @@ public final class RegionDialView extends View {
     public void refresh(){if(animation!=null)animation.cancel();offset=0;updateDescription();invalidate();}
     public void step(int direction){if(model.size()<2)return;model.step(direction);offset=direction*gap();selectionChanged();snap();}
     private void selectionChanged(){updateDescription();changed.run();invalidate();performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_SELECTED);}
-    private void updateDescription(){String[] row=model.selected();setContentDescription(row==null?"没有匹配地区":"地区圆盘，"+row[1]+"，"+row[4]+"，第 "+(model.index()+1)+" 项，共 "+model.size()+" 项。可前后滚动或使用下方按钮。");}
+    private void updateDescription(){String[] row=model.selected();setContentDescription(row==null?I18n.tr("没有匹配地区"):I18n.tr("地区圆盘，")+I18n.region(row)+"，"+row[4]+I18n.tr("，第 ")+(model.index()+1)+I18n.tr(" 项，共 ")+model.size()+I18n.tr(" 项。可前后滚动或使用下方按钮。"));}
     private void snap(){if(animation!=null)animation.cancel();animation=ValueAnimator.ofFloat(offset,0);animation.setDuration(220);animation.setInterpolator(new android.view.animation.DecelerateInterpolator());animation.addUpdateListener(a->{offset=(float)a.getAnimatedValue();invalidate();});animation.start();}
     private float angle(MotionEvent e){return (float)Math.toDegrees(Math.atan2(e.getY()-getHeight()/2f,e.getX()-getWidth()/2f));}
     @Override public boolean onTouchEvent(MotionEvent e){if(model.size()==0)return false;switch(e.getActionMasked()){

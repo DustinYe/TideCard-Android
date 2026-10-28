@@ -10,7 +10,7 @@ import org.json.*;
 import java.io.*;
 
 public class SmokeRunner extends Instrumentation {
-    MainActivity activity;TideApp app;StringBuilder log=new StringBuilder();boolean catalogOnly,uiOnly,setupOnly,wirelessOnly,notificationOnly,settingsOnly,recoveryOnly;
+    MainActivity activity;TideApp app;StringBuilder log=new StringBuilder();boolean catalogOnly,uiOnly,setupOnly,wirelessOnly,notificationOnly,settingsOnly,recoveryOnly,localizationOnly;String candidate;
     void note(String s){log.append(s).append('\n');Bundle b=new Bundle();b.putString("stream",s+"\n");sendStatus(0,b);}
     void require(boolean v,String s){if(!v)throw new AssertionError(s);}
     interface Condition{boolean ok();}
@@ -20,9 +20,10 @@ public class SmokeRunner extends Instrumentation {
     void capture(String name)throws Exception{Bitmap b=getUiAutomation().takeScreenshot();if(b!=null){try(FileOutputStream out=new FileOutputStream(new File(getTargetContext().getExternalFilesDir(null),name+".png"))){b.compress(Bitmap.CompressFormat.PNG,100,out);}b.recycle();}}
     void toggle(){runOnMainSync(()->{note("CLICK active="+app.active()+" busy="+app.busy+" authorized="+app.authorized()+" bridge="+(app.bridge!=null));boolean clicked=activity.findViewById(R.id.toggle).performClick();note("CLICK delivered="+clicked);});}
     void selection(String iso,int mask){runOnMainSync(()->{app.saveSelection(iso,app.mask());activity.findViewById(mask==3?R.id.slot_both:mask==1?R.id.slot_one:R.id.slot_two).performClick();});}
-    @Override public void onCreate(Bundle b){super.onCreate(b);catalogOnly=b!=null&&"true".equals(b.getString("catalogOnly"));uiOnly=b!=null&&"true".equals(b.getString("uiOnly"));setupOnly=b!=null&&"true".equals(b.getString("setup"));wirelessOnly=b!=null&&"true".equals(b.getString("wirelessOnly"));notificationOnly=b!=null&&"true".equals(b.getString("notificationOnly"));settingsOnly=b!=null&&"true".equals(b.getString("settingsOnly"));recoveryOnly=b!=null&&"true".equals(b.getString("recoveryOnly"));start();}
+    @Override public void onCreate(Bundle b){super.onCreate(b);localizationOnly=b!=null&&"true".equals(b.getString("localizationOnly"));candidate=b==null?null:b.getString("candidate");catalogOnly=b!=null&&"true".equals(b.getString("catalogOnly"));uiOnly=b!=null&&"true".equals(b.getString("uiOnly"));setupOnly=b!=null&&"true".equals(b.getString("setup"));wirelessOnly=b!=null&&"true".equals(b.getString("wirelessOnly"));notificationOnly=b!=null&&"true".equals(b.getString("notificationOnly"));settingsOnly=b!=null&&"true".equals(b.getString("settingsOnly"));recoveryOnly=b!=null&&"true".equals(b.getString("recoveryOnly"));start();}
     @Override public void onStart(){
         waitForIdleSync();
+        if(localizationOnly){LocalizationUpdateChecks.run(this,candidate);return;}
         if(catalogOnly){CatalogSessionChecks.run(this);return;}
         if(uiOnly){RegionUiChecks.run(this);return;}
         if(recoveryOnly){ReinstallRecoveryChecks.run(this);return;}
