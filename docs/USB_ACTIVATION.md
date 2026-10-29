@@ -2,7 +2,7 @@
 
 Windows 工具当前为 **1.1.4**，配套 Android APK 为 **2.4.1 正式版**。新增华为 / 鸿蒙 USB 接口和驱动诊断，并隔离影响本机 ADB 连接的继承环境设置，保留高 DPI 修复。受影响华为手机尚未实测，检索依据和排查步骤见 [华为连接诊断](HUAWEI_USB.md)。升级手机到本版后请使用匹配的电脑工具，旧版工具会阻止降级安装。技术说明与验证方式见 [桌面缩放适配](DESKTOP_UI.md)。
 
-下载：[Windows USB 工具 1.1.4](https://github.com/DustinYe/TideCard-Android/releases/tag/usb-v1.1.4)。这是独立的电脑工具发布；Android 应用内更新仍以 2.4.1 为最新版本。
+下载：[Android 2.4.1 发布页的 USB 1.1.4 附件](https://github.com/DustinYe/TideCard-Android/releases/download/v2.4.1/TideCard-USB-1.1.4-Windows.zip)，或查看 [USB 1.1.4 独立发布页](https://github.com/DustinYe/TideCard-Android/releases/tag/usb-v1.1.4)。两个位置提供相同文件；Android 应用内更新仍以 2.4.1 为最新版本。
 
 适用于手机无线调试没有“使用配对码配对设备”、没有 IP，或希望通过数据线激活的场景。Windows 工具只负责安装应用、启动同一个内置 shell 后台，不自动选择地区、写入 CarrierConfig 或开启持续改卡。
 
