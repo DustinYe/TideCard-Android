@@ -8,13 +8,14 @@ using System.Windows.Forms;
 
 namespace TideCardUsb {
     internal sealed class FakeAdb : IAdb {
-        internal string State="device",InstallFailure=null,Owner="0"; internal int Version=BundleInfo.VersionCode-1,Polls,ReadyAfter=2;
+        internal string State="device",InstallFailure=null,Owner="0",ShellFault,FaultText="java.lang.SecurityException: PRIVATE_PHONE_TOKEN"; internal int FaultCode=255,Version=BundleInfo.VersionCode-1,Polls,ReadyAfter=2;
         internal bool Launched,AlreadyReady,WrongVersion,FailLaunch; internal List<string> Calls=new List<string>();
         internal string Record="Bundle[{record=TIDEUSB1|"+BundleInfo.VersionCode+"|10123|AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA|"+Convert.ToBase64String(Encoding.UTF8.GetBytes("/data/app/example/base.apk"))+"}]";
         public AdbResult Run(string[] args,string input,int timeoutMs) {
             string call=string.Join(" ",args); Calls.Add(call);
             if(args[0]=="devices")return new AdbResult(0,"List of devices attached\nUSB123 "+State+" model:Vivo_Test transport_id:1\n192.0.2.1:5555 device model:Other\n");
             if(args.Length<3||args[0]!="-s"||args[1]!="USB123")throw new Exception("Command not pinned to selected device");
+            if(ShellFault!=null&&call.Contains(ShellFault))return new AdbResult(FaultCode,FaultText);
             if(call.Contains("getprop"))return new AdbResult(0,"36\n");
             if(call.Contains("get-current-user"))return new AdbResult(0,Owner+"\n");
             if(call.Contains("dumpsys package"))return new AdbResult(0,"versionCode="+Version+" minSdk=30\n");
@@ -52,7 +53,16 @@ namespace TideCardUsb {
                 }
                 FakeAdb timeout=new FakeAdb{ReadyAfter=99};Reject(()=>Run(timeout,logs).Activate("USB123",apk),"尚未确认激活成功");
                 FakeAdb wrong=new FakeAdb{WrongVersion=true};Reject(()=>Run(wrong,logs).Activate("USB123",apk),"尚未确认激活成功");
-                FakeAdb denied=new FakeAdb{FailLaunch=true};Reject(()=>Run(denied,logs).Activate("USB123",apk),"拒绝启动");
+                FakeAdb denied=new FakeAdb{FailLaunch=true};Reject(()=>Run(denied,logs).Activate("USB123",apk),"启动内置后台");
+                foreach(string stage in new[]{"getprop","get-current-user","dumpsys package","am start","usb_prepare"}) {
+                    FakeAdb restricted=new FakeAdb {ShellFault=stage};Reject(()=>Run(restricted,logs).Activate("USB123",apk),"被系统拒绝");Require(!restricted.Launched,"launch after shell denial");
+                    if(stage=="getprop"||stage=="get-current-user"||stage=="dumpsys package")Require(!restricted.Calls.Any(c=>c.Contains("install")),"install after read-stage denial");
+                }
+                FakeAdb invalidUser=new FakeAdb {Owner="invalid"};Reject(()=>Run(invalidUser,logs).Activate("USB123",apk),"用户信息无效");
+                FakeAdb failedUser=new FakeAdb {ShellFault="get-current-user",FaultCode=1,FaultText="unknown transport error PRIVATE_PHONE_TOKEN"};Reject(()=>Run(failedUser,logs).Activate("USB123",apk),"读取当前用户");Require(!failedUser.Calls.Any(c=>c.Contains("install")),"nonzero user query must stop before install");
+                FakeAdb absent=new FakeAdb {ShellFault="dumpsys package",FaultCode=1,FaultText="Unable to find package: app.tidecard"};Run(absent,logs).Activate("USB123",apk);Require(absent.Launched,"fresh install for explicitly missing package");
+                FakeAdb zeroDenied=new FakeAdb {ShellFault="get-current-user",FaultCode=0};Reject(()=>Run(zeroDenied,logs).Activate("USB123",apk),"被系统拒绝");
+                Require(!string.Join("\n",logs).Contains("PRIVATE_PHONE_TOKEN"),"shell denial details in logs");
                 Reject(()=>UsbRecord.Parse("Bundle[{record=TIDEUSB1|"+BundleInfo.VersionCode+"|10123|bad|L2RhdGE=}]"),"有效激活信息");
                 Reject(()=>UsbRecord.Parse(good.Record.Replace("|"+BundleInfo.VersionCode+"|","|"+(BundleInfo.VersionCode-1)+"|")),"版本或用户身份不匹配");
                 Reject(()=>UsbRecord.Parse(good.Record.Replace("|10123|","|110123|")),"版本或用户身份不匹配");

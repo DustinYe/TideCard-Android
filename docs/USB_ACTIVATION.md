@@ -1,8 +1,8 @@
 # 电脑 USB 激活
 
-Windows 工具当前为 **1.1.5**，配套 Android APK 为 **2.4.1 正式版**。新增 ADB 客户端自检、启动 / 退出错误码及文件缺失检查，保留华为 / 鸿蒙 USB 诊断和子进程环境隔离，保留高 DPI 修复。受影响华为手机尚未实测，检索依据和排查步骤见 [华为连接诊断](HUAWEI_USB.md)。升级手机到本版后请使用匹配的电脑工具，旧版工具会阻止降级安装。技术说明与验证方式见 [桌面缩放适配](DESKTOP_UI.md)。
+Windows 工具当前为 **1.1.6**，配套 Android APK 为 **2.4.1 正式版**。修复非华为品牌漏检，提供通用 USB 候选检测、OPPO / ColorOS 指引与本机服务协议检查，保留客户端自检和高 DPI 适配。受影响 OPPO / ColorOS 电脑及手机尚未现场验证，依据和步骤见 [OPPO 排查](OPPO_COLOROS_USB.md)。升级手机到本版后请使用匹配的电脑工具，旧版工具会阻止降级安装。技术说明与验证方式见 [桌面缩放适配](DESKTOP_UI.md)。
 
-下载：[Android 2.4.1 发布页的 USB 1.1.5 附件](https://github.com/DustinYe/TideCard-Android/releases/download/v2.4.1/TideCard-USB-1.1.5-Windows.zip)，或查看 [USB 1.1.5 独立发布页](https://github.com/DustinYe/TideCard-Android/releases/tag/usb-v1.1.5)。两个位置提供相同文件；Android 应用内更新仍以 2.4.1 为最新版本。
+下载：[Android 2.4.1 发布页的 USB 1.1.6 附件](https://github.com/DustinYe/TideCard-Android/releases/download/v2.4.1/TideCard-USB-1.1.6-Windows.zip)，或查看 [USB 1.1.6 独立发布页](https://github.com/DustinYe/TideCard-Android/releases/tag/usb-v1.1.6)。两个位置提供相同文件；Android 应用内更新仍以 2.4.1 为最新版本。
 
 适用于手机无线调试没有“使用配对码配对设备”、没有 IP，或希望通过数据线激活的场景。Windows 工具只负责安装应用、启动同一个内置 shell 后台，不自动选择地区、写入 CarrierConfig 或开启持续改卡。
 
@@ -17,7 +17,7 @@ Windows 工具当前为 **1.1.5**，配套 Android APK 为 **2.4.1 正式版**�
 
 Android USB 调试需要系统开关和用户确认，不能用导入普通文件替代这一授权。没有设备时检查数据线、USB 接口和厂商驱动；某些系统还需要选择“传输文件”。参考 [Android 官方 ADB 文档](https://developer.android.com/tools/adb)。
 
-华为手机能打开存储但列表为空时，点“连接诊断 / 华为”。诊断区分文件传输 / HDB / HDC 与 ADB，提供官方驱动、设备管理器和复制脱敏诊断入口。HarmonyOS 4.2 的手机助手选择“**HarmonyOS 4 及以下**”，其 HDB 授权不能代替 ADB 的 RSA 授权。详见 [华为排查步骤](HUAWEI_USB.md)。
+OPPO / ColorOS 用户点“连接诊断”，从“OPPO / 厂商帮助”查看对应阶段的指引。检测不再只统计华为；若客户端正常而设备查询超时，先拔下手机对照，再核对本机 5037 服务。ColorOS 权限监控属于连接后的权限限制，不能用空列表或超时推断。华为专用的 HiSuite 入口独立列出，详见 [OPPO / 通用排查](OPPO_COLOROS_USB.md)。
 
 ## 安装与凭据
 
@@ -29,7 +29,7 @@ Android USB 调试需要系统开关和用户确认，不能用导入普通文�
 
 Windows EXE 未做 Authenticode 代码签名，APK 保持原签名。完整压缩包提供逐文件 SHA-256 校验。随附 `adb.exe`、`AdbWinApi.dll`、`AdbWinUsbApi.dll` 为未修改的 Android SDK Platform-Tools 37.0.1 文件，完整声明随 `adb/NOTICE.txt` 提供。
 
-连接诊断只读查询 Windows 华为 PnP 节点与 ADB 状态，不自动保存或上传，复制内容不含序列号和 PnP 实例尾部。ADB 子进程固定本机 5037 端口，隔离 `ADB_SERVER_SOCKET`、`ANDROID_ADB_SERVER_PORT`、`ANDROID_ADB_SERVER_ADDRESS`、`ANDROID_SERIAL`、`ADB_TRACE`，并设置 `ADB_LIBUSB=0`；不更改全局环境或强制结束已有服务。原生 USB 后端仅对之后新启动的服务生效。
+连接诊断只读查询 Windows USB 候选节点与 ADB 状态，设备查询失败时另做有总超时的本机 ADB 协议检查，不自动保存或上传，复制内容不含序列号和 PnP 实例尾部。ADB 子进程固定本机 5037 端口，隔离 `ADB_SERVER_SOCKET`、`ANDROID_ADB_SERVER_PORT`、`ANDROID_ADB_SERVER_ADDRESS`、`ANDROID_SERIAL`、`ADB_TRACE`，并设置 `ADB_LIBUSB=0`；不更改全局环境或强制结束已有服务。原生 USB 后端仅对之后新启动的服务生效。
 
 ## 构建
 

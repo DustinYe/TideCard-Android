@@ -34,6 +34,9 @@ namespace TideCardUsb {
         private static void Render(Form form,string path) { using(Bitmap bitmap=new Bitmap(form.Width,form.Height)) { form.DrawToBitmap(bitmap,new Rectangle(Point.Empty,bitmap.Size));bitmap.Save(path); } }
         internal static void Run(string outputDirectory) {
             Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);Directory.CreateDirectory(outputDirectory);
+            using(ContextMenuStrip menu=DiagnosticDialog.CreateHelpMenu(null)) {
+                Require(menu.Items.Count==4,"OEM help options");Require(menu.Items[0].Text.Contains("OPPO")&&new Uri((string)menu.Items[0].Tag).Host=="support.oppo.com","OPPO official help comes first");Require(menu.Items[3].Text.Contains("华为专用"),"HiSuite clearly scoped to Huawei");
+            }
             List<string> report=new List<string>();int nativeDpi;
             using(MainForm form=new MainForm(false)) { form.Show();Settle(form);nativeDpi=form.DeviceDpi;Validate(form,"native");Render(form,Path.Combine(outputDirectory,"desktop-preview.png"));report.Add("Actual Windows form DPI: "+nativeDpi); }
             int profiles=0;
@@ -49,15 +52,15 @@ namespace TideCardUsb {
                     form.ClientSize=new Size((int)Math.Round((narrow?520:740)*dpi/96.0),(int)Math.Round((narrow?400:650)*dpi/96.0));
                     for(int i=controls.Count-1;i>=0;i--)controls[i].ResumeLayout(true);Settle(form);
                     Label state=(Label)form.Controls.Find("status",true)[0];string profile=dpi+"dpi-"+(narrow?"narrow":"normal");
-                    foreach(string value in new[]{"未发现 ADB 调试设备。能打开手机存储不代表 ADB 已连接；请点“连接诊断 / 华为”检查接口和驱动。","✓ 后台已激活，可以拔线\r\n请在手机上返回改卡界面，选择地区并开始。","请解锁手机并允许这台电脑进行 USB 调试，然后点击刷新；若系统要求确认 USB 安装，请在手机上手动允许本次安装。"}) {state.Text=value;Settle(form);Validate(form,profile);}
-                    state.Text="未发现 ADB 调试设备。能打开手机存储不代表 ADB 已连接；请点“连接诊断 / 华为”检查接口和驱动。";Settle(form);Render(form,Path.Combine(outputDirectory,"layout-"+profile+".png"));
+                    foreach(string value in new[]{"未发现 ADB 调试设备。能打开手机存储不代表 ADB 已连接；请点“连接诊断”检查接口和驱动。","✓ 后台已激活，可以拔线\r\n请在手机上返回改卡界面，选择地区并开始。","请解锁手机并允许这台电脑进行 USB 调试，然后点击刷新；若系统要求确认 USB 安装，请在手机上手动允许本次安装。"}) {state.Text=value;Settle(form);Validate(form,profile);}
+                    state.Text="未发现 ADB 调试设备。能打开手机存储不代表 ADB 已连接；请点“连接诊断”检查接口和驱动。";Settle(form);Render(form,Path.Combine(outputDirectory,"layout-"+profile+".png"));
                     report.Add("PASS synthetic "+profile+" client="+form.ClientSize.Width+"x"+form.ClientSize.Height);profiles++;
                     form.Close();foreach(Font font in scaled)font.Dispose();
                 }
             }
             int dialogs=0;
             foreach(int dpi in new[]{96,120,144,168,192,216,240})foreach(bool narrow in new[]{false,true}) {
-                Diagnosis result=ConnectionDiagnostics.Analyze(new AdbResult(0,"List of devices attached\n"),new UsbSnapshot {Available=true,Nodes=new List<UsbNode>{new UsbNode {DeviceId=@"USB\VID_12D1&PID_107E&MI_01",Name="HUAWEI MTP",ProblemCode=0}}});
+                Diagnosis result=ConnectionDiagnostics.Analyze(new AdbResult(0,"List of devices attached\n"),new UsbSnapshot {Available=true,Nodes=new List<UsbNode>{new UsbNode {DeviceId=@"USB\VID_22D9&PID_2765&MI_01",Name="OPPO MTP",ProblemCode=0}}});
                 if(narrow) {
                     string missing=Path.Combine(outputDirectory,"missing-layout-fixture","adb.exe");Require(!File.Exists(missing),"missing client fixture must not execute a real program");
                     AdbProbe failure=AdbProbe.Run(new Adb(missing),"ADB 客户端自检",new[]{"version"},"Android Debug Bridge version",1000);

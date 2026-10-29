@@ -107,6 +107,10 @@ namespace TideCardUsb {
         }
         private AdbResult Shell(string serial,params string[] args) { List<string> all=new List<string>{"shell"}; all.AddRange(args); return On(serial,15000,null,all.ToArray()); }
         private AdbResult Provider(string serial,string method) { return Shell(serial,"content","call","--user","0","--uri","content://app.tidecard.bridge","--method",method); }
+        private static void CheckShell(AdbResult result,string stage) {
+            if(Regex.IsMatch(result.Output,@"SecurityException|Permission Denial|permission denied|not allowed",RegexOptions.IgnoreCase))throw new InvalidOperationException("ADB 已连接，但“"+stage+"”被系统拒绝（退出码 "+result.Code+"）。若实际系统为 ColorOS，请查看“OPPO / 厂商帮助”中的 ADB 权限受限说明；具体选项需按该机 ROM 核对。尚未确认该机允许启动后台或改卡。");
+            if(result.Code!=0)throw new InvalidOperationException("ADB 已连接，但“"+stage+"”未成功（退出码 "+result.Code+"）。请检查该机的 shell 权限和系统提示，未将此状态当作手机未连接。");
+        }
         internal static void VerifyPackage(string apk) {
             if(!File.Exists(apk))throw new InvalidOperationException("找不到配套 APK，请完整解压工具包后重试。");
             string hash; using(SHA256 sha=SHA256.Create())using(FileStream stream=File.OpenRead(apk))hash=BitConverter.ToString(sha.ComputeHash(stream)).Replace("-","").ToLowerInvariant();
@@ -118,10 +122,16 @@ namespace TideCardUsb {
             if(selected.State=="unauthorized")throw new InvalidOperationException("请解锁手机，在「允许 USB 调试」中允许这台电脑，再点击刷新。");
             if(selected.State!="device")throw new InvalidOperationException("手机当前未就绪。请重新插线、解锁并确认 USB 调试已开启。");
             AdbResult sdk=Shell(serial,"getprop","ro.build.version.sdk"); int api;
-            if(sdk.Code!=0||!int.TryParse(sdk.Output.Trim(),out api)||api<30)throw new InvalidOperationException("需要 Android 11 或以上，且 USB 调试必须正常连接。");
+            CheckShell(sdk,"读取 Android 版本");
+            if(!int.TryParse(sdk.Output.Trim(),out api))throw new InvalidOperationException("ADB 已连接，但没有读取到有效的 Android 版本，尚未确认系统是否满足要求。");
+            if(api<30)throw new InvalidOperationException("需要 Android 11 或以上。");
             AdbResult user=Shell(serial,"am","get-current-user");
-            if(user.Code!=0||user.Output.Trim()!="0")throw new InvalidOperationException("目前仅支持手机主用户。请退出访客、工作空间或系统分身后再试。");
+            CheckShell(user,"读取当前用户");int userId;
+            if(!int.TryParse(user.Output.Trim(),out userId)||userId<0)throw new InvalidOperationException("ADB 已连接，但当前用户信息无效，尚未确认是否为主用户。");
+            if(userId!=0)throw new InvalidOperationException("目前仅支持手机主用户。请退出访客、工作空间或系统分身后再试。");
             AdbResult installed=Shell(serial,"dumpsys","package","app.tidecard");
+            bool missingPackage=Regex.IsMatch(installed.Output,@"(?:Unable to find|Unknown|Can't find) package:\s*app\.tidecard\b",RegexOptions.IgnoreCase);
+            if(!missingPackage)CheckShell(installed,"读取已装应用信息");
             Match version=Regex.Match(installed.Output,@"\bversionCode=(\d+)\b"); long code;
             if(version.Success&&long.TryParse(version.Groups[1].Value,out code)&&code>BundleInfo.VersionCode)throw new InvalidOperationException("手机装有更高版本，为保留数据不进行降级。请获取与手机版本配套的电脑工具。");
             VerifyPackage(apk); log("配套 APK 校验通过。正在安装 / 更新，保留原有数据…");
@@ -135,14 +145,16 @@ namespace TideCardUsb {
             }
             log("应用已安装。正在打开手机上的 USB 激活页面…");
             AdbResult open=Shell(serial,"am","start","-W","-n","app.tidecard/.UsbActivationActivity");
+            CheckShell(open,"打开 USB 激活页面");
             if(open.Code!=0||open.Output.Contains("Error:")||open.Output.Contains("Exception"))throw new InvalidOperationException("无法打开应用。请在手机上解锁并打开潮汐改卡后重试。");
             AdbResult initial=Provider(serial,"usb_status");
             if(initial.Code==0&&UsbRecord.Ready(initial.Output)) { log("内置后台已经就绪，无需重复启动。"); return; }
             AdbResult preparation=Provider(serial,"usb_prepare");
-            if(preparation.Code!=0)throw new InvalidOperationException("无法读取本次安装的激活信息，请保持手机解锁并重试。");
+            CheckShell(preparation,"读取激活信息");
             UsbRecord record=UsbRecord.Parse(preparation.Output);
             log("已读取本次安装信息，正在通过 USB 启动内置后台…");
             AdbResult launch=On(serial,15000,record.Script(),"shell","sh","-s");
+            CheckShell(launch,"启动内置后台");
             if(launch.Code!=0||launch.Output.Contains("Permission denied")||launch.Output.Contains("not found"))throw new InvalidOperationException("手机拒绝启动内置后台。请检查系统 USB 调试限制；无需继续尝试无线配对。");
             for(int i=0;i<20;i++) { delay(750); AdbResult state=Provider(serial,"usb_status"); if(state.Code==0&&UsbRecord.Ready(state.Output)) { log("手机已确认：内置后台就绪。"); return; } }
             throw new InvalidOperationException("后台未在规定时间内连接，尚未确认激活成功。请检查手机页面并重试；需要针对这台手机进一步诊断。");
