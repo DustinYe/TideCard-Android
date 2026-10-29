@@ -1,6 +1,8 @@
 # 电脑 USB 激活
 
-Windows 工具当前为 **1.1.3**，配套 Android APK 为 **2.4.1 正式版**，保留此前高 DPI 修复。升级手机到本版后请使用匹配的电脑工具，旧版工具会阻止降级安装。技术说明与验证方式见 [桌面缩放适配](DESKTOP_UI.md)。
+Windows 工具当前为 **1.1.4**，配套 Android APK 为 **2.4.1 正式版**。新增华为 / 鸿蒙 USB 接口和驱动诊断，并隔离影响本机 ADB 连接的继承环境设置，保留高 DPI 修复。受影响华为手机尚未实测，检索依据和排查步骤见 [华为连接诊断](HUAWEI_USB.md)。升级手机到本版后请使用匹配的电脑工具，旧版工具会阻止降级安装。技术说明与验证方式见 [桌面缩放适配](DESKTOP_UI.md)。
+
+下载：[Windows USB 工具 1.1.4](https://github.com/DustinYe/TideCard-Android/releases/tag/usb-v1.1.4)。这是独立的电脑工具发布；Android 应用内更新仍以 2.4.1 为最新版本。
 
 适用于手机无线调试没有“使用配对码配对设备”、没有 IP，或希望通过数据线激活的场景。Windows 工具只负责安装应用、启动同一个内置 shell 后台，不自动选择地区、写入 CarrierConfig 或开启持续改卡。
 
@@ -15,6 +17,8 @@ Windows 工具当前为 **1.1.3**，配套 Android APK 为 **2.4.1 正式版**�
 
 Android USB 调试需要系统开关和用户确认，不能用导入普通文件替代这一授权。没有设备时检查数据线、USB 接口和厂商驱动；某些系统还需要选择“传输文件”。参考 [Android 官方 ADB 文档](https://developer.android.com/tools/adb)。
 
+华为手机能打开存储但列表为空时，点“连接诊断 / 华为”。诊断区分文件传输 / HDB / HDC 与 ADB，提供官方驱动、设备管理器和复制脱敏诊断入口。HarmonyOS 4.2 的手机助手选择“**HarmonyOS 4 及以下**”，其 HDB 授权不能代替 ADB 的 RSA 授权。详见 [华为排查步骤](HUAWEI_USB.md)。
+
 ## 安装与凭据
 
 每次激活使用 `adb install -r` 覆盖安装工具随附且 SHA-256 匹配的 APK，保留应用数据。签名冲突或更高版本时停止，不自动卸载、清除数据或强制降级。已有改卡会话的恢复快照保持在应用私有存储中。卸载前应在原应用停止并恢复。
@@ -24,6 +28,8 @@ Android USB 调试需要系统开关和用户确认，不能用导入普通文�
 电脑只操作所选序列号，网络和模拟器传输不列入选择。脚本中的路径用 POSIX 单引号转义；令牌仅在电脑内存处理，通过 ADB 标准输入传递，不进入 Windows 进程参数或界面日志。令牌仍按既有设计保存在手机应用私有偏好中。工具不联网、不保存诊断文件、不打开网络 ADB 端口、不重启设备、不清除数据或手动结束 ADB server。ADB 自身可能使用 / 启动本机的标准 ADB server。
 
 Windows EXE 未做 Authenticode 代码签名，APK 保持原签名。完整压缩包提供逐文件 SHA-256 校验。随附 `adb.exe`、`AdbWinApi.dll`、`AdbWinUsbApi.dll` 为未修改的 Android SDK Platform-Tools 37.0.1 文件，完整声明随 `adb/NOTICE.txt` 提供。
+
+连接诊断只读查询 Windows 华为 PnP 节点与 ADB 状态，不自动保存或上传，复制内容不含序列号和 PnP 实例尾部。ADB 子进程固定本机 5037 端口，隔离 `ADB_SERVER_SOCKET`、`ANDROID_ADB_SERVER_PORT`、`ANDROID_ADB_SERVER_ADDRESS`、`ANDROID_SERIAL`、`ADB_TRACE`，并设置 `ADB_LIBUSB=0`；不更改全局环境或强制结束已有服务。原生 USB 后端仅对之后新启动的服务生效。
 
 ## 构建
 

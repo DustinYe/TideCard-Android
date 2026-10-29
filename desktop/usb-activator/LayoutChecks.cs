@@ -49,13 +49,34 @@ namespace TideCardUsb {
                     form.ClientSize=new Size((int)Math.Round((narrow?520:740)*dpi/96.0),(int)Math.Round((narrow?400:650)*dpi/96.0));
                     for(int i=controls.Count-1;i>=0;i--)controls[i].ResumeLayout(true);Settle(form);
                     Label state=(Label)form.Controls.Find("status",true)[0];string profile=dpi+"dpi-"+(narrow?"narrow":"normal");
-                    foreach(string value in new[]{"未检测到 USB 手机。请检查数据线、USB 调试和驱动。","✓ 后台已激活，可以拔线\r\n请在手机上返回改卡界面，选择地区并开始。","请解锁手机并允许这台电脑进行 USB 调试，然后点击刷新；若系统要求确认 USB 安装，请在手机上手动允许本次安装。"}) {state.Text=value;Settle(form);Validate(form,profile);}
-                    state.Text="未检测到 USB 手机。请检查数据线、USB 调试和驱动。";Settle(form);Render(form,Path.Combine(outputDirectory,"layout-"+profile+".png"));
+                    foreach(string value in new[]{"未发现 ADB 调试设备。能打开手机存储不代表 ADB 已连接；请点“连接诊断 / 华为”检查接口和驱动。","✓ 后台已激活，可以拔线\r\n请在手机上返回改卡界面，选择地区并开始。","请解锁手机并允许这台电脑进行 USB 调试，然后点击刷新；若系统要求确认 USB 安装，请在手机上手动允许本次安装。"}) {state.Text=value;Settle(form);Validate(form,profile);}
+                    state.Text="未发现 ADB 调试设备。能打开手机存储不代表 ADB 已连接；请点“连接诊断 / 华为”检查接口和驱动。";Settle(form);Render(form,Path.Combine(outputDirectory,"layout-"+profile+".png"));
                     report.Add("PASS synthetic "+profile+" client="+form.ClientSize.Width+"x"+form.ClientSize.Height);profiles++;
                     form.Close();foreach(Font font in scaled)font.Dispose();
                 }
             }
-            report.Add("PASS "+profiles+" synthetic layouts; "+assertions+" bounds, preferred text height and scroll reachability assertions. Windows scale settings unchanged.");
+            int dialogs=0;
+            foreach(int dpi in new[]{96,120,144,168,192,216,240})foreach(bool narrow in new[]{false,true}) {
+                Diagnosis result=ConnectionDiagnostics.Analyze(new AdbResult(0,"List of devices attached\n"),new UsbSnapshot {Available=true,Nodes=new List<UsbNode>{new UsbNode {DeviceId=@"USB\VID_12D1&PID_107E&MI_01",Name="HUAWEI MTP",ProblemCode=0}}});
+                using(DiagnosticDialog dialog=new DiagnosticDialog(result)) {
+                    dialog.Show();Settle(dialog);float factor=(float)dpi/dialog.DeviceDpi;
+                    List<Control> controls=new List<Control>(Descendants(dialog));List<Font> original=new List<Font>(),scaled=new List<Font>();
+                    foreach(Control control in controls){original.Add(control.Font);control.SuspendLayout();}
+                    dialog.AutoScaleMode=AutoScaleMode.None;dialog.MinimumSize=Size.Empty;dialog.Scale(new SizeF(factor,factor));
+                    for(int i=0;i<controls.Count;i++){Font font=new Font(original[i].FontFamily,original[i].SizeInPoints*factor,original[i].Style,GraphicsUnit.Point);scaled.Add(font);controls[i].Font=font;}
+                    dialog.ClientSize=new Size((int)Math.Round((narrow?400:720)*dpi/96.0),(int)Math.Round((narrow?320:570)*dpi/96.0));
+                    for(int i=controls.Count-1;i>=0;i--)controls[i].ResumeLayout(true);Settle(dialog);
+                    string profile=dpi+"dpi-"+(narrow?"narrow":"normal");
+                    foreach(Control control in Descendants(dialog))if(control is Label||control is Button) {
+                        Require(control.Height+1>=control.GetPreferredSize(new Size(control.Width,0)).Height,profile+" diagnostic text clipped: "+control.Text);
+                        Require(control.Left>=0&&control.Top>=0&&control.Right<=control.Parent.ClientSize.Width+1&&control.Bottom<=control.Parent.ClientSize.Height+1,profile+" diagnostic button bounds: "+control.Text);
+                    }
+                    Control reportBox=dialog.Controls.Find("diagnosisReport",true)[0];Require(reportBox.Height>=40*dpi/96,profile+" diagnostic report not usable");
+                    Render(dialog,Path.Combine(outputDirectory,"diagnostic-"+profile+".png"));report.Add("PASS synthetic diagnostic "+profile+" client="+dialog.ClientSize.Width+"x"+dialog.ClientSize.Height);dialogs++;
+                    dialog.Close();foreach(Font font in scaled)font.Dispose();
+                }
+            }
+            report.Add("PASS "+profiles+" main and "+dialogs+" diagnostic synthetic layouts; "+assertions+" bounds, preferred text height and scroll reachability assertions. Windows scale settings unchanged.");
             File.WriteAllLines(Path.Combine(outputDirectory,"layout-checks.txt"),report);Console.WriteLine(string.Join(Environment.NewLine,report));
         }
     }

@@ -28,19 +28,28 @@ namespace TideCardUsb {
             }
             b.Append('\\',slashes*2); b.Append('"'); return b.ToString();
         }
+        internal static void ConfigureEnvironment(ProcessStartInfo info) {
+            foreach(string name in ConnectionDiagnostics.IsolatedEnvironment)info.EnvironmentVariables.Remove(name);
+            info.EnvironmentVariables["ADB_LIBUSB"]="0";
+        }
+        internal ProcessStartInfo CreateStartInfo(string[] args,bool input) {
+            StringBuilder joined=new StringBuilder("-P 5037");foreach(string arg in args)joined.Append(' ').Append(Quote(arg));
+            ProcessStartInfo info=new ProcessStartInfo(path,joined.ToString());
+            info.UseShellExecute=false;info.CreateNoWindow=true;info.WorkingDirectory=Path.GetDirectoryName(path);
+            info.RedirectStandardOutput=true;info.RedirectStandardError=true;info.RedirectStandardInput=input;
+            info.StandardOutputEncoding=Encoding.UTF8;info.StandardErrorEncoding=Encoding.UTF8;
+            ConfigureEnvironment(info);return info;
+        }
         public AdbResult Run(string[] args,string input,int timeoutMs) {
             if(!File.Exists(path))throw new InvalidOperationException("找不到随附的 adb.exe，请先完整解压 ZIP 后运行。");
-            StringBuilder joined=new StringBuilder(); foreach(string arg in args) { if(joined.Length>0)joined.Append(' '); joined.Append(Quote(arg)); }
-            ProcessStartInfo info=new ProcessStartInfo(path,joined.ToString());
-            info.UseShellExecute=false; info.CreateNoWindow=true; info.WorkingDirectory=Path.GetDirectoryName(path);
-            info.RedirectStandardOutput=true; info.RedirectStandardError=true; info.RedirectStandardInput=input!=null;
-            info.StandardOutputEncoding=Encoding.UTF8; info.StandardErrorEncoding=Encoding.UTF8;
+            ProcessStartInfo info=CreateStartInfo(args,input!=null);
             using(Process p=new Process()) {
                 p.StartInfo=info; p.Start();
                 Task<string> output=p.StandardOutput.ReadToEndAsync(), error=p.StandardError.ReadToEndAsync();
                 if(input!=null) { p.StandardInput.Write(input); p.StandardInput.Close(); }
                 if(!p.WaitForExit(timeoutMs)) { try { p.Kill(); } catch(InvalidOperationException) {} throw new InvalidOperationException("电脑操作超时。请检查手机上的解锁、USB 授权或安装提示后重试；没有清除应用数据。"); }
-                Task.WaitAll(output,error); return new AdbResult(p.ExitCode,output.Result+"\n"+error.Result);
+                if(!Task.WaitAll(new Task[]{output,error},3000))throw new InvalidOperationException("ADB 输出读取超时，请重新连接并重试；未清除应用数据。");
+                return new AdbResult(p.ExitCode,output.Result+"\n"+error.Result);
             }
         }
     }
@@ -89,7 +98,7 @@ namespace TideCardUsb {
         internal Workflow(IAdb adb,Action<string> log,Action<int> delay) { this.adb=adb; this.log=log; this.delay=delay; }
         internal List<Device> Devices() {
             AdbResult r=adb.Run(new string[]{"devices","-l"},null,15000);
-            if(r.Code!=0)throw new InvalidOperationException("ADB 未能列出设备。请重新插线并确认 USB 驱动正常。");
+            if(r.Code!=0||!r.Output.Contains("List of devices attached"))throw new InvalidOperationException("ADB 未能列出设备。请使用连接诊断检查 USB 接口、驱动和本机调试环境。");
             return Device.Parse(r.Output);
         }
         private AdbResult On(string serial,int timeout,string input,params string[] args) {

@@ -62,6 +62,7 @@ namespace TideCardUsb {
                 foreach(string call in good.Calls)Require(!call.Contains("uninstall")&&!call.Contains("pm clear")&&!call.Contains("force-stop")&&!call.Contains("tcpip")&&!call.Contains("kill-server"),"unexpected device mutation");
                 string corrupted=Path.GetTempFileName();try{File.WriteAllText(corrupted,"invalid APK");Reject(()=>Workflow.VerifyPackage(corrupted),"校验不一致");}finally{File.Delete(corrupted);}
                 if(args.Length>2) { Adb real=new Adb(Path.GetFullPath(args[2]));AdbResult info=real.Run(new[]{"version"},null,15000);Require(info.Code==0&&info.Output.Contains("Android Debug Bridge version"),"bundled ADB failed to start");AdbResult connected=real.Run(new[]{"devices","-l"},null,15000);Require(connected.Code==0&&connected.Output.Contains("List of devices attached"),"bundled ADB list failed");Console.WriteLine("Real bundled ADB executable started; USB device count: "+Device.Parse(connected.Output).Count); }
+                if(args.Length>2)ConnectionDiagnosticsChecks.Run(Path.GetFullPath(args[2]));
                 if(args.Length>1)LayoutChecks.Run(Path.GetDirectoryName(Path.GetFullPath(args[1])));
                 Console.WriteLine("PASS "+count+" USB desktop assertions: authorization, selected device, install failure, downgrade, callback readiness, timeout, strict records, credentials and APK integrity. Mock transport; no physical device.");return 0;
             } catch(Exception e) {Console.Error.WriteLine(e.ToString());return 1;}
