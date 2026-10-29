@@ -1,4 +1,4 @@
-TideCard 2.4.0 third-party components
+TideCard 2.4.1 third-party components
 
 Readable component attribution and modifications: NOTICE.txt.
 Full license texts shipped in this APK:

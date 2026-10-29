@@ -1593,5 +1593,15 @@
     "source": "当前版本高于 GitHub 正式版",
     "en": "Installed version is newer than the GitHub stable release",
     "zh-Hant": "當前版本高於 GitHub 正式版"
+  },
+  {
+    "source": "卡槽订阅信息存在多个有效编号，已停止操作",
+    "en": "Multiple active subscription IDs were returned for this slot. Operation stopped.",
+    "zh-Hant": "卡槽訂閱資訊存在多個有效編號，已停止操作"
+  },
+  {
+    "source": "系统返回了不支持的卡槽订阅格式",
+    "en": "The system returned an unsupported subscription ID format.",
+    "zh-Hant": "系統回傳了不支援的卡槽訂閱格式"
   }
 ]

@@ -2,9 +2,9 @@
 
 [下载安装包](https://github.com/DustinYe/TideCard-Android/releases/latest) · [开源许可与来源](THIRD_PARTY.md) · [发布前查重记录](docs/PUBLICATION_REVIEW.md)
 
-当前正式版为 **2.4.0**，新增简体中文、繁體中文、English 与跟随系统，以及设置中的 GitHub 更新检查、APK 下载校验和系统安装入口。保留 249 个国家和地区、圆盘选择器及深浅色外观。Windows USB 激活工具为 **1.1.2**，随附同版 APK。**尚未在 vivo 或报错的 Redmi K80 Ultra 上验证写入兼容性**。完整范围见 [验证记录](docs/VALIDATION.md)，桌面构建方式见 [USB_ACTIVATION.md](docs/USB_ACTIVATION.md)。
+当前正式版为 **2.4.1**，修复部分系统在配对激活后读取 SIM 订阅编号时的空指针 / 旧接口兼容问题。包含简体中文、繁體中文、English 与跟随系统，以及应用内 GitHub 更新检查、APK 下载校验和系统安装入口。保留 249 个国家和地区、圆盘选择器及深浅色外观。Windows USB 激活工具为 **1.1.3**，随附同版 APK。**本次修复尚待截图报错手机验证，vivo 与 Redmi K80 Ultra 的写入兼容性亦未确认**。完整范围见 [验证记录](docs/VALIDATION.md)，桌面构建方式见 [USB_ACTIVATION.md](docs/USB_ACTIVATION.md)。
 
-Android 11 及以上，可从 [2.4.0 发布页面](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.4.0) 下载，旧版记录保留在 Releases。升级内容见 [CHANGELOG](CHANGELOG.md)。此项目与 Shizuku、Nrfr、Surfboard 均无官方隶属关系。
+Android 11 及以上，可从 [2.4.1 发布页面](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.4.1) 下载，旧版记录保留在 Releases。升级内容见 [CHANGELOG](CHANGELOG.md)。此项目与 Shizuku、Nrfr、Surfboard 均无官方隶属关系。
 
 ## 新系统 shell 写入限制
 

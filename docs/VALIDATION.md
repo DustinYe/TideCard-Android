@@ -2,6 +2,14 @@
 
 日期：2026-10-25。
 
+## 2026-10-29：2.4.1 SIM 订阅兼容性修复
+
+22 项纯 JVM 回归通过：通过反射模拟旧数组 / 新整数接口，先复现旧版空值拆箱空指针及数组转换失败，再验证空卡槽、无效编号、单卡 / 双卡掩码、卡槽隔离、重复同一编号及歧义 / 未知格式拒绝。测试没有访问手机或执行写入。诊断细节与复现命令见 [订阅接口说明](SUBSCRIPTION_COMPAT.md)。
+
+Release APK、独立 Android 测试 APK 构建及 lintRelease 通过（0 errors / 45 warnings）；版本为 2.4.1 / code 12，沿用原签名证书。检查已打包新的 SubscriptionIdResolver 类。配套 Windows USB 工具 1.1.3 通过 43 项模拟流程与 14 组 DPI / 窄窗口布局检查；随附实际 ADB 可启动，本轮列出 0 台 USB 手机。
+
+本次没有新手机安装、激活、SIM 信息读取或改卡 / 恢复实测。截图报错用户仅确认使用最新版，手机型号、Android / ROM 版本及卡槽情况未知。2.4.1 按用户要求作为正式版提供下载验证，不能据此宣称已经复现或解决该手机的全部问题，也不改变 vivo / Redmi K80 Ultra 等机型的既有验证边界。
+
 ## 2026-10-28：2.4.0 多语言与应用更新
 
 在连接的小米 2304FPN6DC / HyperOS 3 / Android 16 上，使用原签名覆盖安装 2.4.0（versionCode 11）。Release APK、独立测试 APK 构建及 lintRelease 通过（0 errors / 45 warnings）。

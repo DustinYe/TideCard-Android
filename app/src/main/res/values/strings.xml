@@ -322,6 +322,8 @@
         <item>"安装更新"</item>
         <item>"GitHub 版本说明（原文）："</item>
         <item>"当前版本高于 GitHub 正式版"</item>
+        <item>"卡槽订阅信息存在多个有效编号，已停止操作"</item>
+        <item>"系统返回了不支持的卡槽订阅格式"</item>
     </string-array>
     <string-array name="message_translations">
         <item>"\n\nA brief checkmark confirms pairing. The notification then closes; everyday sessions do not use live updates."</item>
@@ -643,5 +645,7 @@
         <item>"Install update"</item>
         <item>"GitHub release notes (original language):"</item>
         <item>"Installed version is newer than the GitHub stable release"</item>
+        <item>"Multiple active subscription IDs were returned for this slot. Operation stopped."</item>
+        <item>"The system returned an unsupported subscription ID format."</item>
     </string-array>
 </resources>

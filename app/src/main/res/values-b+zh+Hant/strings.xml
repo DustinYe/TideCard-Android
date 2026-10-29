@@ -322,5 +322,7 @@
         <item>"安裝更新"</item>
         <item>"GitHub 版本說明（原文）："</item>
         <item>"當前版本高於 GitHub 正式版"</item>
+        <item>"卡槽訂閱資訊存在多個有效編號，已停止操作"</item>
+        <item>"系統回傳了不支援的卡槽訂閱格式"</item>
     </string-array>
 </resources>

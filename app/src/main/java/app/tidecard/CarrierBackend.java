@@ -32,7 +32,7 @@ public class CarrierBackend extends ICarrierBridge.Stub {
         subApi=Class.forName("com.android.internal.telephony.ISub");
         subscriptions=Class.forName("com.android.internal.telephony.ISub$Stub").getMethod("asInterface",IBinder.class).invoke(null,b);
     }
-    private int subId(int slot) throws Exception {return (Integer)subApi.getMethod("getSubId",int.class).invoke(subscriptions,slot);}
+    private int subId(int slot) throws Exception {return SubscriptionIdResolver.from(subApi.getMethod("getSubId",int.class).invoke(subscriptions,slot));}
     private SubscriptionInfo info(int id) throws Exception {
         return (SubscriptionInfo)subApi.getMethod("getActiveSubscriptionInfo",int.class,String.class,String.class).invoke(subscriptions,id,"com.android.shell",null);
     }
