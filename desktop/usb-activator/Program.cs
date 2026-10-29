@@ -64,7 +64,7 @@ namespace TideCardUsb {
         }
         private async Task Diagnose() {
             Busy(true);state.Text="正在检查 ADB 列表与 Windows 华为 USB 接口…";
-            try {Diagnosis result=await Task.Run(()=>ConnectionDiagnostics.Read(adb,new WindowsUsbInventory()));state.Text=result.Summary;using(DiagnosticDialog dialog=new DiagnosticDialog(result))dialog.ShowDialog(this);}
+            try {Diagnosis result=await Task.Run(()=>ConnectionDiagnostics.Read(adb,new WindowsUsbInventory(),adb.Runtime()));state.Text=result.Summary;using(DiagnosticDialog dialog=new DiagnosticDialog(result))dialog.ShowDialog(this);}
             catch(Exception){state.Text="诊断未完成，请打开设备管理器检查 USB 接口与驱动。";}finally{Busy(false);}
         }
         private async Task ActivateSelected() {

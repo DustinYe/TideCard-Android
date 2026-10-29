@@ -17,6 +17,7 @@ namespace TideCardUsb {
     internal sealed class Adb : IAdb {
         private readonly string path;
         internal Adb(string path) { this.path=path; }
+        internal AdbRuntime Runtime() {return AdbRuntime.Inspect(path);}
         internal static string Quote(string value) {
             // Windows CommandLineToArgvW escaping, including trailing backslashes.
             StringBuilder b=new StringBuilder("\""); int slashes=0;
@@ -41,14 +42,14 @@ namespace TideCardUsb {
             ConfigureEnvironment(info);return info;
         }
         public AdbResult Run(string[] args,string input,int timeoutMs) {
-            if(!File.Exists(path))throw new InvalidOperationException("找不到随附的 adb.exe，请先完整解压 ZIP 后运行。");
+            if(!File.Exists(path))throw new AdbRunException("missing-executable","找不到随附的 adb.exe，请先完整解压 ZIP 后运行。");
             ProcessStartInfo info=CreateStartInfo(args,input!=null);
             using(Process p=new Process()) {
                 p.StartInfo=info; p.Start();
                 Task<string> output=p.StandardOutput.ReadToEndAsync(), error=p.StandardError.ReadToEndAsync();
                 if(input!=null) { p.StandardInput.Write(input); p.StandardInput.Close(); }
-                if(!p.WaitForExit(timeoutMs)) { try { p.Kill(); } catch(InvalidOperationException) {} throw new InvalidOperationException("电脑操作超时。请检查手机上的解锁、USB 授权或安装提示后重试；没有清除应用数据。"); }
-                if(!Task.WaitAll(new Task[]{output,error},3000))throw new InvalidOperationException("ADB 输出读取超时，请重新连接并重试；未清除应用数据。");
+                if(!p.WaitForExit(timeoutMs)) { try { p.Kill(); } catch(InvalidOperationException) {} throw new AdbRunException("client-timeout","电脑操作超时。请检查手机上的解锁、USB 授权或安装提示后重试；没有清除应用数据。"); }
+                if(!Task.WaitAll(new Task[]{output,error},3000))throw new AdbRunException("output-timeout","ADB 输出读取超时，请重新连接并重试；未清除应用数据。");
                 return new AdbResult(p.ExitCode,output.Result+"\n"+error.Result);
             }
         }

@@ -27,7 +27,7 @@ $csc=Join-Path $env:WINDIR 'Microsoft.NET\Framework64\v4.0.30319\csc.exe'
 if(-not(Test-Path -LiteralPath $csc)){throw '.NET Framework C# compiler not found.'}
 $exe=Join-Path $out 'TideCard-USB.exe'
 $common=@('/nologo','/optimize+','/utf8output','/platform:anycpu','/r:System.Windows.Forms.dll','/r:System.Drawing.dll','/r:System.Core.dll','/r:System.Management.dll')
-$sources=@((Join-Path $PSScriptRoot 'Core.cs'),(Join-Path $PSScriptRoot 'Program.cs'),(Join-Path $PSScriptRoot 'AssemblyInfo.cs'),(Join-Path $PSScriptRoot 'ConnectionDiagnostics.cs'),(Join-Path $PSScriptRoot 'DiagnosticDialog.cs'),$generated)
+$sources=@((Join-Path $PSScriptRoot 'Core.cs'),(Join-Path $PSScriptRoot 'Program.cs'),(Join-Path $PSScriptRoot 'AssemblyInfo.cs'),(Join-Path $PSScriptRoot 'AdbDiagnostics.cs'),(Join-Path $PSScriptRoot 'ConnectionDiagnostics.cs'),(Join-Path $PSScriptRoot 'DiagnosticDialog.cs'),$generated)
 & $csc @common /target:winexe /main:TideCardUsb.Program "/win32manifest:$(Join-Path $PSScriptRoot 'app.manifest')" "/out:$exe" @sources
 if($LASTEXITCODE -ne 0){throw 'Desktop compiler failed.'}
 $checks=Join-Path $build 'UsbActivator.Checks.exe'

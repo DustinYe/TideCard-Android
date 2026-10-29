@@ -2,7 +2,7 @@
 
 [下载安装包](https://github.com/DustinYe/TideCard-Android/releases/latest) · [开源许可与来源](THIRD_PARTY.md) · [发布前查重记录](docs/PUBLICATION_REVIEW.md)
 
-当前 Android 正式版为 **2.4.1**，修复部分系统在配对激活后读取 SIM 订阅编号时的空指针 / 旧接口兼容问题。包含简体中文、繁體中文、English 与跟随系统，以及应用内 GitHub 更新检查、APK 下载校验和系统安装入口。保留 249 个国家和地区、圆盘选择器及深浅色外观。[Windows USB 激活工具 **1.1.4**](https://github.com/DustinYe/TideCard-Android/releases/tag/usb-v1.1.4) 随附同版 APK，新增[华为 / 鸿蒙 USB 连接诊断](docs/HUAWEI_USB.md)。**华为连接和截图报错手机的修复效果仍需各自实机验证，vivo 与 Redmi K80 Ultra 的写入兼容性亦未确认**。完整范围见 [验证记录](docs/VALIDATION.md)，桌面构建方式见 [USB_ACTIVATION.md](docs/USB_ACTIVATION.md)。
+当前 Android 正式版为 **2.4.1**，修复部分系统在配对激活后读取 SIM 订阅编号时的空指针 / 旧接口兼容问题。包含简体中文、繁體中文、English 与跟随系统，以及应用内 GitHub 更新检查、APK 下载校验和系统安装入口。保留 249 个国家和地区、圆盘选择器及深浅色外观。[Windows USB 激活工具 **1.1.5**](https://github.com/DustinYe/TideCard-Android/releases/tag/usb-v1.1.5) 随附同版 APK，包含[华为 / 鸿蒙 USB 连接诊断](docs/HUAWEI_USB.md)，并补充 ADB 客户端启动自检、错误码和文件缺失检查。**华为连接和截图报错手机的修复效果仍需各自实机验证，vivo 与 Redmi K80 Ultra 的写入兼容性亦未确认**。完整范围见 [验证记录](docs/VALIDATION.md)，桌面构建方式见 [USB_ACTIVATION.md](docs/USB_ACTIVATION.md)。
 
 Android 11 及以上，可从 [2.4.1 发布页面](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.4.1) 下载，旧版记录保留在 Releases。升级内容见 [CHANGELOG](CHANGELOG.md)。此项目与 Shizuku、Nrfr、Surfboard 均无官方隶属关系。
 

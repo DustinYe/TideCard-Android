@@ -58,6 +58,11 @@ namespace TideCardUsb {
             int dialogs=0;
             foreach(int dpi in new[]{96,120,144,168,192,216,240})foreach(bool narrow in new[]{false,true}) {
                 Diagnosis result=ConnectionDiagnostics.Analyze(new AdbResult(0,"List of devices attached\n"),new UsbSnapshot {Available=true,Nodes=new List<UsbNode>{new UsbNode {DeviceId=@"USB\VID_12D1&PID_107E&MI_01",Name="HUAWEI MTP",ProblemCode=0}}});
+                if(narrow) {
+                    string missing=Path.Combine(outputDirectory,"missing-layout-fixture","adb.exe");Require(!File.Exists(missing),"missing client fixture must not execute a real program");
+                    AdbProbe failure=AdbProbe.Run(new Adb(missing),"ADB 客户端自检",new[]{"version"},"Android Debug Bridge version",1000);
+                    result=ConnectionDiagnostics.Analyze(failure.Result,new UsbSnapshot {Available=true},"",failure,new AdbProbe {Stage="ADB 设备查询"},AdbRuntime.Inspect(missing));
+                }
                 using(DiagnosticDialog dialog=new DiagnosticDialog(result)) {
                     dialog.Show();Settle(dialog);float factor=(float)dpi/dialog.DeviceDpi;
                     List<Control> controls=new List<Control>(Descendants(dialog));List<Font> original=new List<Font>(),scaled=new List<Font>();

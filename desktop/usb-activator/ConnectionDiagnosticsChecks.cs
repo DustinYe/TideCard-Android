@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 
 namespace TideCardUsb {
@@ -20,10 +22,64 @@ namespace TideCardUsb {
             public AdbResult Run(string[] args,string input,int timeoutMs){
                 Require(input==null,"diagnosis must not send commands over stdin");string call=string.Join(" ",args);Calls.Add(call);
                 if(Fail)throw new InvalidOperationException("PRIVATE_SERIAL_987");
+                if(call=="version")return new AdbResult(0,"Android Debug Bridge version 1.0.41\n");
                 if(call=="devices -l")return Listing();
                 if(call=="server-status")return new AdbResult(0,"usb_backend: LIBUSB\nexecutable_absolute_path: C:\\PRIVATE_PATH\\adb.exe\n");
                 throw new InvalidOperationException("unexpected diagnostic command");
             }
+        }
+        private sealed class ProbeAdb : IAdb {
+            internal AdbResult Version=new AdbResult(0,"Android Debug Bridge version 1.0.41\nPRIVATE_PATH_987");
+            internal AdbResult Devices=Listing();internal Exception Failure;internal string FailureStage="version";internal List<string> Calls=new List<string>();
+            public AdbResult Run(string[] args,string input,int timeoutMs) {
+                string stage=args[0];Calls.Add(stage);Require(input==null,"probe must be read-only");
+                if(Failure!=null&&stage==FailureStage)throw Failure;
+                if(stage=="version")return Version;if(stage=="devices")return Devices;
+                if(stage=="server-status")return new AdbResult(0,"usb_backend: LIBADBUSB\nexecutable_absolute_path: C:\\PRIVATE_PATH_987");
+                throw new InvalidOperationException("unexpected command");
+            }
+        }
+        private static void ProbeChecks(string adbPath) {
+            foreach(int code in new[]{2,3,5,126,193,216,1150,999}) {
+                ProbeAdb fake=new ProbeAdb {Failure=new Win32Exception(code,"PRIVATE_SERIAL_987 C:\\PRIVATE_PATH_987")};
+                Diagnosis report=ConnectionDiagnostics.Read(fake,new StubInventory());
+                Require(report.Report.Contains("Win32="+code),"native error code "+code);Require(!report.Report.Contains("PRIVATE_"),"native exception redaction");
+                Require(fake.Calls.SequenceEqual(new[]{"version"}),"no server calls after process startup failure");
+            }
+            foreach(string issue in new[]{"missing-executable","client-timeout","output-timeout"}) {
+                Diagnosis report=ConnectionDiagnostics.Read(new ProbeAdb {Failure=new AdbRunException(issue,"PRIVATE_PATH_987")},new StubInventory());
+                Require(report.Report.Contains("分类="+issue),"typed failure "+issue);Require(!report.Report.Contains("PRIVATE_"),"typed exception redaction");
+            }
+            uint[] exits={0xc0000135,0xc000007b,0xc0000142};string[] issues={"missing-module","invalid-image","initialization-failed"};
+            for(int i=0;i<exits.Length;i++) {
+                Diagnosis report=ConnectionDiagnostics.Read(new ProbeAdb {Version=new AdbResult(unchecked((int)exits[i]),"PRIVATE_PATH_987")},new StubInventory());
+                Require(report.Report.Contains("分类="+issues[i]),"loader error category");Require(report.Report.Contains("0x"+exits[i].ToString("X8")),"hex loader status");Require(!report.Report.Contains("PRIVATE_"),"loader output redaction");
+            }
+            string[] errors={"adb server version (39) doesn't match this client (41)","error: protocol fault (couldn't read status)","cannot connect to daemon at tcp:5037","unknown failure"};
+            string[] signatures={"server-version","server-protocol","server-connect","client-exit"};
+            for(int i=0;i<errors.Length;i++) {
+                ProbeAdb fake=new ProbeAdb {Devices=new AdbResult(1,errors[i]+"\nPRIVATE_SERIAL_987 C:\\PRIVATE_PATH_987 TOKEN_987")};Diagnosis report=ConnectionDiagnostics.Read(fake,new StubInventory());
+                Require(report.Report.Contains("分类="+signatures[i]),"server failure category");Require(report.Report.Contains("退出码=1 (0x00000001)"),"nonzero exit retained");
+                Require(!report.Report.Contains("PRIVATE_")&&!report.Report.Contains("TOKEN_987"),"server output redaction");Require(fake.Calls.SequenceEqual(new[]{"version","devices"}),"failed list skips status query");
+            }
+            Diagnosis malformed=ConnectionDiagnostics.Read(new ProbeAdb {Devices=new AdbResult(0,"PRIVATE_SERIAL_987 device\n")},new StubInventory());
+            Require(malformed.Report.Contains("unexpected-output"),"zero exit does not imply valid list");Require(malformed.Report.Contains("上述计数不能"),"invalid list counts qualified");
+            Require(WindowsUsbInventory.IncludePresence(null,0),"missing Present retained as candidate");Require(WindowsUsbInventory.IncludePresence(null,null),"unknown provider state retained");
+            Require(!WindowsUsbInventory.IncludePresence(false,0),"explicitly absent node excluded");Require(!WindowsUsbInventory.IncludePresence(null,45),"disconnected error excluded");
+            Require(WindowsUsbInventory.IncludePresence(true,28),"present unbound node retained");
+            UsbSnapshot unknown=Snapshot(Node("HUAWEI MTP"));unknown.PresenceUnknown=1;Require(Analyze(unknown).Report.Contains("Present 状态未提供"),"unknown presence disclosed");
+            AdbRuntime mismatch=new AdbRuntime {Exe=true,Api=true,UsbApi=true,Os64=false,Machine="x64",WindowsVersion="10.0"};
+            Require(mismatch.Advice().Contains("32 位 Windows"),"runtime architecture mismatch");ProbeAdb blocked=new ProbeAdb();Diagnosis blockedReport=ConnectionDiagnostics.Read(blocked,new StubInventory(),mismatch);Require(blocked.Calls.Count==0&&blockedReport.Report.Contains("runtime-incompatible"),"incompatible runtime does not launch client");mismatch.Os64=true;Require(mismatch.Advice()=="","matching runtime not rejected");
+            string directory=Path.Combine(Path.GetTempPath(),"TideCard-Diagnostics-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(directory);string missing=Path.Combine(directory,"adb.exe");
+            try {
+                AdbRuntime runtime=AdbRuntime.Inspect(missing);Require(!runtime.Exe&&!runtime.Api&&!runtime.UsbApi,"missing package files");Require(runtime.Advice().Contains("不完整"),"incomplete package advice");
+                Diagnosis report=ConnectionDiagnostics.Read(new Adb(missing),new StubInventory(),runtime);Require(report.Report.Contains("package-incomplete")&&report.Report.Contains("adb.exe=缺失"),"actual incomplete package previously swallowed");Require(!report.Report.Contains(directory),"runtime path omitted");
+                blocked=new ProbeAdb();ConnectionDiagnostics.Read(blocked,new StubInventory(),runtime);Require(blocked.Calls.Count==0,"incomplete package does not launch client");Require(AdbProbe.Run(new Adb(missing),"ADB 客户端自检",new[]{"version"},"Android Debug Bridge version",1000).Issue=="missing-executable","actual missing executable classified");
+                byte[] pe=new byte[128];pe[0]=0x4d;pe[1]=0x5a;pe[0x3c]=0x40;pe[64]=0x50;pe[65]=0x45;pe[68]=0x64;pe[69]=0x86;File.WriteAllBytes(missing,pe);Require(AdbRuntime.ReadMachine(missing)=="x64","PE machine detection");
+                File.WriteAllText(missing,"invalid executable");Require(AdbRuntime.ReadMachine(missing)=="无效 PE","corrupt PE rejected");
+            }finally{if(File.Exists(missing))File.Delete(missing);Directory.Delete(directory);}
+            AdbRuntime bundled=AdbRuntime.Inspect(adbPath);Require(bundled.Exe&&bundled.Api&&bundled.UsbApi,"actual bundled ADB files");Require(bundled.Machine=="x86"||bundled.Machine=="x64"||bundled.Machine=="ARM64","official bundled ADB machine readable");Console.WriteLine("Actual bundled ADB PE architecture: "+bundled.Machine);
+            Diagnosis host=ConnectionDiagnostics.Read(new Adb(adbPath),new WindowsUsbInventory(),bundled);Require(host.Report.Contains("ADB 客户端自检：正常")&&host.Report.Contains("ADB 设备查询：正常"),"actual client and server diagnostics");
         }
         internal static void Run(string adbPath) {
             UsbNode mtp=Node("HUAWEI MTP");Require(mtp.Kind==UsbKind.Portable,"MTP classification");
@@ -47,8 +103,8 @@ namespace TideCardUsb {
             Require(!d.Report.Contains("PRIVATE_"),"report must not copy identifying data or untrusted backend");Require(d.Report.Contains("VID_12D1")&&d.Report.Contains("MI_01"),"hardware interface identifiers retained");
             Require(d.Report.Contains("驱动服务=未提供"),"service validation");
             failed.Failure="Private:SECRET";Require(!Analyze(failed).Report.Contains("SECRET"),"exception details sanitized");
-            StubAdb stub=new StubAdb();d=ConnectionDiagnostics.Read(stub,new StubInventory());Require(stub.Calls.SequenceEqual(new[]{"devices -l","server-status"}),"diagnosis is read-only");Require(d.Report.Contains("实验性 LIBUSB"),"existing server backend disclosed");Require(!d.Report.Contains("PRIVATE_PATH"),"server executable path omitted");
-            d=ConnectionDiagnostics.Read(new StubAdb {Fail=true},new StubInventory {Fail=true});Require(d.Summary.Contains("未正常返回"),"query failures handled");Require(!d.Report.Contains("PRIVATE_SERIAL"),"failure details omitted");
+            StubAdb stub=new StubAdb();d=ConnectionDiagnostics.Read(stub,new StubInventory());Require(stub.Calls.SequenceEqual(new[]{"version","devices -l","server-status"}),"diagnosis is read-only");Require(d.Report.Contains("实验性 LIBUSB"),"existing server backend disclosed");Require(!d.Report.Contains("PRIVATE_PATH"),"server executable path omitted");
+            StubAdb broken=new StubAdb {Fail=true};d=ConnectionDiagnostics.Read(broken,new StubInventory {Fail=true});Require(d.Summary.Contains("客户端自检未通过"),"query failures handled");Require(broken.Calls.SequenceEqual(new[]{"version"}),"failed client skips server operations");Require(!d.Report.Contains("PRIVATE_SERIAL"),"failure details omitted");
             Dictionary<string,string> before=ConnectionDiagnostics.IsolatedEnvironment.ToDictionary(name=>name,name=>Environment.GetEnvironmentVariable(name));
             ProcessStartInfo child=new ProcessStartInfo();foreach(string name in ConnectionDiagnostics.IsolatedEnvironment)child.EnvironmentVariables[name]="untrusted";
             Adb.ConfigureEnvironment(child);
@@ -58,7 +114,8 @@ namespace TideCardUsb {
             Require(info.Arguments=="-P 5037 \"devices\" \"-l\"","local standard server port");Require(!info.UseShellExecute&&info.CreateNoWindow,"no shell or visible helper");
             // Read-only host check: exercises actual WMI schema and bundled client; no phone is required.
             UsbSnapshot host=new WindowsUsbInventory().Read();Require(host.Available,"actual Windows USB inventory query: "+host.Failure);
-            Console.WriteLine("Actual Windows Huawei USB query succeeded; present interface nodes: "+host.Nodes.Count+". This does not validate a Huawei phone.");
+            ProbeChecks(adbPath);
+            Console.WriteLine("Actual Windows Huawei USB query succeeded; candidate interface nodes: "+host.Nodes.Count+". This does not validate a Huawei phone.");
             Console.WriteLine("PASS "+count+" connection diagnostics assertions: interfaces, drivers, authorization, query failures, environment and redaction.");
         }
     }
