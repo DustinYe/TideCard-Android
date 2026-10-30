@@ -36,6 +36,8 @@ final class CarrierRecovery {
         }catch(IOException ignored){}return false;
     }
     static boolean onlyManagedFields(String raw){if(empty(raw))return true;try{return fields(raw,true).keySet().equals(KEYS);}catch(IOException ignored){return false;}}
+    /** Cleanup may discard partial or malformed values, but never fields outside the three region keys. */
+    static Map<String,String> cleanupFields(String raw)throws IOException{return fields(raw,true);}
     static Map<String,String> baseline(String defaults,String platform,String carrier)throws IOException{
         Map<String,String> values=fields(defaults,false);
         if(!values.keySet().equals(KEYS))throw new IOException("原始系统配置不完整，未做修改");

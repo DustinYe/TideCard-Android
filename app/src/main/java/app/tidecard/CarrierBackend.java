@@ -17,6 +17,7 @@ public class CarrierBackend extends ICarrierBridge.Stub {
     private Class<?> carrierApi, subApi;
     private IBinder carrierBinder;
     private boolean compatibilityWrite;
+    private CarrierCleanup cleanup;
     public CarrierBackend(int ownerUid) {this.ownerUid=ownerUid;}
     @Override public boolean onTransact(int code,Parcel data,Parcel reply,int flags)throws RemoteException{
         if(Binder.getCallingUid()!=ownerUid)throw new SecurityException("This backend only serves TideCard");
@@ -40,9 +41,13 @@ public class CarrierBackend extends ICarrierBridge.Stub {
         return (PersistableBundle)carrierApi.getMethod("getConfigForSubIdWithFeature",int.class,String.class,String.class).invoke(loader,id,"com.android.shell",null);
     }
     private void override(int id,PersistableBundle b) throws Exception {
-        if(!compatibilityWrite){try{carrierApi.getMethod("overrideConfig",int.class,PersistableBundle.class,boolean.class).invoke(loader,id,b,false);return;}
+        override(id,b,false);
+    }
+    private void override(int id,PersistableBundle b,boolean persistent) throws Exception {
+        CarrierWritePolicy.checkPersistentReset(b!=null,persistent);
+        if(!compatibilityWrite){try{carrierApi.getMethod("overrideConfig",int.class,PersistableBundle.class,boolean.class).invoke(loader,id,b,persistent);return;}
             catch(InvocationTargetException e){Throwable cause=e.getCause();if(!(cause instanceof SecurityException)||!CarrierWritePolicy.shellDenied(cause.getMessage()))throw e;compatibilityWrite=true;}}
-        CarrierCompatibility.write(ownerUid,Binder.getCallingPid(),id,b,carrierBinder);
+        CarrierCompatibility.write(ownerUid,Binder.getCallingPid(),id,b,carrierBinder,persistent);
     }
     private JSONObject inspect() throws Exception {
         JSONArray cards=new JSONArray();
@@ -55,7 +60,7 @@ public class CarrierBackend extends ICarrierBridge.Stub {
             }
             cards.put(card);
         }
-        return new JSONObject().put("ok",true).put("uid",android.os.Process.myUid()).put("writeMode",compatibilityWrite?"compatibility":"direct").put("cards",cards);
+        return new JSONObject().put("ok",true).put("cleanupSupported",true).put("uid",android.os.Process.myUid()).put("writeMode",compatibilityWrite?"compatibility":"direct").put("cards",cards);
     }
     private String dump() throws Exception {
         ParcelFileDescriptor[] pipe=ParcelFileDescriptor.createPipe(); ByteArrayOutputStream out=new ByteArrayOutputStream();
@@ -102,6 +107,42 @@ public class CarrierBackend extends ICarrierBridge.Stub {
         }
         if(saved.length()==0)throw new IOException("所选卡槽没有可用 SIM 卡");
         return new JSONObject().put("ok",true).put("recoveredExisting",recovered).put("cards",saved);
+    }
+    private CarrierCleanup cleanup() {
+        if(cleanup==null)cleanup=new CarrierCleanup(new CarrierCleanup.Access(){
+            public List<CarrierCleanup.Card> read(int mask)throws Exception{
+                String state=dump();List<CarrierCleanup.Card> cards=new ArrayList<>();
+                for(int slot=0;slot<2;slot++)if((mask&(1<<slot))!=0){
+                    int id=subId(slot);
+                    if(id<0){cards.add(new CarrierCleanup.Card(slot,id,"","","","",Collections.emptyMap()));continue;}
+                    String temporary=section(state,slot,"mOverrideConfigs"),persistent=section(state,slot,"mPersistentOverrideConfigs");
+                    try{CarrierRecovery.cleanupFields(temporary);CarrierRecovery.cleanupFields(persistent);}
+                    catch(IOException e){throw new IOException("卡 "+(slot+1)+" 包含其他字段或无法识别的配置，已保留且未修改");}
+                    SubscriptionInfo si=info(id);if(si==null)throw new IOException("卡 "+(slot+1)+" 尚未就绪，请稍后重试");
+                    Map<String,String> base=CarrierRecovery.baseline(section(state,slot,"Default Values from CarrierConfigManager"),section(state,slot,"mConfigFromDefaultApp"),section(state,slot,"mConfigFromCarrierApp"));
+                    String country=base.get(COUNTRY).isEmpty()?simCountry(si):base.get(COUNTRY);
+                    cards.add(new CarrierCleanup.Card(slot,id,temporary,persistent,si.getCountryIso()==null?"":si.getCountryIso(),country,base));
+                }return cards;
+            }
+            public void prime(CarrierCleanup.Card card)throws Exception{
+                PersistableBundle original=new PersistableBundle();original.putString(COUNTRY,card.originalCountry);
+                original.putBoolean(NAME_FLAG,Boolean.parseBoolean(card.baseline.get(NAME_FLAG)));original.putString(NAME,card.baseline.get(NAME));
+                override(card.subId,original);
+            }
+            public void reset(CarrierCleanup.Card card)throws Exception{override(card.subId,null,card.resetPersistent());}
+            public long now(){return SystemClock.elapsedRealtime();}
+            public void pause()throws Exception{Thread.sleep(200);}
+        });return cleanup;
+    }
+    private JSONObject cleanupPreview(int mask)throws Exception{
+        CarrierCleanup.Preview preview=cleanup().preview(mask);JSONArray cards=new JSONArray();
+        for(CarrierCleanup.Card card:preview.cards)cards.put(new JSONObject().put("slot",card.slot).put("present",card.present())
+            .put("country",card.country.matches("[A-Za-z0-9]{1,8}")?card.country:"—").put("originalCountry",card.originalCountry)
+            .put("temporary",!empty(card.temporary)).put("persistent",!empty(card.persistent)).put("needsClear",card.needsClear()));
+        return new JSONObject().put("ok",true).put("mask",mask).put("token",preview.count()>0?preview.token:"").put("canClear",preview.count()>0).put("cards",cards);
+    }
+    private JSONObject cleanupClear(String token)throws Exception{
+        int completed=cleanup().clear(token);return inspect().put("completedMask",completed);
     }
     private JSONObject apply(JSONObject payload) throws Exception {
         String iso=payload.getString("country"),name=payload.getString("name");
@@ -188,8 +229,8 @@ public class CarrierBackend extends ICarrierBridge.Stub {
             JSONObject p=new JSONObject(data==null?"{}":data);
             if("session_notification".equals(command))return sessionNotification(p).toString();
             init();
-            return switch(command){case "inspect"->inspect().toString();case "prepare"->prepare(p.getInt("mask")).toString();case "apply"->apply(p).toString();case "restore"->restore(p).toString();default->throw new IllegalArgumentException("未知操作");};
-        } catch(Throwable e){try{JSONObject failure=new JSONObject().put("ok",false).put("error",message(e));if(e instanceof ApplyFailure){ApplyFailure apply=(ApplyFailure)e;failure.put("code",apply.denied?"carrier_write_rejected":"carrier_write_failed").put("modifiedMask",apply.modifiedMask).put("safeDiscardSnapshot",apply.safeDiscard);}return failure.toString();}catch(Exception ignored){return "{\"ok\":false,\"error\":\"系统调用失败\"}";}}
+            return switch(command){case "inspect"->inspect().toString();case "prepare"->prepare(p.getInt("mask")).toString();case "apply"->apply(p).toString();case "restore"->restore(p).toString();case "cleanup_preview"->cleanupPreview(p.getInt("mask")).toString();case "cleanup_clear"->cleanupClear(p.getString("token")).toString();default->throw new IllegalArgumentException("未知操作");};
+        } catch(Throwable e){try{JSONObject failure=new JSONObject().put("ok",false).put("error",message(e));if(e instanceof ApplyFailure){ApplyFailure apply=(ApplyFailure)e;failure.put("code",apply.denied?"carrier_write_rejected":"carrier_write_failed").put("modifiedMask",apply.modifiedMask).put("safeDiscardSnapshot",apply.safeDiscard);}if(e instanceof CarrierCleanup.Failure){CarrierCleanup.Failure f=(CarrierCleanup.Failure)e;failure.put("code","cleanup_incomplete").put("startedMask",f.startedMask).put("completedMask",f.completedMask);}return failure.toString();}catch(Exception ignored){return "{\"ok\":false,\"error\":\"系统调用失败\"}";}}
     }
     @Override public void destroy(){System.exit(0);}
 }

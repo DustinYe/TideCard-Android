@@ -2,9 +2,9 @@
 
 [下载安装包](https://github.com/DustinYe/TideCard-Android/releases/latest) · [开源许可与来源](THIRD_PARTY.md) · [发布前查重记录](docs/PUBLICATION_REVIEW.md)
 
-当前 Android 正式版为 **2.4.2**：修复系统已打开配对码弹窗、应用通知仍一直等待的问题。自动发现失败时可在通知中直接输入配对端口和六位码；配对后的连接端口也能从通知补填，无需分屏。增加 NSD 解析超时、有限重试与重新搜索，详见[无线配对](docs/WIRELESS_PAIRING.md)。保留三种语言、深浅色外观、地区圆盘与应用内检查更新。
+当前 Android 正式版为 **2.4.3**：新增“清除旧地区配置”。后台激活后，可从主界面或设置进入，选择卡槽，检查恢复目标后确认清除。支持异常、部分及持久的地区 / 运营商名称覆盖；包含其他字段、无法核对原配置或存在潮汐恢复备份时停止处理。完整步骤及限制见[旧配置清除](docs/CARRIER_CLEANUP.md)。保留 2.4.2 的通知内手动配对、三种语言、深浅色外观、地区圆盘与应用内更新。
 
-[Windows USB 工具 **1.1.9**](https://github.com/DustinYe/TideCard-Android/releases/tag/usb-v1.1.9) 随附同签名 APK，并保留电脑端检查更新、通用诊断及 [OPPO / ColorOS 排查](docs/OPPO_COLOROS_USB.md)。Android 11 及以上，从 [2.4.2 发布页](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.4.2) 下载。**OPPO A3x 5G 不在开发现场，真实无线配对和电脑连接效果仍需验证**，完整范围见 [验证记录](docs/VALIDATION.md)。
+[Windows USB 工具 **1.1.10**](https://github.com/DustinYe/TideCard-Android/releases/tag/usb-v1.1.10) 随附同签名 APK，并保留电脑端更新与通用诊断。Android 11 及以上，从 [2.4.3 发布页](https://github.com/DustinYe/TideCard-Android/releases/tag/v2.4.3) 下载。用户反馈先前 OPPO A3x 5G 已成功；本次另一台 OPPO 的清除功能仍待实机验证，不能将前一台结果推广到其他设备，见[验证记录](docs/VALIDATION.md)。
 
 此项目与 Shizuku、Nrfr、Surfboard 均无官方隶属关系。
 

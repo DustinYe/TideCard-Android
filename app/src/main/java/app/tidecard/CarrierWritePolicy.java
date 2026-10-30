@@ -3,6 +3,7 @@ package app.tidecard;
 /** Pure decisions shared by the Binder backend and regression checks. */
 public final class CarrierWritePolicy {
     private CarrierWritePolicy(){}
+    public static void checkPersistentReset(boolean hasConfig,boolean persistent){if(persistent&&hasConfig)throw new SecurityException("Only an explicit null reset may be persistent");}
     public static boolean shellDenied(String message){return message!=null&&message.contains("overrideConfig cannot be invoked by shell");}
     public static boolean canDiscardBackup(boolean definitelyDenied,int modifiedMask,boolean originalUnchanged){return definitelyDenied&&modifiedMask==0&&originalUnchanged;}
     public static final class Gate {

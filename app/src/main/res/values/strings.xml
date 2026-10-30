@@ -344,6 +344,43 @@
         <item>"配对端口 六位码，例如 39461 123456"</item>
         <item>"重新搜索"</item>
         <item>"请下拉通知栏，点「手动配对」"</item>
+        <item>"清除旧地区配置"</item>
+        <item>"清除旧地区配置  ›"</item>
+        <item>"旧地区配置"</item>
+        <item>"检查并清除其他改卡工具或旧版本留下的地区配置。"</item>
+        <item>"清除其他改卡工具或旧版本留下的地区与运营商名称覆盖，包括持久配置。请先停止其他改卡工具，避免它们重新写入。"</item>
+        <item>"仅处理地区和运营商名称字段；发现其他字段时会保留配置并停止。"</item>
+        <item>"选择卡槽后检查旧配置。检查本身不会修改配置。"</item>
+        <item>"请先在主界面停止并恢复当前会话，再清除旧配置"</item>
+        <item>"请先激活内置后台，再检查旧配置"</item>
+        <item>"正在检查旧地区配置…"</item>
+        <item>"检查完成，请确认清除范围"</item>
+        <item>"未发现需要清除的旧地区配置"</item>
+        <item>"正在清除旧配置并核对国家码…"</item>
+        <item>"旧地区配置已清除，国家码已核对；可返回主界面重新开始"</item>
+        <item>"后台版本较旧，请重新激活内置后台后重试"</item>
+        <item>"检查旧配置"</item>
+        <item>"一键清除旧配置"</item>
+        <item>"无需清除"</item>
+        <item>"当前国家码："</item>
+        <item>"恢复目标："</item>
+        <item>"临时地区覆盖"</item>
+        <item>"持久地区覆盖"</item>
+        <item>"国家码回读异常"</item>
+        <item>"清除所选卡槽的旧配置？"</item>
+        <item>"这会移除以上卡槽的地区和运营商名称覆盖，并按系统原配置恢复。清除后请重新开始改卡。"</item>
+        <item>"确认清除"</item>
+        <item>"清除未完成，请重新检查配置后重试："</item>
+        <item>" 包含其他字段或无法识别的配置，已保留且未修改"</item>
+        <item>"无法核对卡槽配置，未做修改"</item>
+        <item>"无法核对原始地区配置，未做修改"</item>
+        <item>"检查结果已失效，请重新检查旧配置"</item>
+        <item>"配置已发生变化，请重新检查旧配置"</item>
+        <item>"配置被再次写入，请停止其他改卡工具后重试"</item>
+        <item>"SIM 或原始配置已变更，请重新检查"</item>
+        <item>"尚未确认旧配置已清除，请停止其他改卡工具后重新检查"</item>
+        <item>"原始国家码尚未回读，请重新检查后重试"</item>
+        <item>"已完成清除："</item>
     </string-array>
     <string-array name="message_translations">
         <item>"\n\nA brief checkmark confirms pairing. The notification then closes; everyday sessions do not use live updates."</item>
@@ -687,5 +724,42 @@
         <item>"Pairing port and six-digit code, e.g. 39461 123456"</item>
         <item>"Search again"</item>
         <item>"Pull down the notification shade and tap Manual pairing"</item>
+        <item>"Clear old region settings"</item>
+        <item>"Clear old region settings  ›"</item>
+        <item>"Old region settings"</item>
+        <item>"Check and clear region overrides left by other tools or older versions."</item>
+        <item>"Remove region and carrier name overrides left by other tools or older versions, including persistent settings. Stop other SIM tools first so they do not reapply changes."</item>
+        <item>"Only region and carrier name overrides are eligible. If other fields are found, the settings are kept and cleanup stops."</item>
+        <item>"Select SIM slots and check the old settings. Checking makes no changes."</item>
+        <item>"Stop and restore the current session on the main screen before clearing old settings."</item>
+        <item>"Activate the built-in backend before checking old settings."</item>
+        <item>"Checking old region settings…"</item>
+        <item>"Check complete. Review the settings to clear."</item>
+        <item>"No old region settings need clearing."</item>
+        <item>"Clearing old settings and checking the country code…"</item>
+        <item>"Old region settings cleared and country code verified. Return to the main screen to start again."</item>
+        <item>"The backend is outdated. Activate it again and retry."</item>
+        <item>"Check old settings"</item>
+        <item>"Clear old settings"</item>
+        <item>"No cleanup needed"</item>
+        <item>"Current country code: "</item>
+        <item>"Restore to: "</item>
+        <item>"Temporary region override"</item>
+        <item>"Persistent region override"</item>
+        <item>"Unexpected country code readback"</item>
+        <item>"Clear old settings for the selected SIM slots?"</item>
+        <item>"This removes the region and carrier name overrides shown above and restores system defaults. Start a new session after cleanup."</item>
+        <item>"Confirm cleanup"</item>
+        <item>"Cleanup incomplete. Check the settings again before retrying: "</item>
+        <item>" contains other fields or unrecognized settings. Kept unchanged."</item>
+        <item>"Could not verify SIM slots. No changes made."</item>
+        <item>"Could not verify the original region settings. No changes made."</item>
+        <item>"The check has expired. Check the old settings again."</item>
+        <item>"Settings have changed. Check the old settings again."</item>
+        <item>"Settings were reapplied. Stop other SIM tools before retrying."</item>
+        <item>"The SIM or original settings have changed. Check again."</item>
+        <item>"Cleanup could not be verified. Stop other SIM tools and check again."</item>
+        <item>"The original country code has not appeared yet. Check again before retrying."</item>
+        <item>"Cleanup completed for: "</item>
     </string-array>
 </resources>

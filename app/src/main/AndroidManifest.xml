@@ -21,6 +21,7 @@
         <activity android:name=".NotificationSettingsActivity" android:exported="false" />
         <activity android:name=".RegionPickerActivity" android:exported="false" />
         <activity android:name=".UpdateActivity" android:exported="false" />
+        <activity android:name=".CleanupActivity" android:exported="false" />
         <provider android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.updates" android:exported="false" android:grantUriPermissions="true">
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/update_paths" />
         </provider>

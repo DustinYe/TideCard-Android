@@ -9,6 +9,7 @@ import org.json.*;
 
 public class TideApp extends Application {
     public UpdateController updates;
+    CleanupController cleanup;
     public final Handler main=new Handler(Looper.getMainLooper());
     public final ExecutorService worker=Executors.newSingleThreadExecutor();
     public final CopyOnWriteArrayList<Runnable> observers=new CopyOnWriteArrayList<>();
@@ -17,7 +18,7 @@ public class TideApp extends Application {
     public volatile String message="首次使用，请激活内置后台";
     public volatile JSONObject cards;
     private volatile SharedPreferences prefs;
-    @Override public void onCreate(){super.onCreate();I18n.init(this);updates=new UpdateController(this);prefs();token();if(prefs.contains("sessionFailure"))message=prefs.getString("sessionFailure",message);}
+    @Override public void onCreate(){super.onCreate();I18n.init(this);updates=new UpdateController(this);prefs();cleanup=new CleanupController(this);token();if(prefs.contains("sessionFailure"))message=prefs.getString("sessionFailure",message);}
     public SharedPreferences prefs(){if(prefs==null)synchronized(this){if(prefs==null)prefs=getSharedPreferences("tidecard",MODE_PRIVATE);}return prefs;}
     public synchronized String token(){prefs();String token=prefs.getString("bridgeToken",null);if(token==null){byte[] b=new byte[32];new SecureRandom().nextBytes(b);token=android.util.Base64.encodeToString(b,android.util.Base64.URL_SAFE|android.util.Base64.NO_WRAP|android.util.Base64.NO_PADDING);if(!prefs.edit().putString("bridgeToken",token).commit())throw new IllegalStateException("无法保存激活凭据");}return token;}
     public boolean active(){return prefs.contains("snapshot");}
@@ -30,7 +31,7 @@ public class TideApp extends Application {
     }catch(Exception e){bridge=null;message="连接失败："+e.getMessage();changed();}});}
     public void connect(){if(!authorized())bridge=null;changed();}
     public void requestAuthorization(){startActivity(new Intent(this,ActivationActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));}
-    public static final class BackendException extends Exception {public final boolean safeDiscardSnapshot;public final String code;BackendException(JSONObject result){super(result.optString("error","系统调用失败"));safeDiscardSnapshot=result.optBoolean("safeDiscardSnapshot",false);code=result.optString("code","");}}
+    public static final class BackendException extends Exception {public final boolean safeDiscardSnapshot;public final String code;public final int completedMask;BackendException(JSONObject result){super(result.optString("error","系统调用失败"));safeDiscardSnapshot=result.optBoolean("safeDiscardSnapshot",false);code=result.optString("code","");completedMask=result.optInt("completedMask",0);}}
     public JSONObject call(String command,JSONObject payload)throws Exception{ICarrierBridge b=bridge;if(b==null)throw new IllegalStateException("内置后台未激活，请先激活");JSONObject r=new JSONObject(b.execute(command,payload.toString()));if(!r.optBoolean("ok"))throw new BackendException(r);return r;}
     public void refresh(){if(!authorized())return;worker.execute(()->{try{cards=call("inspect",new JSONObject());}catch(Exception e){message=e.getMessage();}changed();});}
     public void changed(){main.post(()->{for(Runnable r:observers)r.run();});}

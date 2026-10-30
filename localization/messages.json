@@ -1703,5 +1703,190 @@
     "source": "请下拉通知栏，点「手动配对」",
     "en": "Pull down the notification shade and tap Manual pairing",
     "zh-Hant": "請下拉通知欄，點「手動配對」"
+  },
+  {
+    "source": "清除旧地区配置",
+    "en": "Clear old region settings",
+    "zh-Hant": "清除舊地區配置"
+  },
+  {
+    "source": "清除旧地区配置  ›",
+    "en": "Clear old region settings  ›",
+    "zh-Hant": "清除舊地區配置  ›"
+  },
+  {
+    "source": "旧地区配置",
+    "en": "Old region settings",
+    "zh-Hant": "舊地區配置"
+  },
+  {
+    "source": "检查并清除其他改卡工具或旧版本留下的地区配置。",
+    "en": "Check and clear region overrides left by other tools or older versions.",
+    "zh-Hant": "檢查並清除其他改卡工具或舊版本留下的地區配置。"
+  },
+  {
+    "source": "清除其他改卡工具或旧版本留下的地区与运营商名称覆盖，包括持久配置。请先停止其他改卡工具，避免它们重新写入。",
+    "en": "Remove region and carrier name overrides left by other tools or older versions, including persistent settings. Stop other SIM tools first so they do not reapply changes.",
+    "zh-Hant": "清除其他改卡工具或舊版本留下的地區與電信業者名稱覆蓋，包括持久配置。請先停止其他改卡工具，避免它們重新寫入。"
+  },
+  {
+    "source": "仅处理地区和运营商名称字段；发现其他字段时会保留配置并停止。",
+    "en": "Only region and carrier name overrides are eligible. If other fields are found, the settings are kept and cleanup stops.",
+    "zh-Hant": "僅處理地區和電信業者名稱欄位；發現其他欄位時會保留配置並停止。"
+  },
+  {
+    "source": "选择卡槽后检查旧配置。检查本身不会修改配置。",
+    "en": "Select SIM slots and check the old settings. Checking makes no changes.",
+    "zh-Hant": "選擇卡槽後檢查舊配置。檢查本身不會修改配置。"
+  },
+  {
+    "source": "请先在主界面停止并恢复当前会话，再清除旧配置",
+    "en": "Stop and restore the current session on the main screen before clearing old settings.",
+    "zh-Hant": "請先在主畫面停止並恢復目前工作階段，再清除舊配置"
+  },
+  {
+    "source": "请先激活内置后台，再检查旧配置",
+    "en": "Activate the built-in backend before checking old settings.",
+    "zh-Hant": "請先啟用內建後台，再檢查舊配置"
+  },
+  {
+    "source": "正在检查旧地区配置…",
+    "en": "Checking old region settings…",
+    "zh-Hant": "正在檢查舊地區配置…"
+  },
+  {
+    "source": "检查完成，请确认清除范围",
+    "en": "Check complete. Review the settings to clear.",
+    "zh-Hant": "檢查完成，請確認清除範圍"
+  },
+  {
+    "source": "未发现需要清除的旧地区配置",
+    "en": "No old region settings need clearing.",
+    "zh-Hant": "未發現需要清除的舊地區配置"
+  },
+  {
+    "source": "正在清除旧配置并核对国家码…",
+    "en": "Clearing old settings and checking the country code…",
+    "zh-Hant": "正在清除舊配置並核對國家碼…"
+  },
+  {
+    "source": "旧地区配置已清除，国家码已核对；可返回主界面重新开始",
+    "en": "Old region settings cleared and country code verified. Return to the main screen to start again.",
+    "zh-Hant": "舊地區配置已清除，國家碼已核對；可返回主畫面重新開始"
+  },
+  {
+    "source": "后台版本较旧，请重新激活内置后台后重试",
+    "en": "The backend is outdated. Activate it again and retry.",
+    "zh-Hant": "後台版本較舊，請重新啟用內建後台後再試"
+  },
+  {
+    "source": "检查旧配置",
+    "en": "Check old settings",
+    "zh-Hant": "檢查舊配置"
+  },
+  {
+    "source": "一键清除旧配置",
+    "en": "Clear old settings",
+    "zh-Hant": "一鍵清除舊配置"
+  },
+  {
+    "source": "无需清除",
+    "en": "No cleanup needed",
+    "zh-Hant": "無需清除"
+  },
+  {
+    "source": "当前国家码：",
+    "en": "Current country code: ",
+    "zh-Hant": "目前國家碼："
+  },
+  {
+    "source": "恢复目标：",
+    "en": "Restore to: ",
+    "zh-Hant": "恢復目標："
+  },
+  {
+    "source": "临时地区覆盖",
+    "en": "Temporary region override",
+    "zh-Hant": "臨時地區覆蓋"
+  },
+  {
+    "source": "持久地区覆盖",
+    "en": "Persistent region override",
+    "zh-Hant": "持久地區覆蓋"
+  },
+  {
+    "source": "国家码回读异常",
+    "en": "Unexpected country code readback",
+    "zh-Hant": "國家碼回讀異常"
+  },
+  {
+    "source": "清除所选卡槽的旧配置？",
+    "en": "Clear old settings for the selected SIM slots?",
+    "zh-Hant": "清除所選卡槽的舊配置？"
+  },
+  {
+    "source": "这会移除以上卡槽的地区和运营商名称覆盖，并按系统原配置恢复。清除后请重新开始改卡。",
+    "en": "This removes the region and carrier name overrides shown above and restores system defaults. Start a new session after cleanup.",
+    "zh-Hant": "這會移除以上卡槽的地區和電信業者名稱覆蓋，並按系統原配置恢復。清除後請重新開始改卡。"
+  },
+  {
+    "source": "确认清除",
+    "en": "Confirm cleanup",
+    "zh-Hant": "確認清除"
+  },
+  {
+    "source": "清除未完成，请重新检查配置后重试：",
+    "en": "Cleanup incomplete. Check the settings again before retrying: ",
+    "zh-Hant": "清除未完成，請重新檢查配置後再試："
+  },
+  {
+    "source": " 包含其他字段或无法识别的配置，已保留且未修改",
+    "en": " contains other fields or unrecognized settings. Kept unchanged.",
+    "zh-Hant": " 包含其他欄位或無法識別的配置，已保留且未修改"
+  },
+  {
+    "source": "无法核对卡槽配置，未做修改",
+    "en": "Could not verify SIM slots. No changes made.",
+    "zh-Hant": "無法核對卡槽配置，未做修改"
+  },
+  {
+    "source": "无法核对原始地区配置，未做修改",
+    "en": "Could not verify the original region settings. No changes made.",
+    "zh-Hant": "無法核對原始地區配置，未做修改"
+  },
+  {
+    "source": "检查结果已失效，请重新检查旧配置",
+    "en": "The check has expired. Check the old settings again.",
+    "zh-Hant": "檢查結果已失效，請重新檢查舊配置"
+  },
+  {
+    "source": "配置已发生变化，请重新检查旧配置",
+    "en": "Settings have changed. Check the old settings again.",
+    "zh-Hant": "配置已發生變化，請重新檢查舊配置"
+  },
+  {
+    "source": "配置被再次写入，请停止其他改卡工具后重试",
+    "en": "Settings were reapplied. Stop other SIM tools before retrying.",
+    "zh-Hant": "配置被再次寫入，請停止其他改卡工具後再試"
+  },
+  {
+    "source": "SIM 或原始配置已变更，请重新检查",
+    "en": "The SIM or original settings have changed. Check again.",
+    "zh-Hant": "SIM 或原始配置已變更，請重新檢查"
+  },
+  {
+    "source": "尚未确认旧配置已清除，请停止其他改卡工具后重新检查",
+    "en": "Cleanup could not be verified. Stop other SIM tools and check again.",
+    "zh-Hant": "尚未確認舊配置已清除，請停止其他改卡工具後重新檢查"
+  },
+  {
+    "source": "原始国家码尚未回读，请重新检查后重试",
+    "en": "The original country code has not appeared yet. Check again before retrying.",
+    "zh-Hant": "原始國家碼尚未回讀，請重新檢查後再試"
+  },
+  {
+    "source": "已完成清除：",
+    "en": "Cleanup completed for: ",
+    "zh-Hant": "已完成清除："
   }
 ]

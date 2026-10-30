@@ -6,8 +6,8 @@ android {
         applicationId 'app.tidecard'
         minSdk 30
         targetSdk 36
-        versionCode = (project.findProperty('tideVersionCode') ?: '13').toInteger()
-        versionName = (project.findProperty('tideVersionName') ?: '2.4.2')
+        versionCode = (project.findProperty('tideVersionCode') ?: '14').toInteger()
+        versionName = (project.findProperty('tideVersionName') ?: '2.4.3')
         testInstrumentationRunner 'app.tidecard.test.SmokeRunner'
     }
     testOptions { unitTests.includeAndroidResources = true }
