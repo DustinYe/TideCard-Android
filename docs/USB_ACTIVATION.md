@@ -1,8 +1,8 @@
 # 电脑 USB 激活
 
-Windows 工具当前为 **1.1.6**，配套 Android APK 为 **2.4.1 正式版**。修复非华为品牌漏检，提供通用 USB 候选检测、OPPO / ColorOS 指引与本机服务协议检查，保留客户端自检和高 DPI 适配。受影响 OPPO / ColorOS 电脑及手机尚未现场验证，依据和步骤见 [OPPO 排查](OPPO_COLOROS_USB.md)。升级手机到本版后请使用匹配的电脑工具，旧版工具会阻止降级安装。技术说明与验证方式见 [桌面缩放适配](DESKTOP_UI.md)。
+Windows 工具当前为 **1.1.7**，配套 Android APK 为 **2.4.1 正式版**。修复非华为品牌漏检，提供通用 USB 候选检测、OPPO / ColorOS 指引与本机服务协议检查，保留客户端自检和高 DPI 适配。受影响 OPPO / ColorOS 电脑及手机尚未现场验证，依据和步骤见 [OPPO 排查](OPPO_COLOROS_USB.md)。升级手机到本版后请使用匹配的电脑工具，旧版工具会阻止降级安装。技术说明与验证方式见 [桌面缩放适配](DESKTOP_UI.md)。
 
-下载：[Android 2.4.1 发布页的 USB 1.1.6 附件](https://github.com/DustinYe/TideCard-Android/releases/download/v2.4.1/TideCard-USB-1.1.6-Windows.zip)，或查看 [USB 1.1.6 独立发布页](https://github.com/DustinYe/TideCard-Android/releases/tag/usb-v1.1.6)。两个位置提供相同文件；Android 应用内更新仍以 2.4.1 为最新版本。
+下载：[Android 2.4.1 发布页的 USB 1.1.7 附件](https://github.com/DustinYe/TideCard-Android/releases/download/v2.4.1/TideCard-USB-1.1.7-Windows.zip)，或查看 [USB 1.1.7 独立发布页](https://github.com/DustinYe/TideCard-Android/releases/tag/usb-v1.1.7)。两个位置提供相同文件；Android 应用内更新仍以 2.4.1 为最新版本。
 
 适用于手机无线调试没有“使用配对码配对设备”、没有 IP，或希望通过数据线激活的场景。Windows 工具只负责安装应用、启动同一个内置 shell 后台，不自动选择地区、写入 CarrierConfig 或开启持续改卡。
 
@@ -25,11 +25,15 @@ OPPO / ColorOS 用户点“连接诊断”，从“OPPO / 厂商帮助”查看�
 
 `BridgeProvider` 的 `usb_prepare` / `usb_status` 同原 attach 一样只接受 UID 2000。准备记录固定为版本、应用 UID、本次安装随机令牌、当前 APK 路径；由电脑严格解析，不接受手机返回的任意脚本。沿用已有 Bootstrap 的 shell UID、应用 UID、令牌、版本及 Binder 身份校验。新导出的 `UsbActivationActivity` 仅展示帮助和状态，打开页面不会启动服务或改卡。
 
-电脑只操作所选序列号，网络和模拟器传输不列入选择。脚本中的路径用 POSIX 单引号转义；令牌仅在电脑内存处理，通过 ADB 标准输入传递，不进入 Windows 进程参数或界面日志。令牌仍按既有设计保存在手机应用私有偏好中。工具不联网、不保存诊断文件、不打开网络 ADB 端口、不重启设备、不清除数据或手动结束 ADB server。ADB 自身可能使用 / 启动本机的标准 ADB server。
+电脑只操作所选序列号，网络和模拟器传输不列入选择。脚本中的路径用 POSIX 单引号转义；令牌仅在电脑内存处理，通过 ADB 标准输入传递，不进入 Windows 进程参数或界面日志。令牌仍按既有设计保存在手机应用私有偏好中。激活与诊断不上传信息、不保存诊断文件、不打开网络 ADB 端口、不重启设备、不清除数据或手动结束 ADB server。ADB 自身可能使用 / 启动本机的标准 ADB server。
 
 Windows EXE 未做 Authenticode 代码签名，APK 保持原签名。完整压缩包提供逐文件 SHA-256 校验。随附 `adb.exe`、`AdbWinApi.dll`、`AdbWinUsbApi.dll` 为未修改的 Android SDK Platform-Tools 37.0.1 文件，完整声明随 `adb/NOTICE.txt` 提供。
 
 连接诊断只读查询 Windows USB 候选节点与 ADB 状态，设备查询失败时另做有总超时的本机 ADB 协议检查，不自动保存或上传，复制内容不含序列号和 PnP 实例尾部。ADB 子进程固定本机 5037 端口，隔离 `ADB_SERVER_SOCKET`、`ANDROID_ADB_SERVER_PORT`、`ANDROID_ADB_SERVER_ADDRESS`、`ANDROID_SERIAL`、`ADB_TRACE`，并设置 `ADB_LIBUSB=0`；不更改全局环境或强制结束已有服务。原生 USB 后端仅对之后新启动的服务生效。
+
+## 电脑工具更新
+
+底部“检查更新”可检查 GitHub 电脑工具正式版；确认后下载校验并更新原目录，自动重启窗口。旧版先手动下载一次 1.1.7。详见[更新与签名](DESKTOP_UPDATES.md)。更新电脑包不操作手机；仍需主界面按钮才会安装和激活。
 
 ## 构建
 

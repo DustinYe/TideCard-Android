@@ -26,17 +26,21 @@ $source="namespace TideCardUsb { internal static class BundleInfo { internal con
 $csc=Join-Path $env:WINDIR 'Microsoft.NET\Framework64\v4.0.30319\csc.exe'
 if(-not(Test-Path -LiteralPath $csc)){throw '.NET Framework C# compiler not found.'}
 $exe=Join-Path $out 'TideCard-USB.exe'
-$common=@('/nologo','/optimize+','/utf8output','/platform:anycpu','/r:System.Windows.Forms.dll','/r:System.Drawing.dll','/r:System.Core.dll','/r:System.Management.dll')
-$sources=@((Join-Path $PSScriptRoot 'Core.cs'),(Join-Path $PSScriptRoot 'Program.cs'),(Join-Path $PSScriptRoot 'AssemblyInfo.cs'),(Join-Path $PSScriptRoot 'AdbDiagnostics.cs'),(Join-Path $PSScriptRoot 'LocalAdbServerProbe.cs'),(Join-Path $PSScriptRoot 'ConnectionDiagnostics.cs'),(Join-Path $PSScriptRoot 'DiagnosticDialog.cs'),$generated)
+$common=@('/nologo','/optimize+','/utf8output','/platform:anycpu','/r:System.Windows.Forms.dll','/r:System.Drawing.dll','/r:System.Core.dll','/r:System.Management.dll','/r:System.Web.Extensions.dll','/r:System.IO.Compression.dll','/r:System.IO.Compression.FileSystem.dll')
+$sources=@((Join-Path $PSScriptRoot 'Updates.cs'),(Join-Path $PSScriptRoot 'UpdateDialog.cs'),(Join-Path $PSScriptRoot 'Core.cs'),(Join-Path $PSScriptRoot 'Program.cs'),(Join-Path $PSScriptRoot 'AssemblyInfo.cs'),(Join-Path $PSScriptRoot 'AdbDiagnostics.cs'),(Join-Path $PSScriptRoot 'LocalAdbServerProbe.cs'),(Join-Path $PSScriptRoot 'ConnectionDiagnostics.cs'),(Join-Path $PSScriptRoot 'DiagnosticDialog.cs'),$generated)
 & $csc @common /target:winexe /main:TideCardUsb.Program "/win32manifest:$(Join-Path $PSScriptRoot 'app.manifest')" "/out:$exe" @sources
 if($LASTEXITCODE -ne 0){throw 'Desktop compiler failed.'}
 $checks=Join-Path $build 'UsbActivator.Checks.exe'
-& $csc @common /target:exe /main:TideCardUsb.Checks "/win32manifest:$(Join-Path $PSScriptRoot 'app.manifest')" "/out:$checks" @sources (Join-Path $PSScriptRoot 'Checks.cs') (Join-Path $PSScriptRoot 'LayoutChecks.cs') (Join-Path $PSScriptRoot 'ConnectionDiagnosticsChecks.cs')
+& $csc @common /target:exe /main:TideCardUsb.Checks "/win32manifest:$(Join-Path $PSScriptRoot 'app.manifest')" "/out:$checks" @sources (Join-Path $PSScriptRoot 'UpdateChecks.cs') (Join-Path $PSScriptRoot 'Checks.cs') (Join-Path $PSScriptRoot 'LayoutChecks.cs') (Join-Path $PSScriptRoot 'ConnectionDiagnosticsChecks.cs')
 if($LASTEXITCODE -ne 0){throw 'Desktop checks compiler failed.'}
 Copy-Item -LiteralPath $apk -Destination (Join-Path $out $name) -Force
 $adbOut=Join-Path $out 'adb'
 New-Item -ItemType Directory -Path $adbOut -Force | Out-Null
-foreach($file in @('adb.exe','AdbWinApi.dll','AdbWinUsbApi.dll','NOTICE.txt','source.properties')){Copy-Item -LiteralPath (Join-Path $sdk "platform-tools\$file") -Destination (Join-Path $adbOut $file) -Force}
+foreach($file in @('adb.exe','AdbWinApi.dll','AdbWinUsbApi.dll','NOTICE.txt','source.properties')){
+    $source=Join-Path $sdk "platform-tools\$file"; $destination=Join-Path $adbOut $file
+    if((Test-Path -LiteralPath $destination) -and (Get-FileHash -LiteralPath $source).Hash -eq (Get-FileHash -LiteralPath $destination).Hash){continue}
+    Copy-Item -LiteralPath $source -Destination $destination -Force
+}
 Copy-Item -LiteralPath (Join-Path $repo 'LICENSE') -Destination (Join-Path $out 'LICENSE.txt') -Force
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot '使用说明.txt') -Destination $out -Force
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'App.config') -Destination (Join-Path $out 'TideCard-USB.exe.config') -Force

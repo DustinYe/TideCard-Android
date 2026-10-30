@@ -84,7 +84,23 @@ namespace TideCardUsb {
                     dialog.Close();foreach(Font font in scaled)font.Dispose();
                 }
             }
-            report.Add("PASS "+profiles+" main and "+dialogs+" diagnostic synthetic layouts; "+assertions+" bounds, preferred text height and scroll reachability assertions. Windows scale settings unchanged.");
+            int updateDialogs=0;
+            foreach(int dpi in new[]{96,120,144,168,192,216,240})foreach(bool narrow in new[]{false,true}) {
+                using(UpdateDialog dialog=new UpdateDialog(false)) {
+                    dialog.Show();Settle(dialog);float factor=(float)dpi/dialog.DeviceDpi;
+                    List<Control> controls=new List<Control>(Descendants(dialog));List<Font> fonts=new List<Font>(),originalFonts=new List<Font>();foreach(Control control in controls)originalFonts.Add(control.Font);
+                    foreach(Control control in controls)control.SuspendLayout();dialog.AutoScaleMode=AutoScaleMode.None;dialog.MinimumSize=Size.Empty;dialog.Scale(new SizeF(factor,factor));
+                    for(int i=0;i<controls.Count;i++){Font font=new Font(originalFonts[i].FontFamily,originalFonts[i].SizeInPoints*factor,originalFonts[i].Style);fonts.Add(font);controls[i].Font=font;}
+                    dialog.ClientSize=new Size((int)Math.Round((narrow?340:500)*dpi/96.0),(int)Math.Round((narrow?260:360)*dpi/96.0));
+                    dialog.Controls.Find("updateStatus",true)[0].Text="发现电脑工具 1.1.8（当前 1.1.7）\r\n下载大小：10.4 MB\r\n将核对 GitHub SHA-256，更新当前解压目录内的工具、ADB 和配套 APK，然后重启窗口。手机上的应用和改卡状态保持原样。";dialog.Controls.Find("updateAction",true)[0].Text="下载、更新并重启工具";
+                    for(int i=controls.Count-1;i>=0;i--)controls[i].ResumeLayout(true);Settle(dialog);
+                    string profile=dpi+"dpi-"+(narrow?"narrow":"normal");
+                    foreach(Control control in controls)if(control is Label||control is Button){Require(control.Height+1>=control.GetPreferredSize(new Size(control.Width,0)).Height,profile+" update text clipped: "+control.Name);Require(control.Right<=control.Parent.ClientSize.Width+1&&control.Left>=0,profile+" update bounds: "+control.Name);}
+                    Panel viewport=(Panel)dialog.Controls.Find("updateViewport",true)[0];Control close=dialog.Controls.Find("updateClose",true)[0];close.Focus();viewport.ScrollControlIntoView(close);Settle(dialog);Rectangle rect=viewport.RectangleToClient(close.RectangleToScreen(close.ClientRectangle));Require(rect.Top>=0&&rect.Bottom<=viewport.ClientSize.Height,profile+" update actions unreachable");
+                    Render(dialog,Path.Combine(outputDirectory,"update-"+profile+".png"));report.Add("PASS synthetic update "+profile);updateDialogs++;dialog.Close();foreach(Font font in fonts)font.Dispose();
+                }
+            }
+            report.Add("PASS "+profiles+" main, "+dialogs+" diagnostic and "+updateDialogs+" update synthetic layouts; "+assertions+" bounds, preferred text height and scroll reachability assertions. Windows scale settings unchanged.");
             File.WriteAllLines(Path.Combine(outputDirectory,"layout-checks.txt"),report);Console.WriteLine(string.Join(Environment.NewLine,report));
         }
     }

@@ -1,6 +1,7 @@
-﻿潮汐改卡 · Windows USB 激活工具 1.1.6（配套 APK：2.4.1 正式版）
+潮汐改卡 · Windows USB 激活工具 1.1.7（配套 APK：2.4.1 正式版）
 
 本次更新
+新增底部“检查更新”：主动检查 GitHub 电脑工具正式版，发现新版后可下载、校验并更新原目录，自动重启窗口。此操作只更新电脑工具包，不对手机安装或激活。旧版需先手动下载一次 1.1.7。
 修复只查询华为 USB 节点造成 OPPO 等品牌漏检的问题，改为通用 USB / ADB / MTP 候选检测。新增“OPPO / 厂商帮助”，区分客户端、设备查询、RSA 授权、安装和连接后的 shell 拒绝。客户端正常但设备查询失败时，增加本机 127.0.0.1:5037 只读 ADB 协议检查。保留客户端错误码、文件存在检查、原签名 2.4.1 APK 与数据保护。受影响 OPPO / ColorOS 实机效果仍需用户验证。
 
 用途
@@ -40,17 +41,24 @@ OPPO / ColorOS 与通用连接排查
 3. 若客户端正常、设备查询超时，先拔下手机再诊断。若仍超时，可关闭使用 ADB 的手机助手、模拟器、Android Studio 等程序，在任务管理器结束 adb.exe 再重开工具；其它 ADB 连接会断开。若 5037 返回非 ADB 协议，需先核对端口占用程序。
 4. 如果客户端和列表正常但没有手机，按数据线、USB 模式、RSA 授权与目标 ADB 接口依次排查。OPPO 用户从“OPPO / 厂商帮助”进入 OPPO 官方连接说明；华为专用 HiSuite 单独列出。
 5. ColorOS 的权限监控说明用于“已连接后 shell 命令被明确拒绝”的阶段；不能用来解释所有设备查询超时。具体选项名称需按实际 ROM 核对。
-6. 反馈时复制完整新版脱敏诊断，确认顶部显示 1.1.6，并提供 OPPO 型号、ColorOS / Android 版本。旧版“华为接口数=0”不能用于判断 OPPO 是否枚举。
+6. 反馈时复制完整新版脱敏诊断，确认顶部显示 1.1.7，并提供 OPPO 型号、ColorOS / Android 版本。旧版“华为接口数=0”不能用于判断 OPPO 是否枚举。
 OPPO 官方：https://support.oppo.com/ph/answer/?aid=neu10634
 Android OEM 驱动：https://developer.android.com/studio/run/oem-usb
 ColorOS 权限说明：https://shizuku.rikka.app/zh-hans/guide/setup/
 华为专用：https://consumer.huawei.com/cn/support/hisuite/
 
 安全与来源
-激活和诊断使用本地随附 ADB / Windows 接口查询；设备查询失败时仅对本机 ADB 端口做有超时的只读协议检查，不上传设备信息。官网按钮由用户点击后通过浏览器打开。仅操作用户所选的手机。电脑日志不包含安装激活令牌；电脑仅在内存处理激活信息，不保存到日志或文件。令牌按既有设计保存在手机应用私有存储。
+激活和诊断使用本地随附 ADB / Windows 接口查询；设备查询失败时仅对本机 ADB 端口做有超时的只读协议检查，不上传设备信息。点击检查更新会访问 GitHub，不上传手机信息；官网按钮由用户点击后通过浏览器打开。仅操作用户所选的手机。电脑日志不包含安装激活令牌；电脑仅在内存处理激活信息，不保存到日志或文件。令牌按既有设计保存在手机应用私有存储。
 工具不卸载应用、不清除数据、不执行恢复出厂设置，不开启网络 ADB 端口，不重启手机，不通过停止或杀死其他调试程序来激活。
-配套 APK 沿用潮汐改卡原签名。Windows EXE 尚无代码签名；SHA256SUMS.txt 提供各文件校验值。
+配套 APK 沿用潮汐改卡原签名。Windows EXE 尚无 Authenticode 代码签名，仍可能显示 SmartScreen“发行者未知”。下载的更新与 EXE 保留 Internet 来源标记；SHA-256 不等同于发行者签名，也不能保护被攻破的发布账号。SHA256SUMS.txt 提供各文件校验值。
 TideCard 源码与许可：https://github.com/DustinYe/TideCard-Android （Apache-2.0，随附 LICENSE.txt）。
 ADB 为未修改的 Android SDK Platform-Tools 37.0.1 官方组件；来源：https://developer.android.com/tools/releases/platform-tools 。完整组件声明见 adb/NOTICE.txt，版本见 adb/source.properties。
 ADB 官方使用说明：https://developer.android.com/tools/adb
 应用内第三方组件及许可保留于 APK 的 assets；可在应用“使用说明 → 开源许可”查看。
+
+电脑工具一键更新
+1. 点击底部“检查更新”；发现新版后选择“下载、更新并重启工具”。下载时可以取消。
+2. 核对 GitHub SHA-256、完整大小、包内清单和 EXE 版本后，旧窗口退出，由独立助手在原目录替换文件。相同文件跳过，额外文件保留，不结束 ADB 服务。文件占用或替换失败时尝试恢复原文件。
+3. 原目录不可写时，将完整工具包移到自己的下载或文档目录再更新；不会自动提权。新版仍可能需要 Windows 安全确认。
+4. 更新缓存位于 %LOCALAPPDATA%\TideCardUsb\Updates；原目录 .tidecard-backup-* 保留旧文件。确认更新正常且窗口全部关闭后，可手动清理旧缓存和不需要的备份。
+详见 https://github.com/DustinYe/TideCard-Android/blob/main/docs/DESKTOP_UPDATES.md
