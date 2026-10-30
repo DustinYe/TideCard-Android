@@ -1,6 +1,16 @@
 # 验证记录
 
 
+## 2.4.2 无线配对发现与通知输入
+
+- 已确认并修复：未发现端口时通知不给输入入口；NSD 解析缺少超时导致后续请求阻塞。新增通知内手动配对（端口 + 六位码）及配对后连接端口补填、重新搜索与等待提示。无需 Activity 切换或分屏。
+- 43 项 JVM / Robolectric 测试通过：5 项纯输入 / 队列检查，Android 11 与 Android 14 下 10 项 NSD 解析检查、12 项通知检查、16 项服务 / Receiver 状态检查。覆盖格式 / 前导零、地址与端口拒绝、解析超时 / 重试 / 迟到回调 / 多地址、通知输入令牌刷新与会话隔离、无发现时经 Receiver 提交及配对后端口补填、忙碌 / 过期操作、取消前排队任务不继续访问网络。
+- 主机测试关闭 Robolectric 的 Conscrypt 注入，避免 Android 原生库在 Windows JVM 加载；真实配对任务由阻塞的测试工作队列隔离，销毁后才放行。没有把这些检查当作真实 TLS / SPAKE2 成功。
+- Release、Android 仪器测试包、lint 构建通过，0 errors / 46 warnings。APK 版本 2.4.2 / code 13，证书 SHA-256 沿用 `acb6c192f367a73ac6f28c9df4ccfa10b4aa4dd25d9a8016a58fcb40d2b4d881`。原生库保持一致。
+- Windows 配套工具 1.1.9 随附新版 APK，USB 协议不变。诊断 214 项、更新 77 项、菜单生命周期 184 项、模拟 USB 流程 62 项及 42 组布局检查通过；实际客户端和设备查询正常，当前 0 台手机。
+- 本轮没有安装到实机或执行新的 SIM 读取 / 写入 / 恢复，也没有验证 OPPO A3x 5G 的 SystemUI 渲染、真实 mDNS 或 TLS 激活。该手机不在现场，需要用户用新版验证。没有重置朋友电脑的 Winsock。
+
+
 ## Windows USB 1.1.8 厂商菜单修复
 
 - 在本机运行旧版 `Closed => Dispose()` 菜单模式，复现 `ObjectDisposedException / ContextMenuStrip`，与用户截图一致。改为诊断窗口持有同一个菜单，并在窗口释放时统一清理组件。

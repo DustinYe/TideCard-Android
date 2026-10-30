@@ -36,6 +36,12 @@ final class PairingChecks {
             require(n.extras.getBoolean("android.requestPromotedOngoing"),"pairing did not request promotion");
             if(Build.VERSION.SDK_INT>=36)require(n.hasPromotableCharacteristics(),"notification ineligible");
             note("PASS pairing notification eligible for native Live Update");
+            require(n.actions.length>=2,"manual fallback missing while pairing port is undiscovered");
+            String earlySession=(String)field(s,"session");main(()->receive(s,earlySession,null,true));Thread.sleep(300);n=notification(22);
+            require(!n.extras.getBoolean("android.requestPromotedOngoing"),"manual input must be demoted");
+            require(n.actions[0].getRemoteInputs()!=null&&"manualPair".equals(n.actions[0].getRemoteInputs()[0].getResultKey()),"no-discovery manual input missing");
+            note("PASS missing mDNS still offers manual port/code input without an Activity");
+            main(()->{Field input=s.getClass().getDeclaredField("inputMode");input.setAccessible(true);input.set(s,false);});
             main(()->{ActivationService.pairingPort=12345;call(s,"publish");});Thread.sleep(300);
             n=notification(22);require(n.contentIntent!=null,"island card input action missing");
             require(n.actions[0].getRemoteInputs()==null,"promoted input entry must be a standard action");

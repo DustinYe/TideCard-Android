@@ -1603,5 +1603,105 @@
     "source": "系统返回了不支持的卡槽订阅格式",
     "en": "The system returned an unsupported subscription ID format.",
     "zh-Hant": "系統回傳了不支援的卡槽訂閱格式"
+  },
+  {
+    "source": "保持系统配对弹窗打开；自动发现失败时，可在此通知手动输入配对端口和六位码",
+    "en": "Keep the system pairing dialog open. If discovery fails, enter its pairing port and six-digit code in this notification.",
+    "zh-Hant": "保持系統配對彈窗開啟；自動探索失敗時，可在此通知手動輸入配對連接埠和六位碼"
+  },
+  {
+    "source": "尚未发现配对服务。保持系统配对弹窗打开，可在通知中手动输入配对端口和六位码；也可暂时关闭 VPN 后重新搜索。",
+    "en": "Pairing service not found yet. Keep the system dialog open and enter its port and six-digit code in the notification, or temporarily disconnect the VPN and search again.",
+    "zh-Hant": "尚未找到配對服務。保持系統配對彈窗開啟，可在通知中手動輸入配對連接埠和六位碼；也可暫時關閉 VPN 後重新搜尋。"
+  },
+  {
+    "source": "尚未发现配对服务，请使用通知中的手动配对",
+    "en": "Pairing service not found. Use Manual pairing in the notification.",
+    "zh-Hant": "尚未找到配對服務，請使用通知中的手動配對"
+  },
+  {
+    "source": "手动配对",
+    "en": "Manual pairing",
+    "zh-Hant": "手動配對"
+  },
+  {
+    "source": "无线调试主页的连接端口",
+    "en": "Connection port on the main Wireless debugging page",
+    "zh-Hant": "無線偵錯主頁的連線連接埠"
+  },
+  {
+    "source": "正在重新搜索；也可在通知中手动填写系统当前显示的端口",
+    "en": "Searching again. You can also enter the current system port in the notification.",
+    "zh-Hant": "正在重新搜尋；也可在通知中手動填寫系統目前顯示的連接埠"
+  },
+  {
+    "source": "系统已显示配对码、通知仍在等待？展开通知点「手动配对」，输入配对弹窗底部端口和六位码，中间加空格。配对后若未启动，再填写无线调试主页的连接端口。全过程可留在系统设置，无需分屏。",
+    "en": "System pairing code visible but notification still waiting? Expand it, tap Manual pairing, and enter the port at the bottom of the pairing dialog plus the six-digit code, separated by a space. If activation waits after pairing, enter the connection port from the main Wireless debugging page. Stay in system settings throughout; split screen is not required.",
+    "zh-Hant": "系統已顯示配對碼、通知仍在等待？展開通知點「手動配對」，輸入配對彈窗底部連接埠和六位碼，中間加空格。配對後若未啟動，再填寫無線偵錯主頁的連線連接埠。全程可留在系統設定，無需分割畫面。"
+  },
+  {
+    "source": "自动发现暂不可用，可在通知中手动输入系统当前显示的端口",
+    "en": "Automatic discovery is unavailable. Enter the current system port in the notification.",
+    "zh-Hant": "自動探索暫不可用，可在通知中手動輸入系統目前顯示的連接埠"
+  },
+  {
+    "source": "请展开本条通知，点「手动配对」，输入配对端口和六位码，中间用空格分隔",
+    "en": "Expand this notification, tap Manual pairing, and enter the pairing port and six-digit code separated by a space.",
+    "zh-Hant": "請展開本通知，點「手動配對」，輸入配對連接埠和六位碼，中間用空格分隔"
+  },
+  {
+    "source": "请打开系统配对弹窗；通知内可直接手动填写配对端口和六位码",
+    "en": "Open the system pairing dialog. You can enter its port and six-digit code directly in the notification.",
+    "zh-Hant": "請開啟系統配對彈窗；通知內可直接手動填寫配對連接埠和六位碼"
+  },
+  {
+    "source": "请输入系统当前显示的端口（1–65535）",
+    "en": "Enter the current system port (1–65535)",
+    "zh-Hant": "請輸入系統目前顯示的連接埠（1–65535）"
+  },
+  {
+    "source": "请输入配对弹窗底部的端口和六位码，中间用空格分隔",
+    "en": "Enter the port at the bottom of the pairing dialog and the six-digit code, separated by a space.",
+    "zh-Hant": "請輸入配對彈窗底部的連接埠和六位碼，中間用空格分隔"
+  },
+  {
+    "source": "输入连接端口",
+    "en": "Enter connection port",
+    "zh-Hant": "輸入連線連接埠"
+  },
+  {
+    "source": "配对后未发现连接端口时，请在此通知填写无线调试主页的端口",
+    "en": "If the connection port is not discovered after pairing, enter the port on the main Wireless debugging page here.",
+    "zh-Hant": "配對後未找到連線連接埠時，請在此通知填寫無線偵錯主頁的連接埠"
+  },
+  {
+    "source": "配对后未发现连接端口，请在通知中输入无线调试主页的端口",
+    "en": "Connection port not found after pairing. Enter the port on the main Wireless debugging page in the notification.",
+    "zh-Hant": "配對後未找到連線連接埠，請在通知中輸入無線偵錯主頁的連接埠"
+  },
+  {
+    "source": "配对成功；请在通知中输入无线调试主页的连接端口",
+    "en": "Paired. Enter the connection port from the main Wireless debugging page in the notification.",
+    "zh-Hant": "配對成功；請在通知中輸入無線偵錯主頁的連線連接埠"
+  },
+  {
+    "source": "配对服务暂不可见，可在通知中手动输入系统配对弹窗的端口和六位码",
+    "en": "Pairing service is no longer visible. Enter the port and six-digit code from the system pairing dialog in the notification.",
+    "zh-Hant": "配對服務暫不可見，可在通知中手動輸入系統配對彈窗的連接埠和六位碼"
+  },
+  {
+    "source": "配对端口 六位码，例如 39461 123456",
+    "en": "Pairing port and six-digit code, e.g. 39461 123456",
+    "zh-Hant": "配對連接埠 六位碼，例如 39461 123456"
+  },
+  {
+    "source": "重新搜索",
+    "en": "Search again",
+    "zh-Hant": "重新搜尋"
+  },
+  {
+    "source": "请下拉通知栏，点「手动配对」",
+    "en": "Pull down the notification shade and tap Manual pairing",
+    "zh-Hant": "請下拉通知欄，點「手動配對」"
   }
 ]

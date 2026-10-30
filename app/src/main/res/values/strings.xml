@@ -324,6 +324,26 @@
         <item>"当前版本高于 GitHub 正式版"</item>
         <item>"卡槽订阅信息存在多个有效编号，已停止操作"</item>
         <item>"系统返回了不支持的卡槽订阅格式"</item>
+        <item>"保持系统配对弹窗打开；自动发现失败时，可在此通知手动输入配对端口和六位码"</item>
+        <item>"尚未发现配对服务。保持系统配对弹窗打开，可在通知中手动输入配对端口和六位码；也可暂时关闭 VPN 后重新搜索。"</item>
+        <item>"尚未发现配对服务，请使用通知中的手动配对"</item>
+        <item>"手动配对"</item>
+        <item>"无线调试主页的连接端口"</item>
+        <item>"正在重新搜索；也可在通知中手动填写系统当前显示的端口"</item>
+        <item>"系统已显示配对码、通知仍在等待？展开通知点「手动配对」，输入配对弹窗底部端口和六位码，中间加空格。配对后若未启动，再填写无线调试主页的连接端口。全过程可留在系统设置，无需分屏。"</item>
+        <item>"自动发现暂不可用，可在通知中手动输入系统当前显示的端口"</item>
+        <item>"请展开本条通知，点「手动配对」，输入配对端口和六位码，中间用空格分隔"</item>
+        <item>"请打开系统配对弹窗；通知内可直接手动填写配对端口和六位码"</item>
+        <item>"请输入系统当前显示的端口（1–65535）"</item>
+        <item>"请输入配对弹窗底部的端口和六位码，中间用空格分隔"</item>
+        <item>"输入连接端口"</item>
+        <item>"配对后未发现连接端口时，请在此通知填写无线调试主页的端口"</item>
+        <item>"配对后未发现连接端口，请在通知中输入无线调试主页的端口"</item>
+        <item>"配对成功；请在通知中输入无线调试主页的连接端口"</item>
+        <item>"配对服务暂不可见，可在通知中手动输入系统配对弹窗的端口和六位码"</item>
+        <item>"配对端口 六位码，例如 39461 123456"</item>
+        <item>"重新搜索"</item>
+        <item>"请下拉通知栏，点「手动配对」"</item>
     </string-array>
     <string-array name="message_translations">
         <item>"\n\nA brief checkmark confirms pairing. The notification then closes; everyday sessions do not use live updates."</item>
@@ -647,5 +667,25 @@
         <item>"Installed version is newer than the GitHub stable release"</item>
         <item>"Multiple active subscription IDs were returned for this slot. Operation stopped."</item>
         <item>"The system returned an unsupported subscription ID format."</item>
+        <item>"Keep the system pairing dialog open. If discovery fails, enter its pairing port and six-digit code in this notification."</item>
+        <item>"Pairing service not found yet. Keep the system dialog open and enter its port and six-digit code in the notification, or temporarily disconnect the VPN and search again."</item>
+        <item>"Pairing service not found. Use Manual pairing in the notification."</item>
+        <item>"Manual pairing"</item>
+        <item>"Connection port on the main Wireless debugging page"</item>
+        <item>"Searching again. You can also enter the current system port in the notification."</item>
+        <item>"System pairing code visible but notification still waiting? Expand it, tap Manual pairing, and enter the port at the bottom of the pairing dialog plus the six-digit code, separated by a space. If activation waits after pairing, enter the connection port from the main Wireless debugging page. Stay in system settings throughout; split screen is not required."</item>
+        <item>"Automatic discovery is unavailable. Enter the current system port in the notification."</item>
+        <item>"Expand this notification, tap Manual pairing, and enter the pairing port and six-digit code separated by a space."</item>
+        <item>"Open the system pairing dialog. You can enter its port and six-digit code directly in the notification."</item>
+        <item>"Enter the current system port (1–65535)"</item>
+        <item>"Enter the port at the bottom of the pairing dialog and the six-digit code, separated by a space."</item>
+        <item>"Enter connection port"</item>
+        <item>"If the connection port is not discovered after pairing, enter the port on the main Wireless debugging page here."</item>
+        <item>"Connection port not found after pairing. Enter the port on the main Wireless debugging page in the notification."</item>
+        <item>"Paired. Enter the connection port from the main Wireless debugging page in the notification."</item>
+        <item>"Pairing service is no longer visible. Enter the port and six-digit code from the system pairing dialog in the notification."</item>
+        <item>"Pairing port and six-digit code, e.g. 39461 123456"</item>
+        <item>"Search again"</item>
+        <item>"Pull down the notification shade and tap Manual pairing"</item>
     </string-array>
 </resources>

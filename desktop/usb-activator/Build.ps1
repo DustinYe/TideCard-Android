@@ -14,7 +14,7 @@ if($LASTEXITCODE -ne 0){throw 'Could not inspect the bundled APK.'}
 $package=[regex]::Match($badging,"package: name='app.tidecard' versionCode='(\d+)' versionName='([^']+)'")
 $code=$package.Groups[1].Value
 $version=$package.Groups[2].Value
-if($code -ne '12' -or $version -ne '2.4.1'){throw 'Review desktop protocol and package version before changing the bundled version.'}
+if($code -ne '13' -or $version -ne '2.4.2'){throw 'Review desktop protocol and package version before changing the bundled version.'}
 $name="TideCard-$version.apk"
 $hash=(Get-FileHash -LiteralPath $apk -Algorithm SHA256).Hash.ToLowerInvariant()
 New-Item -ItemType Directory -Path $out -Force | Out-Null

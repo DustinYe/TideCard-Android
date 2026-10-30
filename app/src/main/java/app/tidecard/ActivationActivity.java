@@ -21,6 +21,7 @@ public class ActivationActivity extends ThemedActivity {
         root.setOnApplyWindowInsetsListener((v,in)->{android.graphics.Insets bars=in.getInsets(WindowInsets.Type.systemBars());v.setPadding(dp(24)+bars.left,dp(22)+bars.top,dp(24)+bars.right,dp(30)+bars.bottom);return in;});
         add(root,text(I18n.tr("内置后台激活"),28),0);add(root,text(I18n.tr("一个应用即可完成，无需安装 Shizuku。"),14),10);status=text("",14);status.setPadding(dp(16),dp(18),dp(16),dp(18));GradientDrawable bg=new GradientDrawable();bg.setColor(colors.soft);bg.setCornerRadius(dp(16));status.setBackground(bg);add(root,status,24);
         Button usb=button(I18n.tr("使用电脑 USB 激活 ↗"));usb.setOnClickListener(v->startActivity(new Intent(this,UsbActivationActivity.class)));add(root,usb,18);add(root,text(I18n.tr("或使用无线配对"),21),25);steps=text("",14);add(root,steps,12);
+        add(root,text(I18n.tr("系统已显示配对码、通知仍在等待？展开通知点「手动配对」，输入配对弹窗底部端口和六位码，中间加空格。配对后若未启动，再填写无线调试主页的连接端口。全过程可留在系统设置，无需分屏。"),13),12);
         permissionStatus=text("",13);add(root,permissionStatus,16);
         Button notifications=button(I18n.tr("通知与超级岛设置"));notifications.setOnClickListener(v->startActivity(new Intent(this,NotificationSettingsActivity.class)));add(root,notifications,8);
         Button scan=button(I18n.tr("开始配对"));scan.setId(android.R.id.button1);scan.setOnClickListener(v->scan());add(root,scan,18);

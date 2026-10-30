@@ -6,10 +6,11 @@ android {
         applicationId 'app.tidecard'
         minSdk 30
         targetSdk 36
-        versionCode = (project.findProperty('tideVersionCode') ?: '12').toInteger()
-        versionName = (project.findProperty('tideVersionName') ?: '2.4.1')
+        versionCode = (project.findProperty('tideVersionCode') ?: '13').toInteger()
+        versionName = (project.findProperty('tideVersionName') ?: '2.4.2')
         testInstrumentationRunner 'app.tidecard.test.SmokeRunner'
     }
+    testOptions { unitTests.includeAndroidResources = true }
     buildFeatures { aidl true; buildConfig true }
     bundle { language { enableSplit = false } }
     compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
@@ -28,6 +29,8 @@ android {
     testBuildType 'release'
 }
 dependencies {
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.14.1'
     implementation 'androidx.core:core:1.17.0'
     implementation 'org.conscrypt:conscrypt-android:2.8.0'
 }
