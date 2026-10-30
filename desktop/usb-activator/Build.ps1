@@ -1,4 +1,4 @@
-param(
+﻿param(
     [Parameter(Mandatory=$true)][string]$ApkPath,
     [Parameter(Mandatory=$true)][string]$SdkRoot,
     [string]$OutDir=(Join-Path $PSScriptRoot 'build\package')
@@ -31,7 +31,7 @@ $sources=@((Join-Path $PSScriptRoot 'Updates.cs'),(Join-Path $PSScriptRoot 'Upda
 & $csc @common /target:winexe /main:TideCardUsb.Program "/win32manifest:$(Join-Path $PSScriptRoot 'app.manifest')" "/out:$exe" @sources
 if($LASTEXITCODE -ne 0){throw 'Desktop compiler failed.'}
 $checks=Join-Path $build 'UsbActivator.Checks.exe'
-& $csc @common /target:exe /main:TideCardUsb.Checks "/win32manifest:$(Join-Path $PSScriptRoot 'app.manifest')" "/out:$checks" @sources (Join-Path $PSScriptRoot 'UpdateChecks.cs') (Join-Path $PSScriptRoot 'Checks.cs') (Join-Path $PSScriptRoot 'LayoutChecks.cs') (Join-Path $PSScriptRoot 'ConnectionDiagnosticsChecks.cs')
+& $csc @common /target:exe /main:TideCardUsb.Checks "/win32manifest:$(Join-Path $PSScriptRoot 'app.manifest')" "/out:$checks" @sources (Join-Path $PSScriptRoot 'MenuLifecycleChecks.cs') (Join-Path $PSScriptRoot 'UpdateChecks.cs') (Join-Path $PSScriptRoot 'Checks.cs') (Join-Path $PSScriptRoot 'LayoutChecks.cs') (Join-Path $PSScriptRoot 'ConnectionDiagnosticsChecks.cs')
 if($LASTEXITCODE -ne 0){throw 'Desktop checks compiler failed.'}
 Copy-Item -LiteralPath $apk -Destination (Join-Path $out $name) -Force
 $adbOut=Join-Path $out 'adb'

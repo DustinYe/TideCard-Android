@@ -1,6 +1,6 @@
 # 电脑工具检查更新与签名
 
-USB 工具 **1.1.7** 起，底部提供“检查更新”。打开后检查本项目 GitHub 的电脑工具正式版，发现新版本时点“下载、更新并重启工具”。旧版没有此入口，需要先手动下载一次完整 1.1.7 工具包。
+USB 工具 **1.1.7** 起，底部提供“检查更新”。打开后检查本项目 GitHub 的电脑工具正式版，发现新版本时点“下载、更新并重启工具”。1.1.6 及更早版本没有此入口，需要先手动下载一次当前完整工具包。
 
 ## 更新行为
 
@@ -34,7 +34,7 @@ SHA-256 验证确保文件与通过 HTTPS 获得的 GitHub 发布记录一致；
 ```powershell
 # 先执行 USB_ACTIVATION.md 中的 Build.ps1，再编译可选检查。
 $sources = Get-ChildItem desktop\usb-activator\*.cs |
-  Where-Object { $_.Name -notin @('Checks.cs','LayoutChecks.cs','ConnectionDiagnosticsChecks.cs','UpdateChecks.cs') } |
+  Where-Object { $_.Name -notin @('Checks.cs','LayoutChecks.cs','ConnectionDiagnosticsChecks.cs','UpdateChecks.cs','MenuLifecycleChecks.cs') } |
   ForEach-Object FullName
 $csc = "$env:WINDIR\Microsoft.NET\Framework64\v4.0.30319\csc.exe"
 & $csc /nologo /target:exe /main:TideCardUsb.NetworkUpdateChecks `

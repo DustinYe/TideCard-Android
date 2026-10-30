@@ -1,8 +1,8 @@
 # 电脑 USB 激活
 
-Windows 工具当前为 **1.1.7**，配套 Android APK 为 **2.4.1 正式版**。修复非华为品牌漏检，提供通用 USB 候选检测、OPPO / ColorOS 指引与本机服务协议检查，保留客户端自检和高 DPI 适配。受影响 OPPO / ColorOS 电脑及手机尚未现场验证，依据和步骤见 [OPPO 排查](OPPO_COLOROS_USB.md)。升级手机到本版后请使用匹配的电脑工具，旧版工具会阻止降级安装。技术说明与验证方式见 [桌面缩放适配](DESKTOP_UI.md)。
+Windows 工具当前为 **1.1.8**，配套 Android APK 为 **2.4.1 正式版**。修复非华为品牌漏检，提供通用 USB 候选检测、OPPO / ColorOS 指引与本机服务协议检查，保留客户端自检和高 DPI 适配。受影响 OPPO / ColorOS 电脑及手机尚未现场验证，依据和步骤见 [OPPO 排查](OPPO_COLOROS_USB.md)。升级手机到本版后请使用匹配的电脑工具，旧版工具会阻止降级安装。技术说明与验证方式见 [桌面缩放适配](DESKTOP_UI.md)。
 
-下载：[Android 2.4.1 发布页的 USB 1.1.7 附件](https://github.com/DustinYe/TideCard-Android/releases/download/v2.4.1/TideCard-USB-1.1.7-Windows.zip)，或查看 [USB 1.1.7 独立发布页](https://github.com/DustinYe/TideCard-Android/releases/tag/usb-v1.1.7)。两个位置提供相同文件；Android 应用内更新仍以 2.4.1 为最新版本。
+下载：[Android 2.4.1 发布页的 USB 1.1.8 附件](https://github.com/DustinYe/TideCard-Android/releases/download/v2.4.1/TideCard-USB-1.1.8-Windows.zip)，或查看 [USB 1.1.8 独立发布页](https://github.com/DustinYe/TideCard-Android/releases/tag/usb-v1.1.8)。两个位置提供相同文件；Android 应用内更新仍以 2.4.1 为最新版本。
 
 适用于手机无线调试没有“使用配对码配对设备”、没有 IP，或希望通过数据线激活的场景。Windows 工具只负责安装应用、启动同一个内置 shell 后台，不自动选择地区、写入 CarrierConfig 或开启持续改卡。
 
@@ -33,7 +33,7 @@ Windows EXE 未做 Authenticode 代码签名，APK 保持原签名。完整压�
 
 ## 电脑工具更新
 
-底部“检查更新”可检查 GitHub 电脑工具正式版；确认后下载校验并更新原目录，自动重启窗口。旧版先手动下载一次 1.1.7。详见[更新与签名](DESKTOP_UPDATES.md)。更新电脑包不操作手机；仍需主界面按钮才会安装和激活。
+底部“检查更新”可检查 GitHub 电脑工具正式版；确认后下载校验并更新原目录，自动重启窗口。旧版先手动下载一次 1.1.8。详见[更新与签名](DESKTOP_UPDATES.md)。更新电脑包不操作手机；仍需主界面按钮才会安装和激活。
 
 ## 构建
 

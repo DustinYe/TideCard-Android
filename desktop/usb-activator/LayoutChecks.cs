@@ -34,6 +34,7 @@ namespace TideCardUsb {
         private static void Render(Form form,string path) { using(Bitmap bitmap=new Bitmap(form.Width,form.Height)) { form.DrawToBitmap(bitmap,new Rectangle(Point.Empty,bitmap.Size));bitmap.Save(path); } }
         internal static void Run(string outputDirectory) {
             Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);Directory.CreateDirectory(outputDirectory);
+            MenuLifecycleChecks.Run();
             using(ContextMenuStrip menu=DiagnosticDialog.CreateHelpMenu(null)) {
                 Require(menu.Items.Count==4,"OEM help options");Require(menu.Items[0].Text.Contains("OPPO")&&new Uri((string)menu.Items[0].Tag).Host=="support.oppo.com","OPPO official help comes first");Require(menu.Items[3].Text.Contains("华为专用"),"HiSuite clearly scoped to Huawei");
             }
